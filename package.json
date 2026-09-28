@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "build": "node --check js/app.js",
+    "start": "npx serve ."
+  },
+  "devDependencies": {}
+}
