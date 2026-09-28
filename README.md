@@ -5,11 +5,12 @@ Front-end statique pour l'organisation haitienne de defense des droits humains S
 ## Structure
 
 - `index.html` - accueil institutionnel
-- `about.html` - a propos, heritage et mot du directeur
-- `news.html` - actualites et actions de terrain
-- `documentation.html` - centre de documentation filtrable
+- `pages/` - toutes les pages secondaires, une route HTML par sujet
+  - `about.html`, `heritage.html`, `mission-vision.html`, `directeur.html`, `equipe.html`
+  - `interventions.html` et une page dediee pour chacun des six domaines
+  - `actions.html`, `publications.html`, `contact.html`, `soutenir.html`
 - `css/styles.css` - design system et composants
-- `js/app.js` - multilinguisme, navigation, donnees dynamiques
+- `js/app.js` - shell partage, navigation accessible, multilinguisme et donnees dynamiques
 - `assets/` - logo et documents PDF
 
 ## Lancer localement

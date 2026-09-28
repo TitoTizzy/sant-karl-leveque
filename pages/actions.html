@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Actualités, projets de terrain et réalisations de Sant Karl Lévêque.">
+    <title>Actions et réalisations - Sant Karl Lévêque</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/app.js" defer></script>
+  </head>
+  <body data-page="news" data-section="actions" data-base="../">
+    <a class="skip-link" href="#main" data-i18n="skip">Aller au contenu</a>
+    <header class="site-header" data-site-header></header>
+    <main id="main">
+      <section class="page-hero">
+        <p class="eyebrow" data-i18n="newsEyebrow">Actualités</p>
+        <h1 data-i18n="newsPageTitle">Actions, réalisations et plaidoyer de terrain.</h1>
+        <p data-i18n="newsPageLead">Suivez les initiatives de SKL pour l'accès à la justice, la protection, la sécurité alimentaire et l'appui aux communautés affectées.</p>
+      </section>
+      <section class="section">
+        <div class="filters" role="group" aria-label="Filtrer les actualités">
+          <button class="filter-button is-active" type="button" data-news-filter="all" data-i18n="filterAll">Tout</button>
+          <button class="filter-button" type="button" data-news-filter="field" data-i18n="filterField">Terrain</button>
+          <button class="filter-button" type="button" data-news-filter="advocacy" data-i18n="filterAdvocacy">Plaidoyer</button>
+          <button class="filter-button" type="button" data-news-filter="network" data-i18n="filterNetwork">Réseaux</button>
+        </div>
+        <div class="news-grid" data-render="news"></div>
+      </section>
+      <section class="section muted-section">
+        <div class="section-heading"><p class="eyebrow" data-i18n="galleryEyebrow">Galerie terrain</p><h2 data-i18n="galleryTitle">Photos et vidéos depuis les missions communautaires.</h2></div>
+        <div class="gallery-grid" data-render="gallery"></div>
+      </section>
+    </main>
+    <footer class="site-footer" data-site-footer></footer>
+  </body>
+</html>

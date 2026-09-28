@@ -251,6 +251,78 @@ const translations = {
   }
 };
 
+function renderSiteShell() {
+  const base = document.body.dataset.base || "";
+  const section = document.body.dataset.section || document.body.dataset.page || "home";
+  const path = (file) => `${base}${file}`;
+  const active = (name) => section === name ? ' aria-current="page"' : "";
+  const header = document.querySelector("[data-site-header]");
+  const footer = document.querySelector("[data-site-footer]");
+
+  if (header) {
+    header.innerHTML = `
+      <div class="topbar">
+        <p data-i18n="tagline">Unis pour defendre, engages pour changer</p>
+        <div class="topbar-actions">
+          <a href="${path("pages/publications.html")}" data-i18n="docCenter">Centre de documentation</a>
+          <select class="language-select" aria-label="Langue">
+            <option value="ht">Kreyol Ayisyen</option>
+            <option value="fr">Francais</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+      </div>
+      <nav class="navbar" aria-label="Navigation principale">
+        <a class="brand" href="${path("index.html")}" aria-label="Accueil SKL">
+          <img src="${path("assets/skl-logo.png")}" alt="Logo Sant Karl Leveque SKL">
+          <span>Sant Karl Leveque</span>
+        </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-menu" aria-label="Ouvrir le menu principal">
+          <span></span><span></span><span></span>
+        </button>
+        <ul id="primary-menu" class="nav-menu">
+          <li class="has-menu${section === "about" ? " is-current" : ""}">
+            <div class="nav-item-row">
+              <a href="${path("pages/about.html")}" data-i18n="navWho"${active("about")}>Qui nous sommes</a>
+              <button class="submenu-toggle" type="button" aria-expanded="false" aria-controls="about-menu" aria-label="Ouvrir le sous-menu Qui nous sommes"><span aria-hidden="true"></span></button>
+            </div>
+            <div class="mega-menu" id="about-menu">
+              <a href="${path("pages/heritage.html")}" data-i18n="navHeritage">Notre heritage</a>
+              <a href="${path("pages/mission-vision.html")}" data-i18n="navMission">Mission et vision</a>
+              <a href="${path("pages/directeur.html")}" data-i18n="navDirector">Mot du Directeur</a>
+              <a href="${path("pages/equipe.html")}" data-i18n="navTeam">Equipe</a>
+            </div>
+          </li>
+          <li class="has-menu${section === "areas" ? " is-current" : ""}">
+            <div class="nav-item-row">
+              <a href="${path("pages/interventions.html")}" data-i18n="navAreas"${active("areas")}>Nos domaines d'intervention</a>
+              <button class="submenu-toggle" type="button" aria-expanded="false" aria-controls="areas-menu" aria-label="Ouvrir le sous-menu Domaines d'intervention"><span aria-hidden="true"></span></button>
+            </div>
+            <div class="mega-menu mega-menu-wide" id="areas-menu">
+              <a href="${path("pages/droits-humains.html")}" data-i18n="areaRights">Droits humains</a>
+              <a href="${path("pages/acces-justice.html")}" data-i18n="areaJustice">Acces a la justice</a>
+              <a href="${path("pages/securite-alimentaire.html")}" data-i18n="areaFood">Securite alimentaire</a>
+              <a href="${path("pages/protection-enfance.html")}" data-i18n="areaChildren">Protection de l'enfance</a>
+              <a href="${path("pages/migration-deplaces.html")}" data-i18n="areaMigration">Migration et deplaces</a>
+              <a href="${path("pages/sante-communautaire.html")}" data-i18n="areaHealth">Sante communautaire</a>
+            </div>
+          </li>
+          <li><a href="${path("pages/actions.html")}" data-i18n="navActions"${active("actions")}>Actions & realisations</a></li>
+          <li><a href="${path("pages/publications.html")}" data-i18n="navNews"${active("publications")}>Actualites & publications</a></li>
+          <li><a href="${path("pages/contact.html")}" data-i18n="navContact"${active("contact")}>Contact & implication</a></li>
+          <li><a class="btn btn-primary" href="${path("pages/soutenir.html")}" data-i18n="donate"${active("support")}>Soutenir SKL</a></li>
+        </ul>
+      </nav>`;
+  }
+
+  if (footer) {
+    footer.innerHTML = `
+      <div><h2>Sant Karl Leveque (SKL)</h2><p data-i18n="footerText">Organisation haitienne engagee pour les droits humains, la justice sociale et l'Etat de droit.</p></div>
+      <address><strong>Rev. Pere Gardy Maisonneuve</strong><br><span data-i18n="execDirector">Directeur Executif</span><br><a href="tel:+50947051133">+509 4705-1133</a><br><a href="mailto:reverendperegmaisonneuve@gmail.com">reverendperegmaisonneuve@gmail.com</a></address>
+      <address><strong>Sebastien Estinvil</strong><br><span data-i18n="secretary">Secretaire General</span><br><a href="tel:+50936827431">+509 3682-7431</a><br><a href="mailto:estinviljnbsebastien@gmail.com">estinviljnbsebastien@gmail.com</a></address>`;
+  }
+}
+
 const areas = [
   ["DH", "areaRights", {
     fr: "Promotion, protection et documentation des droits fondamentaux.",
@@ -282,6 +354,48 @@ const areas = [
     ht: "Sante kominote, dlo potab, asenisman ak asistans imanitè.",
     en: "Community health, safe water, sanitation and humanitarian assistance."
   }]
+];
+
+const areaSlugs = [
+  "droits-humains.html",
+  "acces-justice.html",
+  "securite-alimentaire.html",
+  "protection-enfance.html",
+  "migration-deplaces.html",
+  "sante-communautaire.html"
+];
+
+const areaDetails = [
+  {
+    fr: ["Documenter les violations et porter la voix des personnes affectees.", "Former les communautes a la connaissance et a l'exercice de leurs droits.", "Produire des rapports, notes et actions de plaidoyer."],
+    ht: ["Dokimante vyolasyon yo epi pote vwa moun ki afekte yo.", "Fome kominote yo pou yo konnen epi egzese dwa yo.", "Pwodui rapo, not ak aksyon pledwaye."],
+    en: ["Document violations and amplify the voices of affected people.", "Train communities to understand and exercise their rights.", "Produce reports, briefs and advocacy initiatives."]
+  },
+  {
+    fr: ["Accompagner juridiquement les victimes et les communautes.", "Suivre les prisons et les lieux de detention.", "Plaider pour des institutions judiciaires accessibles et responsables."],
+    ht: ["Akonpaye viktim ak kominote yo sou plan legal.", "Siveye prizon ak kote detansyon yo.", "Plede pou enstitisyon jistis ki aksesib epi responsab."],
+    en: ["Provide legal support to victims and communities.", "Monitor prisons and detention facilities.", "Advocate for accessible and accountable justice institutions."]
+  },
+  {
+    fr: ["Soutenir les menages confrontes a l'insecurite alimentaire.", "Distribuer une assistance ciblee dans les situations d'urgence.", "Renforcer les capacites communautaires face a la faim."],
+    ht: ["Sipote fanmi ki ap fe fas ak ensekirite alimante.", "Distribye asistans sible nan sitiyasyon ijans.", "Ranfose kapasite kominote yo pou fe fas ak grangou."],
+    en: ["Support households facing food insecurity.", "Deliver targeted assistance in emergency situations.", "Strengthen community capacity to address hunger."]
+  },
+  {
+    fr: ["Prevenir les violences et les atteintes aux droits des enfants.", "Accompagner les enfants et les groupes particulierement vulnerables.", "Promouvoir des environnements communautaires protecteurs."],
+    ht: ["Prevni vyolans ak vyolasyon dwa timoun yo.", "Akonpaye timoun ak gwoup ki pi vilnerab yo.", "Ankouraje anviwonman kominote ki pwoteje timoun."],
+    en: ["Prevent violence and violations of children's rights.", "Support children and particularly vulnerable groups.", "Promote protective community environments."]
+  },
+  {
+    fr: ["Proteger les migrants, retournes, refugies et deplaces internes.", "Documenter les risques lies au deplacement et a la traite.", "Coordonner les reponses avec les reseaux specialises."],
+    ht: ["Pwoteje migran, moun ki retounen, refijye ak moun deplase yo.", "Dokimante risk ki lye ak deplasman ak trafik moun.", "Kowodone repons yo ak rezo espesyalize yo."],
+    en: ["Protect migrants, returnees, refugees and internally displaced people.", "Document risks linked to displacement and trafficking.", "Coordinate responses with specialized networks."]
+  },
+  {
+    fr: ["Ameliorer l'acces a l'eau potable et a l'assainissement.", "Soutenir les initiatives de sante communautaire.", "Apporter une assistance humanitaire adaptee aux besoins locaux."],
+    ht: ["Amelyore akse ak dlo potab ak asenisman.", "Sipote inisyativ sante kominote yo.", "Pote asistans imanitè ki adapte ak bezwen lokal yo."],
+    en: ["Improve access to safe water and sanitation.", "Support community health initiatives.", "Deliver humanitarian assistance adapted to local needs."]
+  }
 ];
 
 const news = [
@@ -389,13 +503,48 @@ function setLanguage(lang) {
 function renderAreas() {
   const target = document.querySelector('[data-render="areas"]');
   if (!target) return;
-  target.innerHTML = areas.map(([abbr, key, text]) => `
-    <article class="area-card">
+  const base = document.body.dataset.base || "";
+  target.innerHTML = areas.map(([abbr, key, text], index) => `
+    <a class="area-card" href="${base}pages/${areaSlugs[index]}">
       <div class="icon-box" aria-hidden="true">${abbr}</div>
       <h3>${t(key)}</h3>
       <p>${text[state.lang] || text.fr}</p>
-    </article>
+      <span class="card-link" aria-hidden="true">&rarr;</span>
+    </a>
   `).join("");
+}
+
+function renderAreaDetail() {
+  const target = document.querySelector('[data-render="area-detail"]');
+  if (!target) return;
+  const index = Number(document.body.dataset.area);
+  const area = areas[index];
+  const details = areaDetails[index];
+  if (!area || !details) return;
+  const [, key, description] = area;
+  const heroLead = document.querySelector(".page-hero > p:not(.eyebrow)");
+  if (heroLead) heroLead.textContent = description[state.lang] || description.fr;
+  const labels = state.lang === "en"
+    ? ["Protect", "Accompany", "Transform"]
+    : state.lang === "ht"
+      ? ["Pwoteje", "Akonpaye", "Transfome"]
+      : ["Proteger", "Accompagner", "Transformer"];
+  const items = details[state.lang] || details.fr;
+  target.innerHTML = `
+    <div class="detail-shell">
+      <aside class="detail-aside">
+        <span class="detail-number">0${index + 1}</span>
+        <h2>${t(key)}</h2>
+        <p>${description[state.lang] || description.fr}</p>
+      </aside>
+      <div class="detail-content">
+        <p class="eyebrow">SKL</p>
+        <h2>${state.lang === "en" ? "An approach grounded in rights and local realities." : state.lang === "ht" ? "Yon apwoch ki chita sou dwa ak reyalite lokal yo." : "Une approche fondee sur les droits et les realites locales."}</h2>
+        <div class="action-list">
+          ${items.map((item, itemIndex) => `<article><span>0${itemIndex + 1}</span><h3>${labels[itemIndex]}</h3><p>${item}</p></article>`).join("")}
+        </div>
+      </div>
+    </div>`;
 }
 
 function newsCard(item) {
@@ -452,13 +601,14 @@ function renderDocuments() {
         <h3>${doc.title[state.lang] || doc.title.fr}</h3>
         <p class="doc-meta">${doc.text[state.lang] || doc.text.fr}</p>
       </div>
-      <a class="btn btn-secondary" href="${doc.file}" download>${t("download")}</a>
+      <a class="btn btn-secondary" href="${document.body.dataset.base || ""}${doc.file}" download>${t("download")}</a>
     </article>
   `).join("");
 }
 
 function renderAll() {
   renderAreas();
+  renderAreaDetail();
   renderNews();
   renderGallery();
   renderDocuments();
@@ -473,6 +623,44 @@ function bindNavigation() {
     toggle.setAttribute("aria-expanded", String(open));
   });
 
+  const closeSubmenus = (exception = null) => {
+    menu.querySelectorAll(".has-menu.is-open").forEach((item) => {
+      if (item === exception) return;
+      item.classList.remove("is-open");
+      item.querySelector(".submenu-toggle")?.setAttribute("aria-expanded", "false");
+    });
+  };
+
+  menu.querySelectorAll(".submenu-toggle").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const item = button.closest(".has-menu");
+      const willOpen = !item.classList.contains("is-open");
+      closeSubmenus(item);
+      item.classList.toggle("is-open", willOpen);
+      button.setAttribute("aria-expanded", String(willOpen));
+    });
+  });
+
+  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    menu.querySelectorAll(".has-menu").forEach((item) => {
+      let closeTimer;
+      const button = item.querySelector(".submenu-toggle");
+      item.addEventListener("mouseenter", () => {
+        window.clearTimeout(closeTimer);
+        closeSubmenus(item);
+        item.classList.add("is-open");
+        button?.setAttribute("aria-expanded", "true");
+      });
+      item.addEventListener("mouseleave", () => {
+        closeTimer = window.setTimeout(() => {
+          item.classList.remove("is-open");
+          button?.setAttribute("aria-expanded", "false");
+        }, 180);
+      });
+    });
+  }
+
   menu.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => {
       menu.classList.remove("is-open");
@@ -484,7 +672,15 @@ function bindNavigation() {
     if (!menu.contains(event.target) && !toggle.contains(event.target)) {
       menu.classList.remove("is-open");
       toggle.setAttribute("aria-expanded", "false");
+      closeSubmenus();
     }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    menu.classList.remove("is-open");
+    toggle.setAttribute("aria-expanded", "false");
+    closeSubmenus();
   });
 }
 
@@ -542,6 +738,7 @@ function bindFilters() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  renderSiteShell();
   bindNavigation();
   bindFilters();
   document.querySelectorAll(".language-select").forEach((select) => {
