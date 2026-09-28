@@ -31,6 +31,10 @@ const translations = {
     heroLead: "Depuis sa creation, SKL promeut, protege et defend les droits humains, soutient les victimes et accompagne les communautes les plus vulnerables.",
     discover: "Decouvrir nos actions",
     readReports: "Lire les rapports",
+    impactLegacy: "Heritage du Rev. Pere Karl Leveque",
+    impactAreas: "Domaines d'intervention prioritaires",
+    impactNetworks: "Reseaux nationaux partenaires",
+    impactReach: "Presence ancree dans les communautes",
     valuesEyebrow: "Nos reperes",
     valuesTitle: "Une presence independante, impartiale et ancree dans les realites locales.",
     value1Title: "Defense des droits",
@@ -108,6 +112,10 @@ const translations = {
     heroLead: "Depi li fonde, SKL ankouraje, pwoteje epi defann dwa moun, sipote viktim yo epi akonpaye kominote ki pi frajil yo.",
     discover: "Dekouvri aksyon nou yo",
     readReports: "Li rapo yo",
+    impactLegacy: "Eritaj Reveran Pe Karl Leveque",
+    impactAreas: "Domenn entevansyon priyorite",
+    impactNetworks: "Rezo nasyonal patne",
+    impactReach: "Prezans ankre nan kominote yo",
     valuesEyebrow: "Pwen referans nou",
     valuesTitle: "Yon prezans endepandan, san patipri, ki chita sou reyalite lokal yo.",
     value1Title: "Defans dwa yo",
@@ -185,6 +193,10 @@ const translations = {
     heroLead: "Since its establishment, SKL has promoted, protected and defended human rights, supported victims and served the most vulnerable communities.",
     discover: "Discover our work",
     readReports: "Read reports",
+    impactLegacy: "Legacy of Rev. Father Karl Leveque",
+    impactAreas: "Priority areas of intervention",
+    impactNetworks: "National partner networks",
+    impactReach: "A presence rooted in communities",
     valuesEyebrow: "Our compass",
     valuesTitle: "An independent, impartial presence grounded in local realities.",
     value1Title: "Rights defense",
@@ -460,6 +472,49 @@ function bindNavigation() {
     const open = menu.classList.toggle("is-open");
     toggle.setAttribute("aria-expanded", String(open));
   });
+
+  menu.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      menu.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+    });
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!menu.contains(event.target) && !toggle.contains(event.target)) {
+      menu.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+    }
+  });
+}
+
+function enhanceInterface() {
+  const header = document.querySelector(".site-header");
+  const updateHeader = () => header?.classList.toggle("is-scrolled", window.scrollY > 56);
+  updateHeader();
+  window.addEventListener("scroll", updateHeader, { passive: true });
+
+  const page = document.body.dataset.page;
+  const activeHref = page === "home" ? "index.html" : page === "about" ? "about.html" : page === "news" ? "news.html" : "documentation.html";
+  document.querySelectorAll(".nav-menu > li > a").forEach((link) => {
+    if (link.getAttribute("href") === activeHref) link.setAttribute("aria-current", "page");
+  });
+
+  const revealTargets = document.querySelectorAll(".value-card, .area-card, .news-card, .gallery-card, .doc-card, .team-card, .mission-grid article");
+  revealTargets.forEach((node) => node.setAttribute("data-reveal", ""));
+  if (!("IntersectionObserver" in window)) {
+    revealTargets.forEach((node) => node.classList.add("is-visible"));
+    return;
+  }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: "0px 0px -30px" });
+  revealTargets.forEach((node) => observer.observe(node));
 }
 
 function bindFilters() {
@@ -493,4 +548,5 @@ document.addEventListener("DOMContentLoaded", () => {
     select.addEventListener("change", (event) => setLanguage(event.target.value));
   });
   setLanguage(getInitialLanguage());
+  enhanceInterface();
 });
