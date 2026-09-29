@@ -131,12 +131,12 @@ button, select, input { font: inherit; }
   background: linear-gradient(90deg, transparent, rgba(21,147,208,.58) 26%, rgba(17,134,89,.6) 74%, transparent);
   filter: blur(.2px);
 }
-.brand { position: relative; display: flex; align-items: center; flex: 0 0 auto; gap: .85rem; min-height: 58px; padding: .28rem .8rem .28rem .3rem; color: var(--navy-900); background: rgba(255,255,255,.3); border: 1px solid rgba(255,255,255,.62); border-radius: 7px; text-decoration: none; font-weight: 850; line-height: 1.12; box-shadow: inset 0 1px 0 rgba(255,255,255,.72); }
+.brand { position: relative; display: flex; align-items: center; flex: 0 0 auto; gap: .85rem; min-height: 58px; padding: .28rem .8rem .28rem .3rem; color: var(--navy-900); background: rgba(255,255,255,.3); border: 1px solid rgba(255,255,255,.62); border-radius: 7px; text-decoration: none; font-size: 1.2rem; font-weight: 850; line-height: 1.12; box-shadow: inset 0 1px 0 rgba(255,255,255,.72); }
 .brand::after { content: ""; position: absolute; right: -.9rem; width: 1px; height: 34px; background: linear-gradient(transparent,rgba(7,106,173,.28),transparent); }
 .brand img { width: 72px; height: 50px; object-fit: cover; border: 1px solid rgba(7,106,173,.16); border-radius: 5px; box-shadow: 0 7px 18px rgba(3,42,72,.13); }
-.brand span { max-width: 126px; }
+.brand span { max-width: 152px; }
 .nav-menu { display: flex; align-items: center; justify-content: flex-end; flex: 1; gap: clamp(.1rem,.45vw,.55rem); margin: 0; padding: 0; list-style: none; }
-.nav-menu a { position: relative; display: flex; align-items: center; min-height: 48px; padding: .62rem clamp(.58rem,.75vw,.9rem); color: var(--ink); border: 1px solid transparent; border-radius: 6px; text-decoration: none; font-size: clamp(.75rem,.78vw,.9rem); font-weight: 750; line-height: 1.25; transition: color 180ms ease, background 180ms ease, border-color 180ms ease, transform 180ms var(--ease), box-shadow 180ms ease; }
+.nav-menu a { position: relative; display: flex; align-items: center; min-height: 48px; padding: .62rem clamp(.58rem,.75vw,.9rem); color: var(--ink); border: 1px solid transparent; border-radius: 6px; text-decoration: none; font-size: clamp(.9rem,.94vw,1.08rem); font-weight: 750; line-height: 1.25; transition: color 180ms ease, background 180ms ease, border-color 180ms ease, transform 180ms var(--ease), box-shadow 180ms ease; }
 .nav-menu a:not(.btn):hover, .nav-menu a:not(.btn):focus-visible, .nav-menu a:not(.btn)[aria-current="page"] { color: var(--blue-700); background: linear-gradient(135deg,rgba(255,255,255,.7),rgba(221,243,250,.52)); border-color: rgba(21,147,208,.14); box-shadow: inset 0 1px 0 rgba(255,255,255,.85),0 8px 20px rgba(3,42,72,.07); transform: translateY(-1px); }
 .has-menu.is-current .nav-item-row > a { color: var(--blue-700); background: rgba(255,255,255,.5); }
 .nav-menu a:not(.btn)[aria-current="page"]::after { content: ""; position: absolute; left: .7rem; right: .7rem; bottom: .2rem; height: 2px; background: linear-gradient(90deg,var(--blue-500),var(--green-600)); border-radius: 2px; box-shadow: 0 0 8px rgba(21,147,208,.42); }
@@ -150,7 +150,7 @@ button, select, input { font: inherit; }
 .mega-menu { position: absolute; top: calc(100% + .72rem); left: 0; display: grid; min-width: 310px; padding: .65rem; visibility: hidden; opacity: 0; pointer-events: none; transform: translateY(8px); background: linear-gradient(145deg,rgba(255,255,255,.96),rgba(228,246,250,.92)); border: 1px solid rgba(255,255,255,.92); border-radius: var(--radius); box-shadow: var(--shadow),inset 0 1px 0 #fff; backdrop-filter: blur(26px) saturate(160%); transition: opacity 180ms ease, transform 180ms var(--ease), visibility 180ms; }
 .mega-menu-wide { grid-template-columns: repeat(2,minmax(0,1fr)); min-width: 520px; }
 .has-menu:hover .mega-menu, .has-menu:focus-within .mega-menu, .has-menu.is-open .mega-menu { visibility: visible; opacity: 1; pointer-events: auto; transform: translateY(0); }
-.mega-menu a { justify-content: flex-start; font-size: .86rem; }
+.mega-menu a { justify-content: flex-start; font-size: 1.03rem; }
 @keyframes menu-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
 .nav-toggle { display: none; width: 46px; height: 46px; padding: 0; border: 1px solid var(--line); border-radius: 6px; background: rgba(255,255,255,.82); cursor: pointer; }
 .nav-toggle span { display: block; width: 20px; height: 2px; margin: 5px auto; background: var(--navy-900); transition: transform 180ms ease, opacity 180ms ease; }
@@ -312,11 +312,11 @@ h3 { margin: 0 0 .45rem; color: var(--navy-900); font-size: 1.08rem; line-height
 [data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity 600ms var(--ease),transform 600ms var(--ease); }
 [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
 
-@media (max-width:1180px) {
+@media (max-width:1380px) {
   .nav-toggle { display: block; }
   .nav-menu { position: absolute; top: calc(100% + .55rem); left: 0; right: 0; display: none; max-height: calc(100vh - 120px); padding: .8rem; overflow-y: auto; background: rgba(255,255,255,.96); border: 1px solid rgba(255,255,255,.9); border-radius: var(--radius); box-shadow: var(--shadow); backdrop-filter: blur(24px); }
   .nav-menu.is-open { display: grid; animation: menu-in 180ms var(--ease); }
-  .nav-menu a { font-size: .92rem; }
+  .nav-menu a { font-size: 1.1rem; }
   .nav-item-row { justify-content: space-between; }
   .nav-item-row > a { flex: 1; }
   .submenu-toggle { flex-basis: 44px; width: 44px; margin-left: 0; }
@@ -345,7 +345,7 @@ h3 { margin: 0 0 .45rem; color: var(--navy-900); font-size: 1.08rem; line-height
   .topbar > p,.topbar-actions > a { display: none; }
   .topbar-actions { margin-left: auto; }
   .navbar { min-height: 70px; margin-top: 0; padding: .48rem .65rem; }
-  .brand img { width: 58px; height: 42px; } .brand span { max-width: 145px; font-size: .88rem; }
+  .brand img { width: 58px; height: 42px; } .brand span { max-width: 174px; font-size: 1.06rem; }
   .hero { margin-top: -6.5rem; padding-top: 9.5rem; padding-bottom: 3rem; }
   h1 { font-size: clamp(2.75rem,14vw,4.1rem); }
   .hero-actions .btn { width: 100%; }
