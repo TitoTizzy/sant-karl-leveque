@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://titotizzy.github.io/sant-karl-leveque/sitemap.xml
