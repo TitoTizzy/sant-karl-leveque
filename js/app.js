@@ -80,10 +80,13 @@ const translations = {
     galleryEyebrow: "Galerie terrain",
     galleryTitle: "La mobilisation communautaire en images.",
     docsEyebrow: "Centre de documentation",
-    docsTitle: "Rapports, notes de plaidoyer et ressources institutionnelles.",
+    docsTitle: "Analyses, plaidoyers, rapports et prises de position.",
     docsLead: "Un espace filtrable pour consulter et télécharger les documents officiels de SKL.",
     searchDocs: "Rechercher",
     filterInstitutional: "Institutionnel",
+    filterAnalysis: "Analyses",
+    filterPress: "Notes d'information",
+    filterCorrespondence: "Correspondances",
     filterReports: "Rapports",
     download: "Télécharger",
     compassLabel: "Boussole des valeurs SKL",
@@ -217,10 +220,13 @@ const translations = {
     galleryEyebrow: "Galeri teren",
     galleryTitle: "Mobilizasyon kominotè a an imaj.",
     docsEyebrow: "Sant dokimantasyon",
-    docsTitle: "Rapò, nòt pledwaye ak resous enstitisyonèl.",
+    docsTitle: "Analiz, pledwaye, rapò ak pozisyon piblik.",
     docsLead: "Yon espas pou filtre, konsilte ak telechaje dokiman ofisyèl SKL yo.",
     searchDocs: "Chèche",
     filterInstitutional: "Enstitisyonèl",
+    filterAnalysis: "Analiz",
+    filterPress: "Nòt enfòmasyon",
+    filterCorrespondence: "Korespondans",
     filterReports: "Rapò",
     download: "Telechaje",
     compassLabel: "Bousòl valè SKL yo",
@@ -354,10 +360,13 @@ const translations = {
     galleryEyebrow: "Field gallery",
     galleryTitle: "Community mobilization in pictures.",
     docsEyebrow: "Documentation center",
-    docsTitle: "Reports, advocacy briefs and institutional resources.",
+    docsTitle: "Analyses, advocacy briefs, reports and public positions.",
     docsLead: "A filterable space to consult and download official SKL documents.",
     searchDocs: "Search",
     filterInstitutional: "Institutional",
+    filterAnalysis: "Analyses",
+    filterPress: "Information notes",
+    filterCorrespondence: "Correspondence",
     filterReports: "Reports",
     download: "Download",
     compassLabel: "SKL values compass",
@@ -589,6 +598,97 @@ const news = [
 
 const documents = [
   {
+    type: "press",
+    year: { fr: "6 septembre 2026", ht: "6 septanm 2026", en: "September 6, 2026" },
+    file: "assets/docs/note-information-caricom-2026.pdf",
+    title: { fr: "SKL présente ses préoccupations à la CARICOM", ht: "SKL prezante enkyetid li bay CARICOM", en: "SKL presents its concerns to CARICOM" },
+    text: { fr: "Note d'information sur la crise sécuritaire, les droits humains, la transition politique et les conditions électorales.", ht: "Nòt enfòmasyon sou kriz sekirite a, dwa moun, tranzisyon politik la ak kondisyon elektoral yo.", en: "Information note on the security crisis, human rights, the political transition and electoral conditions." }
+  },
+  {
+    type: "correspondence",
+    year: { fr: "31 août 2026", ht: "31 out 2026", en: "August 31, 2026" },
+    file: "assets/docs/lettre-commissaire-gouvernement-kenscoff-2026.pdf",
+    title: { fr: "Lettre au Commissaire du Gouvernement sur les détenus de Kenscoff", ht: "Lèt bay Komisè Gouvènman an sou prizonye Kenscoff yo", en: "Letter to the Government Commissioner on Kenscoff detainees" },
+    text: { fr: "Demande de transfert de douze prévenus vers un centre carcéral sécurisé afin de protéger leur intégrité physique.", ht: "Demann pou transfere douz moun ki nan detansyon nan yon prizon ki an sekirite pou pwoteje entegrite fizik yo.", en: "Request to transfer twelve detainees to a secure prison facility to protect their physical integrity." }
+  },
+  {
+    type: "analysis",
+    year: { fr: "Novembre 2025", ht: "Novanm 2025", en: "November 2025" },
+    file: "assets/docs/analyse-decret-electoral-2025-complete.pdf",
+    title: { fr: "Analyse critique du projet de décret électoral 2025", ht: "Analiz kritik pwojè dekrè elektoral 2025 la", en: "Critical analysis of the 2025 draft electoral decree" },
+    text: { fr: "Étude juridique détaillée des dispositions du projet du CEP, accompagnée de recommandations pour des élections crédibles.", ht: "Etid legal detaye sou dispozisyon pwojè CEP a, ak rekòmandasyon pou eleksyon ki kredib.", en: "Detailed legal review of the CEP draft provisions, with recommendations for credible elections." }
+  },
+  {
+    type: "analysis",
+    year: { fr: "Novembre 2025", ht: "Novanm 2025", en: "November 2025" },
+    file: "assets/docs/analyse-decret-electoral-2025-synthese.pdf",
+    title: { fr: "Projet de décret électoral 2025 - Synthèse de l'analyse", ht: "Pwojè dekrè elektoral 2025 - Rezime analiz la", en: "2025 draft electoral decree - Analysis summary" },
+    text: { fr: "Version synthétique des principales lacunes relevées et des recommandations adressées au CEP.", ht: "Vèsyon rezime prensipal feblès yo ak rekòmandasyon ki adrese bay CEP a.", en: "Condensed version of the main shortcomings identified and recommendations addressed to the CEP." }
+  },
+  {
+    type: "advocacy",
+    year: { fr: "29 septembre 2025", ht: "29 septanm 2025", en: "September 29, 2025" },
+    file: "assets/docs/plaidoyer-parents-ecoliers-2025.pdf",
+    title: { fr: "Plaidoyer en faveur des parents d'écoliers haïtiens", ht: "Pledwaye an favè paran elèv ayisyen yo", en: "Advocacy for Haitian schoolchildren's parents" },
+    text: { fr: "Appel à réguler les frais scolaires, protéger le droit à l'éducation et soutenir les enfants déscolarisés par la violence.", ht: "Apèl pou kontwole frè lekòl yo, pwoteje dwa pou edikasyon epi soutni timoun vyolans mete deyò lekòl.", en: "Call to regulate school fees, protect the right to education and support children forced out of school by violence." }
+  },
+  {
+    type: "analysis",
+    year: { fr: "Juillet 2025", ht: "Jiyè 2025", en: "July 2025" },
+    file: "assets/docs/analyse-conjoncture-juillet-2025.pdf",
+    title: { fr: "Crise nationale et péril démocratique", ht: "Kriz nasyonal ak danje pou demokrasi", en: "National crisis and democratic peril" },
+    text: { fr: "Analyse de conjoncture sur la crise nationale, l'influence des élites économiques et les risques pesant sur la transition.", ht: "Analiz konjonkti sou kriz nasyonal la, enfliyans elit ekonomik yo ak risk ki peze sou tranzisyon an.", en: "Situation analysis of the national crisis, the influence of economic elites and risks facing the transition." }
+  },
+  {
+    type: "press",
+    year: { fr: "10 décembre 2024", ht: "10 desanm 2024", en: "December 10, 2024" },
+    file: "assets/docs/note-droits-humains-decembre-2024.pdf",
+    title: { fr: "Protection des droits humains : un appel à l'espoir et à la dignité", ht: "Pwoteksyon dwa moun: yon apèl pou espwa ak diyite", en: "Protecting human rights: a call for hope and dignity" },
+    text: { fr: "Note publiée à l'occasion de la Journée internationale des droits humains sur la sécurité, la gouvernance et la désinformation.", ht: "Nòt pou Jounen entènasyonal dwa moun sou sekirite, gouvènans ak dezenfòmasyon.", en: "Human Rights Day note addressing security, governance and disinformation." }
+  },
+  {
+    type: "correspondence",
+    year: { fr: "24 juin 2024", ht: "24 jen 2024", en: "June 24, 2024" },
+    file: "assets/docs/lettre-cspj-detention-mineurs-2024.pdf",
+    title: { fr: "Lettre au CSPJ sur la détention prolongée de mineurs", ht: "Lèt bay CSPJ sou detansyon pwolonje timoun yo", en: "Letter to the CSPJ on the prolonged detention of minors" },
+    text: { fr: "Demande de rencontre concernant les conditions de détention au CERMICOL et les mineurs jamais auditionnés par un juge.", ht: "Demann rankont sou kondisyon detansyon nan CERMICOL ak timoun yon jij pa janm tande yo.", en: "Meeting request concerning detention conditions at CERMICOL and minors who have never appeared before a judge." }
+  },
+  {
+    type: "analysis",
+    year: { fr: "19 février 2024", ht: "19 fevriye 2024", en: "February 19, 2024" },
+    file: "assets/docs/position-gouvernance-ariel-henry-2024.pdf",
+    title: { fr: "Position de SKL sur la gouvernance d'Ariel Henry", ht: "Pozisyon SKL sou gouvènans Ariel Henry", en: "SKL's position on Ariel Henry's governance" },
+    text: { fr: "Analyse critique de la gouvernance, de la crise sécuritaire, du processus électoral et du rôle de la communauté internationale.", ht: "Analiz kritik sou gouvènans, kriz sekirite a, pwosesis elektoral la ak wòl kominote entènasyonal la.", en: "Critical analysis of governance, the security crisis, the electoral process and the role of the international community." }
+  },
+  {
+    type: "analysis",
+    year: { fr: "7 novembre 2023", ht: "7 novanm 2023", en: "November 7, 2023" },
+    file: "assets/docs/analyse-dialogues-interhaitiens-2023.pdf",
+    title: { fr: "Analyse des pratiques de dialogue interhaïtien depuis 1986", ht: "Analiz pratik dyalòg ant Ayisyen depi 1986", en: "Analysis of inter-Haitian dialogue practices since 1986" },
+    text: { fr: "Lecture historique et politique des dialogues entre acteurs politiques et représentants de la société civile après 1986.", ht: "Lekti istorik ak politik dyalòg ant aktè politik ak reprezantan sosyete sivil apre 1986.", en: "Historical and political review of dialogue among political actors and civil society representatives after 1986." }
+  },
+  {
+    type: "analysis",
+    year: { fr: "20 juin 2023", ht: "20 jen 2023", en: "June 20, 2023" },
+    file: "assets/docs/analyse-sanctions-canada-2023.pdf",
+    title: { fr: "Position de SKL sur les sanctions internationales", ht: "Pozisyon SKL sou sanksyon entènasyonal yo", en: "SKL's position on international sanctions" },
+    text: { fr: "Commentaires sur les sanctions visant des responsables politiques et économiques haïtiens et sur la lutte contre l'impunité.", ht: "Kòmantè sou sanksyon kont responsab politik ak ekonomik ayisyen ak sou lit kont enpinite.", en: "Comments on sanctions targeting Haitian political and economic figures and the fight against impunity." }
+  },
+  {
+    type: "report",
+    year: { fr: "Sans date", ht: "San dat", en: "Undated" },
+    file: "assets/docs/rapport-crise-carburant-haiti.pdf",
+    title: { fr: "Crise du carburant en Haïti", ht: "Kriz gaz ann Ayiti", en: "Haiti's fuel crisis" },
+    text: { fr: "Rapport thématique sur la corruption, la gouvernance du secteur pétrolier et les conséquences sociales de la pénurie.", ht: "Rapò tematik sou koripsyon, gouvènans sektè petwòl la ak konsekans sosyal rate gaz la.", en: "Thematic report on corruption, petroleum-sector governance and the social consequences of fuel shortages." }
+  },
+  {
+    type: "advocacy",
+    year: { fr: "Sans date", ht: "San dat", en: "Undated" },
+    file: "assets/docs/plaidoyer-cooperation-haiti-etats-unis-trafic-armes.pdf",
+    title: { fr: "Coopération Haïti-États-Unis contre le trafic d'armes", ht: "Koperasyon Ayiti-Etazini kont trafik zam", en: "Haiti-U.S. cooperation against arms trafficking" },
+    text: { fr: "Intervention du Révérend Père Gardy Maisonneuve à Miami en faveur d'un contrôle renforcé du trafic d'armes et de munitions.", ht: "Entèvansyon Reveran Pè Gardy Maisonneuve nan Miami pou ranfòse kontwòl trafik zam ak minisyon.", en: "Rev. Father Gardy Maisonneuve's Miami address calling for stronger controls on arms and ammunition trafficking." }
+  },
+  {
     type: "institutional",
     year: "2026",
     file: "assets/docs/brochure-officielle-skl.pdf",
@@ -601,20 +701,6 @@ const documents = [
     file: "assets/docs/fact-sheet-skl.pdf",
     title: { fr: "Fiche institutionnelle - Qui nous sommes", ht: "Fèy enfòmasyon - Kiyès nou ye", en: "Fact sheet - Who we are" },
     text: { fr: "Présentation de l'héritage, du positionnement, des objectifs stratégiques et des réalisations.", ht: "Prezantasyon eritaj, pozisyon, objektif estratejik ak reyalizasyon yo.", en: "Overview of legacy, positioning, strategic objectives and achievements." }
-  },
-  {
-    type: "advocacy",
-    year: { fr: "À publier", ht: "Pou pibliye", en: "Coming soon" },
-    file: "assets/docs/fact-sheet-skl.pdf",
-    title: { fr: "Notes de plaidoyer", ht: "Nòt pledwaye", en: "Advocacy briefs" },
-    text: { fr: "Espace prévu pour les notes sur les droits humains, l'accès à la justice et la protection.", ht: "Espas pou nòt sou dwa moun, aksè ak lajistis ak pwoteksyon.", en: "Space planned for briefs on human rights, access to justice and protection." }
-  },
-  {
-    type: "report",
-    year: { fr: "À publier", ht: "Pou pibliye", en: "Coming soon" },
-    file: "assets/docs/brochure-officielle-skl.pdf",
-    title: { fr: "Rapports annuels", ht: "Rapò anyèl", en: "Annual reports" },
-    text: { fr: "Collection filtrable pour les rapports annuels et rapports thématiques de SKL.", ht: "Koleksyon pou filtre rapò anyèl ak rapò tematik SKL yo.", en: "Filterable collection for SKL annual and thematic reports." }
   }
 ];
 
@@ -812,10 +898,18 @@ function renderDocuments() {
     const matchesQuery = !query || text.includes(query);
     return matchesType && matchesQuery;
   });
+  const typeKeys = {
+    institutional: "filterInstitutional",
+    analysis: "filterAnalysis",
+    advocacy: "filterAdvocacy",
+    report: "filterReports",
+    press: "filterPress",
+    correspondence: "filterCorrespondence"
+  };
   target.innerHTML = filtered.map((doc) => `
     <article class="doc-card">
       <div>
-        <span class="doc-type">${localize(doc.year)} - ${t(doc.type === "institutional" ? "filterInstitutional" : doc.type === "advocacy" ? "filterAdvocacy" : "filterReports")}</span>
+        <span class="doc-type">${localize(doc.year)} - ${t(typeKeys[doc.type])}</span>
         <h3>${localize(doc.title)}</h3>
         <p class="doc-meta">${localize(doc.text)}</p>
       </div>

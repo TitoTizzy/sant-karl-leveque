@@ -372,6 +372,7 @@ body[data-page="news"] .page-hero { background-image: linear-gradient(100deg,rgb
   .impact-strip,.value-grid,.intervention-grid,.news-grid,.gallery-grid,.mission-grid,.team-grid,.partner-strip,.page-index-grid,.contact-grid,.strategic-grid { grid-template-columns: 1fr; }
   .impact-item { border-right: 0; border-bottom: 1px solid rgba(255,255,255,.13); }
   .split-heading,.doc-card,.doc-toolbar { display: grid; }
+  .doc-card,.doc-toolbar { grid-template-columns: 1fr; }
   .page-hero { min-height: 410px; padding-top: 8rem; }
   .section { padding-top: 4rem; padding-bottom: 4rem; }
   .director-band { padding-top: 4rem; padding-bottom: 4rem; }
