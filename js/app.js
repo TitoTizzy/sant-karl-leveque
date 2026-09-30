@@ -22,7 +22,6 @@ const translations = {
     donate: "Soutenir SKL",
     areaRights: "Droits humains",
     areaJustice: "Accès à la justice",
-    areaFood: "Sécurité alimentaire",
     areaChildren: "Protection de l'enfance",
     areaMigration: "Migration et déplacés",
     areaHealth: "Santé communautaire",
@@ -72,7 +71,7 @@ const translations = {
     teamEyebrow: "Équipe de référence",
     teamTitle: "Une gouvernance identifiable et accessible.",
     newsPageTitle: "Actions, réalisations et plaidoyer de terrain.",
-    newsPageLead: "Suivez les initiatives de SKL pour l'accès à la justice, la protection, la sécurité alimentaire et l'appui aux communautés affectées.",
+    newsPageLead: "Suivez les initiatives de SKL pour l'accès à la justice, la protection et l'appui aux communautés affectées.",
     filterAll: "Tout",
     filterField: "Terrain",
     filterAdvocacy: "Plaidoyer",
@@ -85,7 +84,63 @@ const translations = {
     searchDocs: "Rechercher",
     filterInstitutional: "Institutionnel",
     filterReports: "Rapports",
-    download: "Télécharger"
+    download: "Télécharger",
+    compassLabel: "Boussole des valeurs SKL",
+    compassJustice: "Justice",
+    compassDignity: "Dignité",
+    compassPeace: "Paix",
+    compassParticipation: "Participation",
+    impactLabel: "Repères institutionnels",
+    countryName: "Haïti",
+    portraitAlt: "Portrait du Révérend Père Gardy Maisonneuve",
+    gardyName: "Rév. Père Gardy Maisonneuve",
+    karlName: "Rév. Père Karl Lévêque",
+    aboutIndexEyebrow: "Découvrir SKL",
+    aboutIndexTitle: "Les fondements de notre identité institutionnelle.",
+    aboutHeritageCard: "L'engagement du Révérend Père Karl Lévêque et ses fondements.",
+    aboutMissionCard: "La raison d'être de SKL et la société haïtienne qu'elle contribue à construire.",
+    aboutDirectorCard: "Le message institutionnel du Révérend Père Gardy Maisonneuve.",
+    aboutTeamCard: "Les responsables qui portent la gouvernance et les actions de SKL.",
+    heritageHeroLead: "Une mémoire active au service des droits fondamentaux et de la démocratie en Haïti.",
+    heritagePersonRole: "Prêtre jésuite, intellectuel et figure engagée contre la dictature.",
+    heritageLineage: "Une filiation de justice",
+    heritageCommitmentTitle: "Un nom qui engage l'organisation.",
+    heritageClosing: "Son héritage oriente une action indépendante, impartiale et ancrée dans les réalités vécues par les communautés haïtiennes.",
+    missionHeroTitle: "Transformer la défense des droits en progrès collectif.",
+    missionHeroLead: "Deux repères complémentaires pour guider chaque intervention de SKL.",
+    strategicEyebrow: "Objectifs stratégiques",
+    strategicTitle: "Six engagements qui structurent l'action de SKL.",
+    strategic1: "Promouvoir et protéger les droits humains.",
+    strategic2: "Renforcer les capacités des communautés locales.",
+    strategic3: "Soutenir la protection et la réintégration des personnes retournées et réfugiées.",
+    strategic4: "Contribuer à l'amélioration des conditions de vie des populations vulnérables.",
+    strategic5: "Soutenir le développement communautaire.",
+    strategic6: "Promouvoir l'engagement civique et la transformation sociale.",
+    directorHeroLead: "Une parole institutionnelle sur l'engagement et la responsabilité de SKL.",
+    teamLead: "Des responsables engagés au service de la mission institutionnelle de SKL.",
+    areasLead: "Chaque domaine dispose d'une page dédiée présentant clairement les enjeux et l'approche de SKL.",
+    contactTitle: "Entrer en relation avec SKL.",
+    contactLead: "Pour les demandes institutionnelles, la documentation, les partenariats et l'engagement citoyen.",
+    contactDirection: "Direction",
+    contactSecretariat: "Secrétariat",
+    supportTitle: "Renforcer une action haïtienne indépendante.",
+    supportLead: "Votre implication contribue à la défense des droits, à l'accès à la justice et à l'accompagnement des communautés vulnérables.",
+    supportActTitle: "Agir avec nous",
+    supportActText: "Partenariat institutionnel, soutien matériel ou mise en réseau.",
+    supportEyebrow: "S'impliquer",
+    supportResponsibleTitle: "Construire un soutien responsable et transparent.",
+    supportDonationNote: "La modalité de don en ligne sera activée après validation du canal financier officiel de SKL.",
+    supportContactText: "Pour toute proposition de partenariat ou de soutien, contactez directement l'organisation. Les logos des bailleurs sont présentés à titre institutionnel, sans publier leurs coordonnées directes.",
+    newsFilterLabel: "Filtrer les actualités",
+    docsFilterLabel: "Filtrer les documents",
+    searchPlaceholder: "SKL, droits humains, mission",
+    navMainLabel: "Navigation principale",
+    homeLabel: "Accueil SKL",
+    openMenuLabel: "Ouvrir le menu principal",
+    openAboutLabel: "Ouvrir le sous-menu Qui nous sommes",
+    openAreasLabel: "Ouvrir le sous-menu Domaines d'intervention",
+    languageLabel: "Langue",
+    publishSoon: "À publier"
   },
   ht: {
     skip: "Ale nan kontni an",
@@ -103,7 +158,6 @@ const translations = {
     donate: "Soutni SKL",
     areaRights: "Dwa moun",
     areaJustice: "Aksè ak lajistis",
-    areaFood: "Sekirite alimantè",
     areaChildren: "Pwoteksyon timoun",
     areaMigration: "Migrasyon ak moun deplase",
     areaHealth: "Sante kominotè",
@@ -153,7 +207,7 @@ const translations = {
     teamEyebrow: "Ekip referans",
     teamTitle: "Yon gouvènans ki klè epi aksesib.",
     newsPageTitle: "Aksyon, reyalizasyon ak pledwaye sou teren.",
-    newsPageLead: "Swiv inisyativ SKL pou aksè ak lajistis, pwoteksyon, sekirite alimantè ak apui pou kominote ki afekte yo.",
+    newsPageLead: "Swiv inisyativ SKL pou aksè ak lajistis, pwoteksyon ak apui pou kominote ki afekte yo.",
     filterAll: "Tout",
     filterField: "Teren",
     filterAdvocacy: "Pledwaye",
@@ -166,7 +220,63 @@ const translations = {
     searchDocs: "Chèche",
     filterInstitutional: "Enstitisyonèl",
     filterReports: "Rapò",
-    download: "Telechaje"
+    download: "Telechaje",
+    compassLabel: "Bousòl valè SKL yo",
+    compassJustice: "Jistis",
+    compassDignity: "Diyite",
+    compassPeace: "Lapè",
+    compassParticipation: "Patisipasyon",
+    impactLabel: "Pwen referans enstitisyonèl",
+    countryName: "Ayiti",
+    portraitAlt: "Pòtrè Reveran Pè Gardy Maisonneuve",
+    gardyName: "Reveran Pè Gardy Maisonneuve",
+    karlName: "Reveran Pè Karl Lévêque",
+    aboutIndexEyebrow: "Dekouvri SKL",
+    aboutIndexTitle: "Fondasyon idantite enstitisyonèl nou an.",
+    aboutHeritageCard: "Angajman Reveran Pè Karl Lévêque ak fondasyon li yo.",
+    aboutMissionCard: "Rezon ki fè SKL egziste ak sosyete ayisyen li ede konstwi a.",
+    aboutDirectorCard: "Mesaj enstitisyonèl Reveran Pè Gardy Maisonneuve.",
+    aboutTeamCard: "Responsab ki pote gouvènans ak aksyon SKL yo.",
+    heritageHeroLead: "Yon memwa vivan nan sèvis dwa fondamantal ak demokrasi ann Ayiti.",
+    heritagePersonRole: "Pè jezuit, entelektyèl ak pèsonalite ki te angaje kont diktati.",
+    heritageLineage: "Yon eritaj jistis",
+    heritageCommitmentTitle: "Yon non ki angaje òganizasyon an.",
+    heritageClosing: "Eritaj li gide yon aksyon endepandan, san patipri epi ki chita sou reyalite kominote ayisyen yo.",
+    missionHeroTitle: "Transfòme defans dwa moun an pwogrè kolektif.",
+    missionHeroLead: "De pwen referans ki mache ansanm pou gide chak entèvansyon SKL.",
+    strategicEyebrow: "Objektif estratejik",
+    strategicTitle: "Sis angajman ki òganize aksyon SKL.",
+    strategic1: "Ankouraje epi pwoteje dwa moun.",
+    strategic2: "Ranfòse kapasite kominote lokal yo.",
+    strategic3: "Sipòte pwoteksyon ak reyentegrasyon moun ki retounen ak refijye yo.",
+    strategic4: "Kontribye nan amelyore kondisyon lavi popilasyon vilnerab yo.",
+    strategic5: "Sipòte devlopman kominotè.",
+    strategic6: "Ankouraje angajman sivik ak transfòmasyon sosyal.",
+    directorHeroLead: "Yon pawòl enstitisyonèl sou angajman ak responsablite SKL.",
+    teamLead: "Responsab ki angaje nan sèvis misyon enstitisyonèl SKL.",
+    areasLead: "Chak domèn gen yon paj apa ki prezante klèman pwoblèm yo ak apwòch SKL.",
+    contactTitle: "Antre an kontak ak SKL.",
+    contactLead: "Pou demann enstitisyonèl, dokimantasyon, patenarya ak angajman sitwayen.",
+    contactDirection: "Direksyon",
+    contactSecretariat: "Sekretarya",
+    supportTitle: "Ranfòse yon aksyon ayisyen endepandan.",
+    supportLead: "Patisipasyon ou kontribye nan defans dwa moun, aksè ak lajistis ak akonpayman kominote vilnerab yo.",
+    supportActTitle: "Aji avèk nou",
+    supportActText: "Patenarya enstitisyonèl, sipò materyèl oswa mete an rezo.",
+    supportEyebrow: "Patisipe",
+    supportResponsibleTitle: "Konstwi yon sipò responsab ak transparan.",
+    supportDonationNote: "Don sou entènèt ap aktive apre validasyon kanal finansye ofisyèl SKL la.",
+    supportContactText: "Pou nenpòt pwopozisyon patenarya oswa sipò, kontakte òganizasyon an dirèkteman. Logo patnè finansye yo prezante pou rezon enstitisyonèl san yo pa pibliye kontak dirèk yo.",
+    newsFilterLabel: "Filtre aktyalite yo",
+    docsFilterLabel: "Filtre dokiman yo",
+    searchPlaceholder: "SKL, dwa moun, misyon",
+    navMainLabel: "Navigasyon prensipal",
+    homeLabel: "Akèy SKL",
+    openMenuLabel: "Ouvri meni prensipal la",
+    openAboutLabel: "Ouvri soumeni Kiyès nou ye a",
+    openAreasLabel: "Ouvri soumeni Domèn entèvansyon an",
+    languageLabel: "Lang",
+    publishSoon: "Pou pibliye"
   },
   en: {
     skip: "Skip to content",
@@ -184,7 +294,6 @@ const translations = {
     donate: "Support SKL",
     areaRights: "Human rights",
     areaJustice: "Access to justice",
-    areaFood: "Food security",
     areaChildren: "Child protection",
     areaMigration: "Migration and IDPs",
     areaHealth: "Community health",
@@ -234,7 +343,7 @@ const translations = {
     teamEyebrow: "Reference team",
     teamTitle: "Identifiable and accessible leadership.",
     newsPageTitle: "Actions, achievements and field advocacy.",
-    newsPageLead: "Follow SKL initiatives for access to justice, protection, food security and support for affected communities.",
+    newsPageLead: "Follow SKL initiatives for access to justice, protection and support for affected communities.",
     filterAll: "All",
     filterField: "Field",
     filterAdvocacy: "Advocacy",
@@ -247,7 +356,63 @@ const translations = {
     searchDocs: "Search",
     filterInstitutional: "Institutional",
     filterReports: "Reports",
-    download: "Download"
+    download: "Download",
+    compassLabel: "SKL values compass",
+    compassJustice: "Justice",
+    compassDignity: "Dignity",
+    compassPeace: "Peace",
+    compassParticipation: "Participation",
+    impactLabel: "Institutional highlights",
+    countryName: "Haiti",
+    portraitAlt: "Portrait of Reverend Father Gardy Maisonneuve",
+    gardyName: "Rev. Father Gardy Maisonneuve",
+    karlName: "Rev. Father Karl Lévêque",
+    aboutIndexEyebrow: "Discover SKL",
+    aboutIndexTitle: "The foundations of our institutional identity.",
+    aboutHeritageCard: "Reverend Father Karl Lévêque's commitment and its foundations.",
+    aboutMissionCard: "SKL's purpose and the Haitian society it helps build.",
+    aboutDirectorCard: "The institutional message of Reverend Father Gardy Maisonneuve.",
+    aboutTeamCard: "The leaders who guide SKL's governance and work.",
+    heritageHeroLead: "A living legacy serving fundamental rights and democracy in Haiti.",
+    heritagePersonRole: "Jesuit priest, intellectual and committed opponent of dictatorship.",
+    heritageLineage: "A legacy of justice",
+    heritageCommitmentTitle: "A name that carries responsibility.",
+    heritageClosing: "His legacy guides independent, impartial action grounded in the realities experienced by Haitian communities.",
+    missionHeroTitle: "Turning the defense of rights into collective progress.",
+    missionHeroLead: "Two complementary guideposts for every SKL intervention.",
+    strategicEyebrow: "Strategic objectives",
+    strategicTitle: "Six commitments that shape SKL's work.",
+    strategic1: "Promote and protect human rights.",
+    strategic2: "Strengthen the capacities of local communities.",
+    strategic3: "Support the protection and reintegration of returnees and refugees.",
+    strategic4: "Contribute to improving the living conditions of vulnerable populations.",
+    strategic5: "Support community development.",
+    strategic6: "Promote civic engagement and social transformation.",
+    directorHeroLead: "An institutional message about SKL's commitment and responsibility.",
+    teamLead: "Leaders committed to serving SKL's institutional mission.",
+    areasLead: "Each area has a dedicated page clearly presenting its challenges and SKL's approach.",
+    contactTitle: "Connect with SKL.",
+    contactLead: "For institutional inquiries, documentation, partnerships and civic engagement.",
+    contactDirection: "Executive office",
+    contactSecretariat: "Secretariat",
+    supportTitle: "Strengthen independent Haitian action.",
+    supportLead: "Your involvement supports the defense of rights, access to justice and assistance to vulnerable communities.",
+    supportActTitle: "Work with us",
+    supportActText: "Institutional partnership, material support or network connections.",
+    supportEyebrow: "Get involved",
+    supportResponsibleTitle: "Build responsible and transparent support.",
+    supportDonationNote: "Online giving will be activated after SKL's official financial channel has been approved.",
+    supportContactText: "For partnership or support proposals, contact the organization directly. Donor logos are displayed for institutional purposes without publishing their direct contact details.",
+    newsFilterLabel: "Filter news",
+    docsFilterLabel: "Filter documents",
+    searchPlaceholder: "SKL, human rights, mission",
+    navMainLabel: "Main navigation",
+    homeLabel: "SKL home",
+    openMenuLabel: "Open main menu",
+    openAboutLabel: "Open Who we are submenu",
+    openAreasLabel: "Open Areas of intervention submenu",
+    languageLabel: "Language",
+    publishSoon: "Coming soon"
   }
 };
 
@@ -265,26 +430,26 @@ function renderSiteShell() {
         <p data-i18n="tagline">Unis pour défendre, engagés pour changer</p>
         <div class="topbar-actions">
           <a href="${path("pages/publications.html")}" data-i18n="docCenter">Centre de documentation</a>
-          <select class="language-select" aria-label="Langue">
+          <select class="language-select" aria-label="Langue" data-i18n-aria-label="languageLabel">
             <option value="ht">Kreyòl Ayisyen</option>
             <option value="fr">Français</option>
             <option value="en">English</option>
           </select>
         </div>
       </div>
-      <nav class="navbar" aria-label="Navigation principale">
-        <a class="brand" href="${path("index.html")}" aria-label="Accueil SKL">
+      <nav class="navbar" aria-label="Navigation principale" data-i18n-aria-label="navMainLabel">
+        <a class="brand" href="${path("index.html")}" aria-label="Accueil SKL" data-i18n-aria-label="homeLabel">
           <img src="${path("assets/skl-logo.png")}" alt="Logo Sant Karl Lévêque SKL">
           <span>Sant Karl Lévêque</span>
         </a>
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-menu" aria-label="Ouvrir le menu principal">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-menu" aria-label="Ouvrir le menu principal" data-i18n-aria-label="openMenuLabel">
           <span></span><span></span><span></span>
         </button>
         <ul id="primary-menu" class="nav-menu">
           <li class="has-menu${section === "about" ? " is-current" : ""}">
             <div class="nav-item-row">
               <a href="${path("pages/about.html")}" data-i18n="navWho"${active("about")}>Qui nous sommes</a>
-              <button class="submenu-toggle" type="button" aria-expanded="false" aria-controls="about-menu" aria-label="Ouvrir le sous-menu Qui nous sommes"><span aria-hidden="true"></span></button>
+              <button class="submenu-toggle" type="button" aria-expanded="false" aria-controls="about-menu" aria-label="Ouvrir le sous-menu Qui nous sommes" data-i18n-aria-label="openAboutLabel"><span aria-hidden="true"></span></button>
             </div>
             <div class="mega-menu" id="about-menu">
               <a href="${path("pages/heritage.html")}" data-i18n="navHeritage">Notre héritage</a>
@@ -296,12 +461,11 @@ function renderSiteShell() {
           <li class="has-menu${section === "areas" ? " is-current" : ""}">
             <div class="nav-item-row">
               <a href="${path("pages/interventions.html")}" data-i18n="navAreas"${active("areas")}>Nos domaines d'intervention</a>
-              <button class="submenu-toggle" type="button" aria-expanded="false" aria-controls="areas-menu" aria-label="Ouvrir le sous-menu Domaines d'intervention"><span aria-hidden="true"></span></button>
+              <button class="submenu-toggle" type="button" aria-expanded="false" aria-controls="areas-menu" aria-label="Ouvrir le sous-menu Domaines d'intervention" data-i18n-aria-label="openAreasLabel"><span aria-hidden="true"></span></button>
             </div>
             <div class="mega-menu mega-menu-wide" id="areas-menu">
               <a href="${path("pages/droits-humains.html")}" data-i18n="areaRights">Droits humains</a>
               <a href="${path("pages/acces-justice.html")}" data-i18n="areaJustice">Accès à la justice</a>
-              <a href="${path("pages/securite-alimentaire.html")}" data-i18n="areaFood">Sécurité alimentaire</a>
               <a href="${path("pages/protection-enfance.html")}" data-i18n="areaChildren">Protection de l'enfance</a>
               <a href="${path("pages/migration-deplaces.html")}" data-i18n="areaMigration">Migration et déplacés</a>
               <a href="${path("pages/sante-communautaire.html")}" data-i18n="areaHealth">Santé communautaire</a>
@@ -318,7 +482,7 @@ function renderSiteShell() {
   if (footer) {
     footer.innerHTML = `
       <div><h2>Sant Karl Lévêque (SKL)</h2><p data-i18n="footerText">Organisation haïtienne engagée pour les droits humains, la justice sociale et l'État de droit.</p></div>
-      <address><strong>Rév. Père Gardy Maisonneuve</strong><br><span data-i18n="execDirector">Directeur Exécutif</span><br><a href="tel:+50947051133">+509 4705-1133</a><br><a href="mailto:reverendperegmaisonneuve@gmail.com">reverendperegmaisonneuve@gmail.com</a></address>
+      <address><strong data-i18n="gardyName">Rév. Père Gardy Maisonneuve</strong><br><span data-i18n="execDirector">Directeur Exécutif</span><br><a href="tel:+50947051133">+509 4705-1133</a><br><a href="mailto:reverendperegmaisonneuve@gmail.com">reverendperegmaisonneuve@gmail.com</a></address>
       <address><strong>Sébastien Estinvil</strong><br><span data-i18n="secretary">Secrétaire Général</span><br><a href="tel:+50936827431">+509 3682-7431</a><br><a href="mailto:estinviljnbsebastien@gmail.com">estinviljnbsebastien@gmail.com</a></address>`;
   }
 }
@@ -333,11 +497,6 @@ const areas = [
     fr: "Assistance juridique, accompagnement des victimes et plaidoyer.",
     ht: "Asistans legal, akonpayman viktim ak pledwaye.",
     en: "Legal assistance, victim support and advocacy."
-  }],
-  ["SA", "areaFood", {
-    fr: "Appui aux populations vulnérables et lutte contre la faim.",
-    ht: "Apui pou popilasyon vilnerab yo ak batay kont grangou.",
-    en: "Support for vulnerable populations and the fight against hunger."
   }],
   ["PE", "areaChildren", {
     fr: "Protection des enfants et des groupes vulnérables.",
@@ -359,7 +518,6 @@ const areas = [
 const areaSlugs = [
   "droits-humains.html",
   "acces-justice.html",
-  "securite-alimentaire.html",
   "protection-enfance.html",
   "migration-deplaces.html",
   "sante-communautaire.html"
@@ -375,11 +533,6 @@ const areaDetails = [
     fr: ["Accompagner juridiquement les victimes et les communautés.", "Suivre les prisons et les lieux de détention.", "Plaider pour des institutions judiciaires accessibles et responsables."],
     ht: ["Akonpaye viktim ak kominote yo sou plan legal.", "Siveye prizon ak kote detansyon yo.", "Plede pou enstitisyon jistis ki aksesib epi responsab."],
     en: ["Provide legal support to victims and communities.", "Monitor prisons and detention facilities.", "Advocate for accessible and accountable justice institutions."]
-  },
-  {
-    fr: ["Soutenir les ménages confrontés à l'insécurité alimentaire.", "Distribuer une assistance ciblée dans les situations d'urgence.", "Renforcer les capacités communautaires face à la faim."],
-    ht: ["Sipòte fanmi ki ap fè fas ak ensekirite alimantè.", "Distribye asistans sible nan sitiyasyon ijans.", "Ranfòse kapasite kominote yo pou fè fas ak grangou."],
-    en: ["Support households facing food insecurity.", "Deliver targeted assistance in emergency situations.", "Strengthen community capacity to address hunger."]
   },
   {
     fr: ["Prévenir les violences et les atteintes aux droits des enfants.", "Accompagner les enfants et les groupes particulièrement vulnérables.", "Promouvoir des environnements communautaires protecteurs."],
@@ -412,26 +565,20 @@ const news = [
     text: { fr: "Assistance juridique et plaidoyer pour les résidents de Tabarre affectés par des mesures de démolition près de l'Ambassade des États-Unis.", ht: "Asistans legal ak pledwaye pou rezidan Taba ki afekte pa mezi demolisyon pre Anbasad Etazini.", en: "Legal assistance and advocacy for Tabarre residents affected by demolition measures near the U.S. Embassy." }
   },
   {
-    category: "field",
-    date: "Protection",
-    title: { fr: "Distribution de kits alimentaires et d'hygiène", ht: "Distribisyon kit manje ak ijyèn", en: "Distribution of food and hygiene kits" },
-    text: { fr: "Soutien aux personnes déplacées internes et aux ménages vulnérables.", ht: "Sipò pou moun deplase andedan peyi a ak fanmi vilnerab yo.", en: "Support for internally displaced persons and vulnerable households." }
-  },
-  {
     category: "network",
-    date: "Réseaux",
+    date: { fr: "Réseaux", ht: "Rezo", en: "Networks" },
     title: { fr: "Contribution aux plateformes POHDH, GARR et ECC", ht: "Kontribisyon nan platfòm POHDH, GARR ak ECC", en: "Contribution to POHDH, GARR and ECC networks" },
     text: { fr: "SKL contribue au développement et au renforcement du mouvement haïtien des droits humains.", ht: "SKL kontribye nan devlopman ak ranfòsman mouvman ayisyen pou dwa moun.", en: "SKL contributes to the development and strengthening of Haiti's human rights movement." }
   },
   {
     category: "advocacy",
-    date: "Justice",
+    date: { fr: "Justice", ht: "Jistis", en: "Justice" },
     title: { fr: "Suivi des prisons et lieux de détention", ht: "Siveyans prizon ak kote detansyon", en: "Monitoring prisons and detention facilities" },
     text: { fr: "Missions de monitoring et plaidoyer pour les personnes privées de liberté.", ht: "Misyon siveyans ak pledwaye pou moun ki prive libète yo.", en: "Monitoring missions and advocacy for persons deprived of liberty." }
   },
   {
     category: "field",
-    date: "Eau",
+    date: { fr: "Eau", ht: "Dlo", en: "Water" },
     title: { fr: "Programmes communautaires eau et assainissement", ht: "Pwogram kominotè dlo ak asenisman", en: "Community water and sanitation programs" },
     text: { fr: "Programmes communautaires pour améliorer l'accès à l'eau potable et à l'assainissement.", ht: "Pwogram kominotè pou amelyore aksè ak dlo potab ak asenisman.", en: "Community-based programs to improve access to safe drinking water and sanitation." }
   }
@@ -449,19 +596,19 @@ const documents = [
     type: "institutional",
     year: "2026",
     file: "assets/docs/fact-sheet-skl.pdf",
-    title: { fr: "Fact Sheet - Qui nous sommes", ht: "Fèy enfòmasyon - Kiyès nou ye", en: "Fact sheet - Who we are" },
+    title: { fr: "Fiche institutionnelle - Qui nous sommes", ht: "Fèy enfòmasyon - Kiyès nou ye", en: "Fact sheet - Who we are" },
     text: { fr: "Présentation de l'héritage, du positionnement, des objectifs stratégiques et des réalisations.", ht: "Prezantasyon eritaj, pozisyon, objektif estratejik ak reyalizasyon yo.", en: "Overview of legacy, positioning, strategic objectives and achievements." }
   },
   {
     type: "advocacy",
-    year: "À publier",
+    year: { fr: "À publier", ht: "Pou pibliye", en: "Coming soon" },
     file: "assets/docs/fact-sheet-skl.pdf",
-    title: { fr: "Notes de plaidoyer", ht: "Not pledwaye", en: "Advocacy briefs" },
+    title: { fr: "Notes de plaidoyer", ht: "Nòt pledwaye", en: "Advocacy briefs" },
     text: { fr: "Espace prévu pour les notes sur les droits humains, l'accès à la justice et la protection.", ht: "Espas pou nòt sou dwa moun, aksè ak lajistis ak pwoteksyon.", en: "Space planned for briefs on human rights, access to justice and protection." }
   },
   {
     type: "report",
-    year: "À publier",
+    year: { fr: "À publier", ht: "Pou pibliye", en: "Coming soon" },
     file: "assets/docs/brochure-officielle-skl.pdf",
     title: { fr: "Rapports annuels", ht: "Rapò anyèl", en: "Annual reports" },
     text: { fr: "Collection filtrable pour les rapports annuels et rapports thématiques de SKL.", ht: "Koleksyon pou filtre rapò anyèl ak rapò tematik SKL yo.", en: "Filterable collection for SKL annual and thematic reports." }
@@ -487,6 +634,45 @@ function t(key) {
   return translations[state.lang][key] || translations.fr[key] || key;
 }
 
+function localize(value) {
+  if (value && typeof value === "object") return value[state.lang] || value.fr || "";
+  return value;
+}
+
+function updatePageMetadata() {
+  const page = document.body.dataset.page || "home";
+  const area = areas[Number(document.body.dataset.area)];
+  const titleByPage = {
+    home: "Sant Karl Lévêque - SKL",
+    about: `${t("navWho")} - Sant Karl Lévêque`,
+    heritage: `${t("navHeritage")} - SKL`,
+    mission: `${t("navMission")} - SKL`,
+    director: `${t("navDirector")} - SKL`,
+    team: `${t("navTeam")} - SKL`,
+    areas: `${t("navAreas")} - SKL`,
+    news: `${t("navActions")} - SKL`,
+    docs: `${t("navNews")} - SKL`,
+    contact: `${t("navContact")} - SKL`,
+    support: `${t("donate")} - SKL`
+  };
+  const descriptionKeyByPage = {
+    home: "heroLead",
+    about: "aboutLead",
+    heritage: "heritageHeroLead",
+    mission: "missionHeroLead",
+    director: "directorHeroLead",
+    team: "teamLead",
+    areas: "areasLead",
+    news: "newsPageLead",
+    docs: "docsLead",
+    contact: "contactLead",
+    support: "supportLead"
+  };
+  document.title = page === "area" && area ? `${t(area[1])} - SKL` : titleByPage[page] || "Sant Karl Lévêque - SKL";
+  const description = page === "area" && area ? localize(area[2]) : t(descriptionKeyByPage[page]);
+  document.querySelector('meta[name="description"]')?.setAttribute("content", description);
+}
+
 function setLanguage(lang) {
   state.lang = translations[lang] ? lang : "fr";
   localStorage.setItem("skl-language", state.lang);
@@ -497,6 +683,13 @@ function setLanguage(lang) {
   document.querySelectorAll("[data-i18n]").forEach((node) => {
     node.textContent = t(node.dataset.i18n);
   });
+  ["aria-label", "placeholder", "alt"].forEach((attribute) => {
+    const dataName = `i18n${attribute.split("-").map((part) => part[0].toUpperCase() + part.slice(1)).join("")}`;
+    document.querySelectorAll(`[data-i18n-${attribute}]`).forEach((node) => {
+      node.setAttribute(attribute, t(node.dataset[dataName]));
+    });
+  });
+  updatePageMetadata();
   renderAll();
 }
 
@@ -550,7 +743,7 @@ function renderAreaDetail() {
 function newsCard(item) {
   return `
     <article class="news-card">
-      <div class="news-thumb"><span class="tag">${item.date}</span></div>
+      <div class="news-thumb"><span class="tag">${localize(item.date)}</span></div>
       <div class="news-body">
         <p class="news-meta">${t(`filter${item.category === "field" ? "Field" : item.category === "network" ? "Network" : "Advocacy"}`)}</p>
         <h3>${item.title[state.lang] || item.title.fr}</h3>
@@ -589,7 +782,7 @@ function renderDocuments() {
   if (!target) return;
   const query = state.docSearch.trim().toLowerCase();
   const filtered = documents.filter((doc) => {
-    const text = `${doc.title[state.lang] || doc.title.fr} ${doc.text[state.lang] || doc.text.fr} ${doc.year}`.toLowerCase();
+    const text = `${localize(doc.title)} ${localize(doc.text)} ${localize(doc.year)}`.toLowerCase();
     const matchesType = state.docFilter === "all" || doc.type === state.docFilter;
     const matchesQuery = !query || text.includes(query);
     return matchesType && matchesQuery;
@@ -597,9 +790,9 @@ function renderDocuments() {
   target.innerHTML = filtered.map((doc) => `
     <article class="doc-card">
       <div>
-        <span class="doc-type">${doc.year} - ${doc.type}</span>
-        <h3>${doc.title[state.lang] || doc.title.fr}</h3>
-        <p class="doc-meta">${doc.text[state.lang] || doc.text.fr}</p>
+        <span class="doc-type">${localize(doc.year)} - ${t(doc.type === "institutional" ? "filterInstitutional" : doc.type === "advocacy" ? "filterAdvocacy" : "filterReports")}</span>
+        <h3>${localize(doc.title)}</h3>
+        <p class="doc-meta">${localize(doc.text)}</p>
       </div>
       <a class="btn btn-secondary" href="${document.body.dataset.base || ""}${doc.file}" download>${t("download")}</a>
     </article>
