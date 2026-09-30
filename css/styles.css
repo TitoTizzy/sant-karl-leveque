@@ -189,7 +189,8 @@ main { display: block; }
 .hero::before { content: ""; position: absolute; inset: 0; z-index: -2; opacity: .38; background-image: linear-gradient(rgba(7,106,173,.06) 1px, transparent 1px), linear-gradient(90deg,rgba(7,106,173,.06) 1px,transparent 1px); background-size: 70px 70px; mask-image: linear-gradient(90deg,transparent,#000 60%); }
 .hero::after { content: ""; position: absolute; z-index: -1; width: min(48vw,680px); aspect-ratio: 1; right: -8vw; top: 11%; border: 1px solid rgba(21,147,208,.17); border-radius: 50%; box-shadow: 0 0 0 7vw rgba(255,255,255,.12),0 0 0 14vw rgba(17,134,89,.035); }
 .hero-media { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
-.hero-media img { position: absolute; right: -3%; bottom: -10%; width: min(61vw,1050px); height: 83%; object-fit: cover; object-position: center; opacity: .12; mix-blend-mode: multiply; mask-image: linear-gradient(90deg,transparent 0%,#000 44%,#000 100%); }
+.hero-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 42%; }
+.hero-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg,rgba(246,251,252,.99) 0%,rgba(240,249,252,.95) 43%,rgba(229,245,241,.72) 69%,rgba(3,29,54,.32) 100%); }
 .hero-content { position: relative; z-index: 1; width: min(100%,880px); }
 .eyebrow { display: inline-flex; align-items: center; gap: .55rem; margin: 0 0 .9rem; color: var(--green-800); font-size: .78rem; font-weight: 850; text-transform: uppercase; letter-spacing: 0; }
 .eyebrow::before { content: ""; width: 24px; height: 2px; background: currentColor; }
@@ -217,6 +218,13 @@ h3 { margin: 0 0 .45rem; color: var(--navy-900); font-size: 1.08rem; line-height
 .section,.page-hero { width: 100%; padding: clamp(4.5rem,8vw,8rem) var(--gutter); }
 .section > :not(.section-heading),.section-heading,.page-hero > * { width: min(100%,var(--content)); margin-left: auto; margin-right: auto; }
 .page-hero { position: relative; isolation: isolate; min-height: 465px; padding-top: clamp(8rem,13vw,11rem); color: #fff; background: linear-gradient(110deg,rgba(3,29,54,.97),rgba(6,70,112,.88)),url("../assets/skl-logo.png") center 45%/cover no-repeat; overflow: hidden; }
+.page-hero { background-size: cover; background-repeat: no-repeat; }
+body[data-page="about"] .page-hero { background-image: linear-gradient(100deg,rgba(3,29,54,.98) 0%,rgba(3,45,77,.91) 46%,rgba(3,45,77,.55) 72%,rgba(3,29,54,.3) 100%),url("../assets/photos-4k/discours-sceau-miami.png"); background-position: center 34%; }
+body[data-page="mission"] .page-hero { background-image: linear-gradient(100deg,rgba(3,29,54,.98) 0%,rgba(3,45,77,.91) 46%,rgba(3,45,77,.55) 72%,rgba(3,29,54,.3) 100%),url("../assets/photos-4k/discours-podium-miami.png"); background-position: center 31%; }
+body[data-page="director"] .page-hero { background-image: linear-gradient(100deg,rgba(3,29,54,.98) 0%,rgba(3,45,77,.91) 46%,rgba(3,45,77,.55) 72%,rgba(3,29,54,.3) 100%),url("../assets/photos-4k/allocution-officielle-miami.png"); background-position: center 30%; }
+body[data-page="team"] .page-hero { background-image: linear-gradient(100deg,rgba(3,29,54,.98) 0%,rgba(3,45,77,.91) 46%,rgba(3,45,77,.55) 72%,rgba(3,29,54,.3) 100%),url("../assets/photos-4k/honneur-citoyen-pensacola.png"); background-position: center 36%; }
+body[data-page="areas"] .page-hero { background-image: linear-gradient(100deg,rgba(3,29,54,.98) 0%,rgba(3,45,77,.91) 46%,rgba(3,45,77,.55) 72%,rgba(3,29,54,.3) 100%),url("../assets/photos-4k/travaux-routiers.png"); background-position: center 50%; }
+body[data-page="news"] .page-hero { background-image: linear-gradient(100deg,rgba(3,29,54,.98) 0%,rgba(3,45,77,.91) 46%,rgba(3,45,77,.55) 72%,rgba(3,29,54,.3) 100%),url("../assets/photos-4k/nettoyage-citoyen.png"); background-position: center 46%; }
 .page-hero::after { content: ""; position: absolute; z-index: -1; right: -8rem; bottom: -14rem; width: 38rem; height: 38rem; border: 1px solid rgba(255,255,255,.14); border-radius: 50%; box-shadow: 0 0 0 5rem rgba(255,255,255,.025),0 0 0 10rem rgba(255,255,255,.02); }
 .page-hero .eyebrow { color: #8be1b8; } .page-hero h1 { max-width: 1100px; color: #fff; font-size: clamp(2.8rem,6vw,5.8rem); } .page-hero p:not(.eyebrow) { color: rgba(255,255,255,.75); }
 .section-heading { max-width: var(--content); margin-bottom: 2.4rem; } .section-heading h2 { max-width: 920px; }
@@ -296,6 +304,12 @@ h3 { margin: 0 0 .45rem; color: var(--navy-900); font-size: 1.08rem; line-height
 .news-thumb,.gallery-thumb { position: relative; display: grid; place-items: end start; min-height: 220px; padding: 1rem; color: #fff; background: linear-gradient(145deg,rgba(3,29,54,.94),rgba(21,147,208,.7)),url("../assets/skl-logo.png") center/cover no-repeat; overflow: hidden; }
 .news-thumb::after,.gallery-thumb::after { content: "SKL"; position: absolute; right: .8rem; bottom: -1.15rem; color: rgba(255,255,255,.11); font-size: 4.7rem; font-weight: 900; line-height: 1; }
 .news-card:nth-child(2n) .news-thumb,.gallery-card:nth-child(2n) .gallery-thumb { background: linear-gradient(145deg,rgba(5,87,59,.96),rgba(17,134,89,.68)),url("../assets/skl-logo.png") center/cover no-repeat; }
+.gallery-thumb { isolation: isolate; }
+.gallery-thumb > img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform 500ms var(--ease); }
+.gallery-thumb::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg,rgba(3,29,54,.02) 28%,rgba(3,29,54,.78) 100%); }
+.gallery-thumb .tag { position: relative; z-index: 2; margin: 0; color: #fff; background: rgba(3,29,54,.58); border-color: rgba(255,255,255,.28); backdrop-filter: blur(10px); }
+.gallery-thumb::after { z-index: 1; }
+.gallery-card:hover .gallery-thumb > img { transform: scale(1.04); }
 .news-body { padding: 1.35rem; } .news-body h3 { font-size: 1.2rem; }
 .news-meta,.doc-meta { margin: 0 0 .6rem; color: var(--muted); font-size: .8rem; font-weight: 750; }
 .filters,.doc-toolbar { display: flex; flex-wrap: wrap; gap: .65rem; align-items: center; margin-bottom: 1.5rem; }
@@ -330,6 +344,8 @@ h3 { margin: 0 0 .45rem; color: var(--navy-900); font-size: 1.08rem; line-height
 }
 @media (max-width:900px) {
   .hero { grid-template-columns: 1fr; min-height: auto; margin-top: -7rem; padding-top: 11rem; }
+  .hero-media img { object-position: 58% center; }
+  .hero-media::after { background: linear-gradient(180deg,rgba(246,251,252,.97) 0%,rgba(240,249,252,.92) 55%,rgba(3,29,54,.42) 100%); }
   .hero-content { width: min(100%,760px); }
   .compass-panel { width: min(100%,560px); min-height: 390px; justify-self: center; }
   .impact-strip { grid-template-columns: repeat(2,minmax(0,1fr)); margin-top: 0; padding: 0; }

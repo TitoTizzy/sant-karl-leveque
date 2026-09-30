@@ -28,6 +28,7 @@ const translations = {
     heroEyebrow: "Organisation haïtienne de droits humains",
     heroTitle: "Sant Karl Lévêque défend la dignité, la justice et l'État de droit en Haïti.",
     heroLead: "Depuis sa création, SKL promeut, protège et défend les droits humains, soutient les victimes et accompagne les communautés les plus vulnérables.",
+    heroPhotoAlt: "Mobilisation citoyenne dans une communauté haïtienne",
     discover: "Découvrir nos actions",
     readReports: "Lire les rapports",
     impactLegacy: "Héritage du Rév. Père Karl Lévêque",
@@ -77,7 +78,7 @@ const translations = {
     filterAdvocacy: "Plaidoyer",
     filterNetwork: "Réseaux",
     galleryEyebrow: "Galerie terrain",
-    galleryTitle: "Photos et vidéos à publier depuis les missions communautaires.",
+    galleryTitle: "La mobilisation communautaire en images.",
     docsEyebrow: "Centre de documentation",
     docsTitle: "Rapports, notes de plaidoyer et ressources institutionnelles.",
     docsLead: "Un espace filtrable pour consulter et télécharger les documents officiels de SKL.",
@@ -164,6 +165,7 @@ const translations = {
     heroEyebrow: "Òganizasyon ayisyen pou dwa moun",
     heroTitle: "Sant Karl Lévêque defann diyite, jistis ak Leta de dwa ann Ayiti.",
     heroLead: "Depi li fonde, SKL ankouraje, pwoteje epi defann dwa moun, sipòte viktim yo epi akonpaye kominote ki pi frajil yo.",
+    heroPhotoAlt: "Mobilizasyon sitwayen nan yon kominote ayisyen",
     discover: "Dekouvri aksyon nou yo",
     readReports: "Li rapò yo",
     impactLegacy: "Eritaj Reveran Pè Karl Lévêque",
@@ -213,7 +215,7 @@ const translations = {
     filterAdvocacy: "Pledwaye",
     filterNetwork: "Rezo",
     galleryEyebrow: "Galeri teren",
-    galleryTitle: "Foto ak videyo pou pibliye depi misyon kominotè yo.",
+    galleryTitle: "Mobilizasyon kominotè a an imaj.",
     docsEyebrow: "Sant dokimantasyon",
     docsTitle: "Rapò, nòt pledwaye ak resous enstitisyonèl.",
     docsLead: "Yon espas pou filtre, konsilte ak telechaje dokiman ofisyèl SKL yo.",
@@ -300,6 +302,7 @@ const translations = {
     heroEyebrow: "Haitian human rights organization",
     heroTitle: "Sant Karl Lévêque defends dignity, justice and the rule of law in Haiti.",
     heroLead: "Since its establishment, SKL has promoted, protected and defended human rights, supported victims and served the most vulnerable communities.",
+    heroPhotoAlt: "Civic mobilization in a Haitian community",
     discover: "Discover our work",
     readReports: "Read reports",
     impactLegacy: "Legacy of Rev. Father Karl Lévêque",
@@ -349,7 +352,7 @@ const translations = {
     filterAdvocacy: "Advocacy",
     filterNetwork: "Networks",
     galleryEyebrow: "Field gallery",
-    galleryTitle: "Photos and videos to publish from community missions.",
+    galleryTitle: "Community mobilization in pictures.",
     docsEyebrow: "Documentation center",
     docsTitle: "Reports, advocacy briefs and institutional resources.",
     docsLead: "A filterable space to consult and download official SKL documents.",
@@ -616,9 +619,27 @@ const documents = [
 ];
 
 const gallery = [
-  { label: "Nazon", title: { fr: "Retour dans les quartiers", ht: "Retounen nan katye yo", en: "Return to the neighborhoods" } },
-  { label: "Tabarre", title: { fr: "Accès à la justice", ht: "Aksè ak lajistis", en: "Access to justice" } },
-  { label: "IDP", title: { fr: "Assistance aux déplacés", ht: "Asistans pou moun deplase", en: "Support for displaced persons" } }
+  {
+    image: "assets/photos-4k/equipe-chantier-urbain.png",
+    label: { fr: "Terrain", ht: "Teren", en: "Field work" },
+    title: { fr: "Agir au plus près des communautés", ht: "Aji toupre kominote yo", en: "Working alongside communities" },
+    text: { fr: "Une mobilisation collective au service d'un environnement plus sûr et plus digne.", ht: "Yon mobilizasyon kolektif pou yon anviwonman ki pi an sekirite epi ki gen plis diyite.", en: "Collective action for a safer and more dignified environment." },
+    alt: { fr: "Équipe communautaire mobilisée sur un chantier urbain", ht: "Ekip kominotè mobilize sou yon chantye nan vil", en: "Community team mobilized on an urban worksite" }
+  },
+  {
+    image: "assets/photos-4k/nettoyage-rue-tropicale.png",
+    label: { fr: "Participation", ht: "Patisipasyon", en: "Participation" },
+    title: { fr: "Transformer l'espace commun", ht: "Transfòme espas kominotè a", en: "Transforming shared spaces" },
+    text: { fr: "Des citoyennes et citoyens réunis autour d'une action concrète de proximité.", ht: "Sitwayèn ak sitwayen reyini pou yon aksyon konkrè nan katye a.", en: "Residents united around practical neighborhood action." },
+    alt: { fr: "Volontaires nettoyant une rue dans un quartier haïtien", ht: "Volontè k ap netwaye yon lari nan yon katye ayisyen", en: "Volunteers cleaning a street in a Haitian neighborhood" }
+  },
+  {
+    image: "assets/photos-4k/operation-nettoyage-soleil.png",
+    label: { fr: "Coordination", ht: "Kowòdinasyon", en: "Coordination" },
+    title: { fr: "Coordonner les forces locales", ht: "Kowòdone fòs lokal yo", en: "Coordinating local efforts" },
+    text: { fr: "Communautés et acteurs locaux coordonnent leurs efforts pour répondre aux besoins du terrain.", ht: "Kominote ak aktè lokal yo mete efò yo ansanm pou reponn ak bezwen teren an.", en: "Communities and local stakeholders coordinate their efforts to address needs on the ground." },
+    alt: { fr: "Opération communautaire coordonnée avec des acteurs locaux", ht: "Operasyon kominotè ki kowòdone ak aktè lokal yo", en: "Community operation coordinated with local stakeholders" }
+  }
 ];
 
 function getInitialLanguage() {
@@ -768,11 +789,15 @@ function renderNews() {
 function renderGallery() {
   const target = document.querySelector('[data-render="gallery"]');
   if (!target) return;
+  const base = document.body.dataset.base || "";
   target.innerHTML = gallery.map((item) => `
     <article class="gallery-card">
-      <div class="gallery-thumb"><span class="tag">${item.label}</span></div>
-      <h3>${item.title[state.lang] || item.title.fr}</h3>
-      <p>${state.lang === "en" ? "Media slot ready for field photos or videos." : state.lang === "ht" ? "Espas pare pou foto oswa videyo teren." : "Emplacement prêt pour les photos ou vidéos de terrain."}</p>
+      <div class="gallery-thumb">
+        <img src="${base}${item.image}" alt="${localize(item.alt)}" loading="lazy" decoding="async">
+        <span class="tag">${localize(item.label)}</span>
+      </div>
+      <h3>${localize(item.title)}</h3>
+      <p>${localize(item.text)}</p>
     </article>
   `).join("");
 }
