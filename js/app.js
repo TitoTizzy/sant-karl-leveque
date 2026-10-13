@@ -11,6 +11,7 @@ const state = {
 };
 
 const supportedLanguages = ["fr", "ht", "en"];
+const publicHomeUrl = "https://titotizzy.github.io/sant-karl-leveque/";
 
 function renderSiteShell() {
   const base = document.body.dataset.base || "";
@@ -35,7 +36,7 @@ function renderSiteShell() {
         </div>
       </div>
       <nav class="navbar" aria-label="Navigation principale" data-i18n-aria-label="navMainLabel">
-        <a class="brand" href="${path("index.html")}" aria-label="Accueil SKL" data-i18n-aria-label="homeLabel">
+        <a class="brand" href="${publicHomeUrl}" aria-label="Accueil SKL" data-i18n-aria-label="homeLabel">
           <img src="${path("assets/skl-logo-160.webp")}" alt="Logo Sant Karl Lévêque SKL" width="160" height="103">
           <span>Sant Karl Lévêque</span>
         </a>

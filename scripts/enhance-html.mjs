@@ -35,7 +35,7 @@ areaSlugs.forEach((slug, index) => {
 });
 
 function shellHeader(base) {
-  return `<header class="site-header" data-site-header><div class="topbar"><p>Unis pour défendre, engagés pour changer</p><div class="topbar-actions"><a href="${base}pages/publications.html">Centre de documentation</a><span>Français</span></div></div><nav class="navbar" aria-label="Navigation principale"><a class="brand" href="${base}index.html"><img src="${base}assets/skl-logo-160.webp" alt="Logo Sant Karl Lévêque SKL" width="160" height="103"><span>Sant Karl Lévêque</span></a><ul class="nav-menu static-menu"><li><a href="${base}pages/about.html">Qui nous sommes</a></li><li><a href="${base}pages/interventions.html">Domaines d'intervention</a></li><li><a href="${base}pages/actions.html">Actions & réalisations</a></li><li><a href="${base}pages/publications.html">Actualités & publications</a></li><li><a href="${base}pages/contact.html">Contact & implication</a></li><li><a class="btn btn-primary" href="${base}pages/soutenir.html">Soutenir SKL</a></li></ul></nav></header>`;
+  return `<header class="site-header" data-site-header><div class="topbar"><p>Unis pour défendre, engagés pour changer</p><div class="topbar-actions"><a href="${base}pages/publications.html">Centre de documentation</a><span>Français</span></div></div><nav class="navbar" aria-label="Navigation principale"><a class="brand" href="${rootUrl}"><img src="${base}assets/skl-logo-160.webp" alt="Logo Sant Karl Lévêque SKL" width="160" height="103"><span>Sant Karl Lévêque</span></a><ul class="nav-menu static-menu"><li><a href="${base}pages/about.html">Qui nous sommes</a></li><li><a href="${base}pages/interventions.html">Domaines d'intervention</a></li><li><a href="${base}pages/actions.html">Actions & réalisations</a></li><li><a href="${base}pages/publications.html">Actualités & publications</a></li><li><a href="${base}pages/contact.html">Contact & implication</a></li><li><a class="btn btn-primary" href="${base}pages/soutenir.html">Soutenir SKL</a></li></ul></nav></header>`;
 }
 
 function shellFooter(base) {
@@ -81,7 +81,7 @@ function docsMarkup(base) {
 const indexedPages = [];
 for await (const file of glob(["*.html", "pages/*.html"])) {
   let html = await readFile(file, "utf8");
-  html = html.replace(/css\/styles\.css(?:\?v=[^\"]+)?/g, "css/styles.css?v=20261013-institutional").replace(/js\/app\.js(?:\?v=[^\"]+)?/g, "js/app.js?v=20261013-institutional");
+  html = html.replace(/css\/styles\.css(?:\?v=[^\"]+)?/g, "css/styles.css?v=20261013-public-home").replace(/js\/app\.js(?:\?v=[^\"]+)?/g, "js/app.js?v=20261013-public-home");
   const relative = file.replaceAll("\\", "/");
   const base = relative.startsWith("pages/") ? "../" : "";
   const canonical = relative === "index.html" ? rootUrl : new URL(relative, rootUrl).href;

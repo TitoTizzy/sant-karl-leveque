@@ -1,4 +1,4 @@
-const CACHE = "skl-v4-frontend-final-20261013";
+const CACHE = "skl-v5-public-home-20261013";
 const CORE = ["./", "./index.html", "./offline.html", "./manifest.webmanifest", "./css/styles.css", "./js/app.js", "./js/translations.js", "./js/content-data.js", "./js/institution-data.js", "./assets/skl-logo-160.webp", "./assets/icons/icon-192.png", "./assets/icons/icon-512.png"];
 self.addEventListener("install", (event) => event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(CORE))));
 self.addEventListener("activate", (event) => event.waitUntil(caches.keys().then((keys) => Promise.all(keys.filter((key) => key !== CACHE).map((key) => caches.delete(key))))));

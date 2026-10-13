@@ -42,3 +42,5 @@ npm run optimize:images
 ## Déploiement
 
 Le site ne nécessite aucun backend. Il inclut `robots.txt`, `sitemap.xml`, une page `404.html`, un manifeste PWA léger, un service worker, une page hors connexion et un contrôle continu GitHub Actions. L’URL canonique configurée est `https://titotizzy.github.io/sant-karl-leveque/`.
+
+Le site institutionnel public et l’administration doivent rester sur deux hôtes distincts. Le logo et le nom de SKL renvoient toujours vers l’accueil public. Le futur accès administratif `admin.santkarlleveque.com` ne doit être ajouté à aucune page publique. L’activation de `santkarlleveque.com` nécessite d’abord la création de ses enregistrements DNS ; jusque-là, GitHub Pages demeure l’URL publique de référence.

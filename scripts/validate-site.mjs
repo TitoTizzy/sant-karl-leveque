@@ -43,6 +43,9 @@ for await (const relative of glob(["*.html", "pages/*.html"])) {
   for (const button of html.matchAll(/<button\b[^>]*>/g)) if (!/\btype="(?:button|submit|reset)"/.test(button[0])) errors.push(`${relative}: bouton sans type`);
   if (/\bhref=""/.test(html)) errors.push(`${relative}: lien vide`);
   for (const link of html.matchAll(/<a\b[^>]*target="_blank"[^>]*>/g)) if (!/\brel="[^"]*noopener/.test(link[0])) errors.push(`${relative}: lien externe sans noopener`);
+  const brandHref = html.match(/<a\s+class="brand"\s+href="([^"]+)"/)?.[1];
+  if (relative !== "offline.html" && brandHref !== rootUrl) errors.push(`${relative}: le logo ne pointe pas vers l’accueil public`);
+  if (/<a\b[^>]*href="[^"]*(?:\/login\b|admin\.santkarlleveque\.com)/i.test(html)) errors.push(`${relative}: lien d’administration exposé dans le site public`);
   for (const match of html.matchAll(/data-i18n(?:-[a-z-]+)?="([^"]+)"/g)) {
     if (!referenceKeys.includes(match[1])) errors.push(`${relative}: clé de traduction inconnue ${match[1]}`);
   }
