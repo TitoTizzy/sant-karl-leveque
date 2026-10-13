@@ -5,6 +5,20 @@ import { translations } from "../js/translations.js";
 import { organization, territories, people, executiveOffices, methodology, partners, achievements } from "../js/institution-data.js";
 
 const rootUrl = "https://titotizzy.github.io/sant-karl-leveque/";
+const socialImages = {
+  "pages/equipe.html": ["honneur-citoyen-pensacola.webp", "Équipe et direction de Sant Karl Lévêque"],
+  "pages/directeur.html": ["honneur-citoyen-pensacola.webp", "Direction exécutive de Sant Karl Lévêque"],
+  "pages/interventions.html": ["equipe-chantier-urbain.webp", "Intervention communautaire de Sant Karl Lévêque"],
+  "pages/droits-humains.html": ["equipe-chantier-urbain.webp", "Action de terrain pour les droits humains"],
+  "pages/acces-justice.html": ["equipe-chantier-urbain.webp", "Action de terrain pour l’accès à la justice"],
+  "pages/protection-enfance.html": ["equipe-chantier-urbain.webp", "Action communautaire pour la protection de l’enfance"],
+  "pages/migration-deplaces.html": ["equipe-chantier-urbain.webp", "Soutien communautaire aux personnes déplacées"],
+  "pages/sante-communautaire.html": ["equipe-chantier-urbain.webp", "Action de santé communautaire"],
+  "pages/actions.html": ["operation-nettoyage-soleil.webp", "Action communautaire menée par Sant Karl Lévêque"],
+  "pages/publications.html": ["allocution-officielle-miami.webp", "Publications et prises de position de Sant Karl Lévêque"],
+  "pages/contact.html": ["discours-podium-miami.webp", "Prise de parole institutionnelle de Sant Karl Lévêque"],
+  "pages/soutenir.html": ["discours-podium-miami.webp", "Soutenir les actions de Sant Karl Lévêque"]
+};
 const pageLabels = {
   home: ["Accueil", "home"], about: ["Qui nous sommes", "navWho"], heritage: ["Notre héritage", "navHeritage"],
   mission: ["Mission et vision", "navMission"], director: ["Mot du Directeur", "navDirector"], team: ["Équipe", "navTeam"],
@@ -70,11 +84,15 @@ for await (const file of glob(["*.html", "pages/*.html"])) {
   html = html.replace(/css\/styles\.css(?:\?v=[^\"]+)?/g, "css/styles.css?v=20261013-institutional").replace(/js\/app\.js(?:\?v=[^\"]+)?/g, "js/app.js?v=20261013-institutional");
   const relative = file.replaceAll("\\", "/");
   const base = relative.startsWith("pages/") ? "../" : "";
-  const canonical = new URL(relative, rootUrl).href;
+  const canonical = relative === "index.html" ? rootUrl : new URL(relative, rootUrl).href;
   if (!relative.endsWith("offline.html") && !relative.endsWith("404.html")) indexedPages.push(canonical);
   const description = html.match(/<meta name="description" content="([^"]*)">/)?.[1] || translations.fr.footerText;
   const title = html.match(/<title>([^<]*)<\/title>/)?.[1] || "Sant Karl Lévêque - SKL";
-  const seo = `<!-- generated:seo --><link rel="canonical" href="${canonical}"><link rel="alternate" hreflang="fr" href="${canonical}?lang=fr"><link rel="alternate" hreflang="ht" href="${canonical}?lang=ht"><link rel="alternate" hreflang="en" href="${canonical}?lang=en"><link rel="alternate" hreflang="x-default" href="${canonical}"><link rel="icon" href="${base}assets/icons/favicon-32.png" sizes="32x32"><link rel="apple-touch-icon" href="${base}assets/icons/apple-touch-icon.png"><link rel="manifest" href="${base}manifest.webmanifest"><meta name="theme-color" content="#063b63"><meta property="og:type" content="website"><meta property="og:site_name" content="Sant Karl Lévêque"><meta property="og:locale" content="fr_HT"><meta property="og:title" content="${title}"><meta property="og:description" content="${description}"><meta property="og:url" content="${canonical}"><meta property="og:image" content="${rootUrl}assets/photos-4k/rassemblement-rue-urbaine.webp"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${title}"><meta name="twitter:description" content="${description}"><script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@type": "NGO", name: organization.legalName, alternateName: "SKL", foundingDate: String(organization.founded), url: rootUrl, logo: `${rootUrl}assets/skl-logo.webp`, email: organization.email, address: { "@type": "PostalAddress", streetAddress: "68, Faustin 1er", addressLocality: "Delmas 75", addressCountry: "HT" }, areaServed: territories.map((territory) => territory.region.fr), sameAs: [] })}</script><!-- /generated:seo -->`;
+  const [socialImage, socialAlt] = socialImages[relative] || ["rassemblement-rue-urbaine.webp", "Mobilisation citoyenne pour les droits humains en Haïti"];
+  const socialImageUrl = `${rootUrl}assets/photos-4k/${socialImage}`;
+  const robots = relative === "404.html" || relative === "offline.html" ? '<meta name="robots" content="noindex, nofollow">' : "";
+  const preload = relative === "index.html" ? `<link rel="preload" as="image" href="assets/photos-4k/rassemblement-rue-urbaine-960.webp" imagesrcset="assets/photos-4k/rassemblement-rue-urbaine-640.webp 640w, assets/photos-4k/rassemblement-rue-urbaine-960.webp 960w, assets/photos-4k/rassemblement-rue-urbaine.webp 1448w" imagesizes="100vw" fetchpriority="high">` : "";
+  const seo = `<!-- generated:seo -->${robots}${preload}<link rel="canonical" href="${canonical}"><link rel="alternate" hreflang="fr" href="${canonical}?lang=fr"><link rel="alternate" hreflang="ht" href="${canonical}?lang=ht"><link rel="alternate" hreflang="en" href="${canonical}?lang=en"><link rel="alternate" hreflang="x-default" href="${canonical}"><link rel="icon" href="${base}assets/icons/favicon-32.png" sizes="32x32"><link rel="apple-touch-icon" href="${base}assets/icons/apple-touch-icon.png"><link rel="manifest" href="${base}manifest.webmanifest"><meta name="theme-color" content="#063b63"><meta property="og:type" content="website"><meta property="og:site_name" content="Sant Karl Lévêque"><meta property="og:locale" content="fr_HT"><meta property="og:locale:alternate" content="ht_HT"><meta property="og:locale:alternate" content="en_US"><meta property="og:title" content="${title}"><meta property="og:description" content="${description}"><meta property="og:url" content="${canonical}"><meta property="og:image" content="${socialImageUrl}"><meta property="og:image:width" content="1448"><meta property="og:image:height" content="1086"><meta property="og:image:alt" content="${socialAlt}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${title}"><meta name="twitter:description" content="${description}"><meta name="twitter:image" content="${socialImageUrl}"><meta name="twitter:image:alt" content="${socialAlt}"><script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@type": "NGO", name: organization.legalName, alternateName: "SKL", foundingDate: String(organization.founded), url: rootUrl, logo: `${rootUrl}assets/skl-logo.webp`, email: organization.email, address: { "@type": "PostalAddress", streetAddress: "68, Faustin 1er", addressLocality: "Delmas 75", addressCountry: "HT" }, areaServed: territories.map((territory) => territory.region.fr), sameAs: [] })}</script><!-- /generated:seo -->`;
   html = html.replace(/<!-- generated:seo -->[\s\S]*?<!-- \/generated:seo -->/, "").replace("</head>", `${seo}</head>`);
   html = html.replace(/<header class="site-header" data-site-header>[\s\S]*?<\/header>/, shellHeader(base));
   html = html.replace(/<footer([^>]*)class="site-footer"([^>]*)data-site-footer([^>]*)>[\s\S]*?<\/footer>/, shellFooter(base));

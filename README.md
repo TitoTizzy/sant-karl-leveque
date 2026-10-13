@@ -14,6 +14,7 @@ Front-end statique trilingue de SANT KARL LÉVÊQUE (SKL), organisation haïtien
 - `assets/docs/` : publications PDF officielles.
 - `assets/photos-4k/` : images originales et variantes WebP responsives.
 - `scripts/` : optimisation des images, pré-rendu HTML et validation automatique.
+- `.github/workflows/frontend-quality.yml` : contrôle automatique du front-end à chaque push et pull request.
 - `docs/wcag-2.2-audit.md` : audit d’accessibilité front-end et contrôles réalisés.
 
 ## Développement local
@@ -40,4 +41,4 @@ npm run optimize:images
 
 ## Déploiement
 
-Le site ne nécessite aucun backend. Il inclut `robots.txt`, `sitemap.xml`, une page `404.html`, un manifeste PWA léger, un service worker et une page hors connexion. L’URL canonique configurée est `https://titotizzy.github.io/sant-karl-leveque/`.
+Le site ne nécessite aucun backend. Il inclut `robots.txt`, `sitemap.xml`, une page `404.html`, un manifeste PWA léger, un service worker, une page hors connexion et un contrôle continu GitHub Actions. L’URL canonique configurée est `https://titotizzy.github.io/sant-karl-leveque/`.

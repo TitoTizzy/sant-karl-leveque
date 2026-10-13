@@ -7,6 +7,7 @@ import { documents } from "../js/content-data.js";
 import { organization } from "../js/institution-data.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const rootUrl = "https://titotizzy.github.io/sant-karl-leveque/";
 const errors = [];
 if (organization.founded !== 1986) errors.push(`année de fondation incorrecte: ${organization.founded}`);
 if (organization.email !== "santkarlleveque86@gmail.com") errors.push(`courriel institutionnel incorrect: ${organization.email}`);
@@ -23,10 +24,25 @@ for await (const relative of glob(["*.html", "pages/*.html"])) {
   const html = await readFile(file, "utf8");
   const h1Count = (html.match(/<h1\b/g) || []).length;
   if (h1Count !== 1) errors.push(`${relative}: ${h1Count} H1`);
+  if (!/<html\s[^>]*lang="[^"]+"/.test(html)) errors.push(`${relative}: langue du document absente`);
+  if (!/<meta name="viewport"/.test(html)) errors.push(`${relative}: viewport absent`);
+  const mainCount = (html.match(/<main\b/g) || []).length;
+  if (mainCount !== 1) errors.push(`${relative}: ${mainCount} élément main`);
   if (!/<meta name="description"/.test(html) && relative !== "offline.html") errors.push(`${relative}: description absente`);
   if (!/<link rel="canonical"/.test(html)) errors.push(`${relative}: canonique absente`);
   if (!/<link rel="alternate" hreflang="fr"/.test(html)) errors.push(`${relative}: hreflang absent`);
   if (!/<meta property="og:title"/.test(html)) errors.push(`${relative}: Open Graph absent`);
+  if (!/<meta property="og:image:alt"/.test(html)) errors.push(`${relative}: texte alternatif Open Graph absent`);
+  if (!/<meta name="twitter:image"/.test(html)) errors.push(`${relative}: image Twitter absente`);
+  if (["404.html", "offline.html"].includes(relative) && !/<meta name="robots" content="noindex, nofollow">/.test(html)) errors.push(`${relative}: directive noindex absente`);
+  if (relative === "index.html" && !html.includes(`<link rel="canonical" href="${rootUrl}">`)) errors.push(`${relative}: canonique d’accueil incorrecte`);
+  const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1]);
+  const duplicateIds = [...new Set(ids.filter((id, index) => ids.indexOf(id) !== index))];
+  if (duplicateIds.length) errors.push(`${relative}: identifiants dupliqués [${duplicateIds.join(", ")}]`);
+  for (const image of html.matchAll(/<img\b[^>]*>/g)) if (!/\balt="[^"]*"/.test(image[0])) errors.push(`${relative}: image sans attribut alt`);
+  for (const button of html.matchAll(/<button\b[^>]*>/g)) if (!/\btype="(?:button|submit|reset)"/.test(button[0])) errors.push(`${relative}: bouton sans type`);
+  if (/\bhref=""/.test(html)) errors.push(`${relative}: lien vide`);
+  for (const link of html.matchAll(/<a\b[^>]*target="_blank"[^>]*>/g)) if (!/\brel="[^"]*noopener/.test(link[0])) errors.push(`${relative}: lien externe sans noopener`);
   for (const match of html.matchAll(/data-i18n(?:-[a-z-]+)?="([^"]+)"/g)) {
     if (!referenceKeys.includes(match[1])) errors.push(`${relative}: clé de traduction inconnue ${match[1]}`);
   }
@@ -36,6 +52,10 @@ for await (const relative of glob(["*.html", "pages/*.html"])) {
     const clean = value.split(/[?#]/)[0];
     if (!clean) continue;
     try { await access(resolve(dirname(file), clean)); } catch { errors.push(`${relative}: cible introuvable ${value}`); }
+  }
+  const socialImage = html.match(/<meta property="og:image" content="([^"]+)"/)?.[1];
+  if (socialImage?.startsWith(rootUrl)) {
+    try { await access(resolve(root, socialImage.slice(rootUrl.length))); } catch { errors.push(`${relative}: image sociale introuvable ${socialImage}`); }
   }
   if (/news\.html|documentation\.html/.test(html)) errors.push(`${relative}: ancienne route détectée`);
   if (/reverendperegmaisonneuve@gmail\.com|estinviljnbsebastien@gmail\.com|\+509\s*(?:4705-1133|3682-7431)/.test(html)) errors.push(`${relative}: coordonnées personnelles détectées`);
@@ -65,12 +85,16 @@ for (const document of documents) {
   try { await access(resolve(root, document.file)); } catch { errors.push(`PDF absent: ${document.file}`); }
 }
 
-for (const file of ["robots.txt", "sitemap.xml", "manifest.webmanifest", "service-worker.js", "404.html", "offline.html"]) {
+for (const file of ["robots.txt", "sitemap.xml", "manifest.webmanifest", "service-worker.js", "404.html", "offline.html", ".nojekyll", ".github/workflows/frontend-quality.yml"]) {
   try { await access(resolve(root, file)); } catch { errors.push(`Fichier système absent: ${file}`); }
 }
+
+const manifest = JSON.parse(await readFile(resolve(root, "manifest.webmanifest"), "utf8"));
+if (!manifest.id || !manifest.scope || !manifest.start_url) errors.push("Manifest: id, scope ou start_url absent");
+if (!manifest.icons?.some((icon) => icon.purpose?.includes("maskable"))) errors.push("Manifest: icône maskable absente");
 
 if (errors.length) {
   console.error(errors.join("\n"));
   process.exit(1);
 }
-console.log(`Validation réussie: ${referenceKeys.length} clés trilingues, liens, assets, SEO et ${documents.length} PDF vérifiés.`);
+console.log(`Validation réussie: ${referenceKeys.length} clés trilingues, HTML accessible, liens, assets, SEO/PWA/CI et ${documents.length} PDF vérifiés.`);
