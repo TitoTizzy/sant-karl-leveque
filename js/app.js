@@ -1,5 +1,6 @@
 import { translations } from "./translations.js";
 import { areas, areaSlugs, areaDetails, news, documents, documentMetadata, gallery } from "./content-data.js";
+import { organization, territories, people, executiveOffices, methodology, partners, achievements } from "./institution-data.js";
 
 const state = {
   lang: "fr",
@@ -76,7 +77,7 @@ function renderSiteShell() {
       <div class="footer-brand"><h2>Sant Karl Lévêque (SKL)</h2><p data-i18n="footerText">Organisation haïtienne engagée pour les droits humains, la justice sociale et l'État de droit.</p></div>
       <nav aria-label="Navigation secondaire"><h3 data-i18n="quickLinks">Navigation</h3><a href="${path("pages/about.html")}" data-i18n="navWho">Qui nous sommes</a><a href="${path("pages/interventions.html")}" data-i18n="navAreas">Domaines d'intervention</a><a href="${path("pages/actions.html")}" data-i18n="navActions">Actions & réalisations</a><a href="${path("pages/publications.html")}" data-i18n="navNews">Actualités & publications</a></nav>
       <div><h3 data-i18n="resources">Ressources</h3><a href="${path("pages/mentions-legales.html")}" data-i18n="legalNotice">Mentions légales</a><a href="${path("pages/confidentialite.html")}" data-i18n="privacy">Confidentialité</a><a href="${path("pages/accessibilite.html")}" data-i18n="accessibility">Accessibilité</a></div>
-      <address><h3 data-i18n="navContact">Contact & implication</h3><strong data-i18n="gardyName">Rév. Père Gardy Maisonneuve</strong><br><a href="tel:+50947051133">+509 4705-1133</a><br><a href="mailto:reverendperegmaisonneuve@gmail.com">reverendperegmaisonneuve@gmail.com</a></address>
+      <address><h3 data-i18n="navContact">Contact & implication</h3><span data-i18n="officialAddress">${localize(organization.address)}</span><br><a href="mailto:${organization.email}">${organization.email}</a><br><span data-i18n="officialHours">${localize(organization.hours)}</span></address>
       <div class="footer-bottom"><label><span data-i18n="footerLanguage">Choisir la langue</span><select class="language-select" aria-label="Langue" data-i18n-aria-label="languageLabel"><option value="ht">Kreyòl Ayisyen</option><option value="fr">Français</option><option value="en">English</option></select></label><p>&copy; <span data-current-year></span> Sant Karl Lévêque. <span data-i18n="copyright">Tous droits réservés.</span></p></div>`;
     footer.querySelector("[data-current-year]").textContent = new Date().getFullYear();
   }
@@ -326,12 +327,72 @@ function renderDocuments() {
   if (status) status.textContent = `${filtered.length} ${filtered.length === 1 ? t("resultSingle") : t("resultPlural")}`;
 }
 
+function renderPeople() {
+  const target = document.querySelector('[data-render="people"]');
+  if (!target) return;
+  const base = document.body.dataset.base || "";
+  target.innerHTML = people.map((person, index) => `
+    <article class="profile-card">
+      ${person.image ? `<picture class="profile-photo"><source type="image/webp" srcset="${base}assets/gardy-maisonneuve-480.webp 480w, ${base}${person.image} 1214w" sizes="180px"><img src="${base}assets/gardy-maisonneuve.png" alt="${t("portraitAlt")}" width="1214" height="1296" loading="lazy"></picture>` : `<div class="profile-initials" aria-hidden="true">${person.initials}</div>`}
+      <div><p class="profile-role">${localize(person.role)}</p><h2>${person.name}</h2><p>${localize(person.bio)}</p>${index === 0 ? `<a class="text-link" href="directeur.html">${t("readMessage")}</a>` : ""}</div>
+    </article>`).join("");
+}
+
+function renderOrganization() {
+  const target = document.querySelector('[data-render="organization"]');
+  if (!target) return;
+  target.innerHTML = executiveOffices.map(([abbr, label], index) => `
+    <article class="office-node${index < 2 ? " office-node-lead" : ""}"><span>${abbr}</span><h3>${localize(label)}</h3></article>`).join("");
+}
+
+function renderMethodology() {
+  const target = document.querySelector('[data-render="methodology"]');
+  if (!target) return;
+  target.innerHTML = methodology.map((step, index) => `
+    <article class="method-card"><span>0${index + 1}</span><h3>${localize(step.title)}</h3><p>${localize(step.text)}</p></article>`).join("");
+}
+
+function renderTerritories() {
+  document.querySelectorAll('[data-render="territories"]').forEach((target) => {
+    target.innerHTML = territories.map((territory) => `<li><strong>${localize(territory.region)}</strong><span>${territory.places}</span></li>`).join("");
+  });
+}
+
+function renderPartners() {
+  document.querySelectorAll('[data-render="partners"]').forEach((target) => {
+    target.innerHTML = partners.map((partner) => `<span>${partner}</span>`).join("");
+  });
+}
+
+function renderAchievements() {
+  const target = document.querySelector('[data-render="achievements"]');
+  if (!target) return;
+  target.innerHTML = achievements.map((item, index) => `<li><span>${String(index + 1).padStart(2, "0")}</span><p>${localize(item)}</p></li>`).join("");
+}
+
+function renderInstitutionProfile() {
+  document.querySelectorAll('[data-render="institution-profile"]').forEach((target) => {
+    target.innerHTML = `
+      <article><span>${t("foundedLabel")}</span><strong>${organization.founded}</strong></article>
+      <article><span>${t("contactAddress")}</span><strong>${localize(organization.address)}</strong></article>
+      <article><span>${t("contactEmail")}</span><a href="mailto:${organization.email}">${organization.email}</a></article>
+      <article><span>${t("contactHours")}</span><strong>${localize(organization.hours)}</strong></article>`;
+  });
+}
+
 function renderAll() {
   renderAreas();
   renderAreaDetail();
   renderNews();
   renderGallery();
   renderDocuments();
+  renderPeople();
+  renderOrganization();
+  renderMethodology();
+  renderTerritories();
+  renderPartners();
+  renderAchievements();
+  renderInstitutionProfile();
 }
 
 function bindNavigation() {
@@ -459,13 +520,15 @@ function bindFilters() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  const initialLanguage = getInitialLanguage();
+  state.lang = initialLanguage;
   renderSiteShell();
   bindNavigation();
   bindFilters();
   document.querySelectorAll(".language-select").forEach((select) => {
     select.addEventListener("change", (event) => setLanguage(event.target.value));
   });
-  setLanguage(getInitialLanguage());
+  setLanguage(initialLanguage);
   enhanceInterface();
   if ("serviceWorker" in navigator && window.location.protocol !== "file:") {
     const base = document.body.dataset.base || "";

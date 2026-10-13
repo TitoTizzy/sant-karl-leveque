@@ -35,11 +35,25 @@ for await (const relative of glob(["*.html", "pages/*.html"])) {
     try { await access(resolve(dirname(file), clean)); } catch { errors.push(`${relative}: cible introuvable ${value}`); }
   }
   if (/news\.html|documentation\.html/.test(html)) errors.push(`${relative}: ancienne route détectée`);
+  if (/reverendperegmaisonneuve@gmail\.com|estinviljnbsebastien@gmail\.com|\+509\s*(?:4705-1133|3682-7431)/.test(html)) errors.push(`${relative}: coordonnées personnelles détectées`);
   const limits = [["area-card", 5], ["news-card", relative.replaceAll("\\", "/") === "pages/actions.html" ? 5 : 3], ["doc-card", 15]];
   for (const [className, maximum] of limits) {
     const count = (html.match(new RegExp(`class="[^"]*${className}`, "g")) || []).length;
     if (count > maximum) errors.push(`${relative}: pré-rendu dupliqué (${count} ${className})`);
   }
+}
+
+const institutionalChecks = [
+  ["pages/equipe.html", "profile-card", 5],
+  ["pages/equipe.html", "office-node", 9],
+  ["pages/interventions.html", "method-card", 5],
+  ["pages/actions.html", "achievement-list", 1],
+  ["pages/contact.html", "territory-list", 1]
+];
+for (const [relative, marker, minimum] of institutionalChecks) {
+  const html = await readFile(resolve(root, relative), "utf8");
+  const count = (html.match(new RegExp(`class="[^"]*${marker}`, "g")) || []).length;
+  if (count < minimum) errors.push(`${relative}: contenu institutionnel incomplet (${marker}: ${count}/${minimum})`);
 }
 
 for (const document of documents) {

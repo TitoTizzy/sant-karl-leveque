@@ -1,5 +1,5 @@
 const CACHE = "skl-v2";
-const CORE = ["./", "./index.html", "./offline.html", "./css/styles.css", "./js/app.js", "./js/translations.js", "./js/content-data.js", "./assets/skl-logo-160.webp"];
+const CORE = ["./", "./index.html", "./offline.html", "./css/styles.css", "./js/app.js", "./js/translations.js", "./js/content-data.js", "./js/institution-data.js", "./assets/skl-logo-160.webp"];
 self.addEventListener("install", (event) => event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(CORE))));
 self.addEventListener("activate", (event) => event.waitUntil(caches.keys().then((keys) => Promise.all(keys.filter((key) => key !== CACHE).map((key) => caches.delete(key))))));
 self.addEventListener("fetch", (event) => {

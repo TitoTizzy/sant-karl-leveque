@@ -3,7 +3,7 @@
   "scripts": {
     "prerender": "node scripts/enhance-html.mjs",
     "test": "node scripts/validate-site.mjs",
-    "build": "node --check js/app.js && node --check js/translations.js && node --check js/content-data.js && node scripts/enhance-html.mjs && node scripts/validate-site.mjs",
+    "build": "node --check js/app.js && node --check js/translations.js && node --check js/content-data.js && node --check js/institution-data.js && node scripts/enhance-html.mjs && node scripts/validate-site.mjs",
     "optimize:images": "python scripts/optimize-images.py",
     "start": "npx serve ."
   },
