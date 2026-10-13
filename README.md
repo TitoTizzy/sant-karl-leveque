@@ -10,6 +10,7 @@ Front-end statique trilingue de SANT KARL LÉVÊQUE (SKL), organisation haïtien
 - `js/app.js` : interactions, navigation, filtres et changement de langue.
 - `js/translations.js` : textes français, kreyòl ayisyen et anglais.
 - `js/content-data.js` : domaines, actualités, galerie et catalogue documentaire.
+- `js/institution-data.js` : source unique pour l’année de fondation, les coordonnées officielles, l’équipe, l’organigramme, les territoires, la méthodologie, les partenaires et les résultats.
 - `assets/docs/` : publications PDF officielles.
 - `assets/photos-4k/` : images originales et variantes WebP responsives.
 - `scripts/` : optimisation des images, pré-rendu HTML et validation automatique.
@@ -29,7 +30,7 @@ Le site est ensuite accessible sur l’adresse indiquée par le serveur. Les lan
 npm run build
 ```
 
-La commande vérifie la syntaxe JavaScript, pré-rend les composants essentiels, génère les métadonnées SEO et le sitemap, puis contrôle les traductions, liens, assets et PDF.
+La commande vérifie la syntaxe JavaScript, pré-rend les composants essentiels, génère les métadonnées SEO et le sitemap, puis contrôle les traductions, liens, assets et PDF. Elle protège également les données institutionnelles validées : fondation en 1986, courriel général, absence de coordonnées personnelles et exclusion des références à la sécurité alimentaire.
 
 Pour régénérer les variantes WebP et les icônes après l’ajout d’une image :
 

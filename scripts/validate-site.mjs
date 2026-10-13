@@ -4,9 +4,12 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { translations } from "../js/translations.js";
 import { documents } from "../js/content-data.js";
+import { organization } from "../js/institution-data.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const errors = [];
+if (organization.founded !== 1986) errors.push(`année de fondation incorrecte: ${organization.founded}`);
+if (organization.email !== "santkarlleveque86@gmail.com") errors.push(`courriel institutionnel incorrect: ${organization.email}`);
 const referenceKeys = Object.keys(translations.fr).sort();
 for (const lang of ["ht", "en"]) {
   const keys = Object.keys(translations[lang]).sort();
@@ -36,6 +39,8 @@ for await (const relative of glob(["*.html", "pages/*.html"])) {
   }
   if (/news\.html|documentation\.html/.test(html)) errors.push(`${relative}: ancienne route détectée`);
   if (/reverendperegmaisonneuve@gmail\.com|estinviljnbsebastien@gmail\.com|\+509\s*(?:4705-1133|3682-7431)/.test(html)) errors.push(`${relative}: coordonnées personnelles détectées`);
+  if (/sécurité alimentaire|securite alimentaire|food security|sekirite alimantè/i.test(html)) errors.push(`${relative}: référence exclue à la sécurité alimentaire`);
+  if (!/foundingDate\":\"1986/.test(html)) errors.push(`${relative}: année 1986 absente des données structurées`);
   const limits = [["area-card", 5], ["news-card", relative.replaceAll("\\", "/") === "pages/actions.html" ? 5 : 3], ["doc-card", 15]];
   for (const [className, maximum] of limits) {
     const count = (html.match(new RegExp(`class="[^"]*${className}`, "g")) || []).length;

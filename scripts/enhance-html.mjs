@@ -67,7 +67,7 @@ function docsMarkup(base) {
 const indexedPages = [];
 for await (const file of glob(["*.html", "pages/*.html"])) {
   let html = await readFile(file, "utf8");
-  html = html.replace(/css\/styles\.css(?:\?v=[^\"]+)?/g, "css/styles.css?v=20261001-production").replace(/js\/app\.js(?:\?v=[^\"]+)?/g, "js/app.js?v=20261001-production");
+  html = html.replace(/css\/styles\.css(?:\?v=[^\"]+)?/g, "css/styles.css?v=20261013-institutional").replace(/js\/app\.js(?:\?v=[^\"]+)?/g, "js/app.js?v=20261013-institutional");
   const relative = file.replaceAll("\\", "/");
   const base = relative.startsWith("pages/") ? "../" : "";
   const canonical = new URL(relative, rootUrl).href;
