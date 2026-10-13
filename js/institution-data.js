@@ -77,15 +77,15 @@ export const people = [
 ];
 
 export const executiveOffices = [
-  ["DE", { fr: "Direction Exécutive", ht: "Direksyon Egzekitif", en: "Executive Directorate" }],
-  ["SG", { fr: "Secrétariat Général", ht: "Sekretarya Jeneral", en: "General Secretariat" }],
-  ["BF", { fr: "Bureau de Formation", ht: "Biwo Fòmasyon", en: "Training Office" }],
-  ["BAJ", { fr: "Bureau des Affaires Juridiques", ht: "Biwo Afè Jiridik", en: "Legal Affairs Office" }],
-  ["BCRP", { fr: "Communication et Relations Publiques", ht: "Kominikasyon ak Relasyon Piblik", en: "Communications and Public Relations" }],
-  ["BAF", { fr: "Bureau des Affaires financières", ht: "Biwo Afè Finansye", en: "Financial Affairs Office" }],
-  ["BPP", { fr: "Bureau des Programmes et Projets", ht: "Biwo Pwogram ak Pwojè", en: "Programs and Projects Office" }],
-  ["BL", { fr: "Bureau de Logistique", ht: "Biwo Lojistik", en: "Logistics Office" }],
-  ["CBR", { fr: "Coordination des Bureaux Régionaux", ht: "Kowòdinasyon Biwo Rejyonal", en: "Regional Offices Coordination" }]
+  ["DE", { fr: "Direction Exécutive", ht: "Direksyon Egzekitif", en: "Executive Directorate" }, { initials: "GM", name: "Rév. Père Gardy Maisonneuve" }],
+  ["SG", { fr: "Secrétariat Général", ht: "Sekretarya Jeneral", en: "General Secretariat" }, { initials: "SE", name: "Sébastien Estinvil" }],
+  ["BF", { fr: "Bureau de Formation", ht: "Biwo Fòmasyon", en: "Training Office" }, null],
+  ["BAJ", { fr: "Bureau des Affaires Juridiques", ht: "Biwo Afè Jiridik", en: "Legal Affairs Office" }, null],
+  ["BCRP", { fr: "Communication et Relations Publiques", ht: "Kominikasyon ak Relasyon Piblik", en: "Communications and Public Relations" }, null],
+  ["BAF", { fr: "Bureau des Affaires financières", ht: "Biwo Afè Finansye", en: "Financial Affairs Office" }, { initials: "EC", name: "Evens Chérfrère" }],
+  ["BPP", { fr: "Bureau des Programmes et Projets", ht: "Biwo Pwogram ak Pwojè", en: "Programs and Projects Office" }, null],
+  ["BL", { fr: "Bureau de Logistique", ht: "Biwo Lojistik", en: "Logistics Office" }, null],
+  ["CBR", { fr: "Coordination des Bureaux Régionaux", ht: "Kowòdinasyon Biwo Rejyonal", en: "Regional Offices Coordination" }, null]
 ];
 
 export const methodology = [

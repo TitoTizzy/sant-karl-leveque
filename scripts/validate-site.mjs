@@ -73,7 +73,7 @@ for await (const relative of glob(["*.html", "pages/*.html"])) {
 
 const institutionalChecks = [
   ["pages/equipe.html", "profile-card", 5],
-  ["pages/equipe.html", "office-node", 9],
+  ["pages/equipe.html", "org-node", 9],
   ["pages/interventions.html", "method-card", 5],
   ["pages/actions.html", "achievement-list", 1],
   ["pages/contact.html", "territory-list", 1]
@@ -82,6 +82,12 @@ for (const [relative, marker, minimum] of institutionalChecks) {
   const html = await readFile(resolve(root, relative), "utf8");
   const count = (html.match(new RegExp(`class="[^"]*${marker}`, "g")) || []).length;
   if (count < minimum) errors.push(`${relative}: contenu institutionnel incomplet (${marker}: ${count}/${minimum})`);
+}
+
+const teamHtml = await readFile(resolve(root, "pages/equipe.html"), "utf8");
+if (!teamHtml.includes("data-org-open") || !teamHtml.includes("data-org-dialog")) errors.push("pages/equipe.html: dialogue de l’organigramme absent");
+for (const officeHolder of ["Rév. Père Gardy Maisonneuve", "Sébastien Estinvil", "Evens Chérfrère"]) {
+  if (!teamHtml.includes(officeHolder)) errors.push(`pages/equipe.html: titulaire absent de l’organigramme (${officeHolder})`);
 }
 
 for (const document of documents) {

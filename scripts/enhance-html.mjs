@@ -55,7 +55,12 @@ function peopleMarkup(base) {
 }
 
 function organizationMarkup() {
-  return executiveOffices.map(([abbr, label], index) => `<article class="office-node${index < 2 ? " office-node-lead" : ""}"><span>${abbr}</span><h3>${label.fr}</h3></article>`).join("");
+  const node = ([abbr, label, occupant], level) => {
+    const person = occupant?.name || translations.fr.orgUnpublished;
+    const initials = occupant?.initials || "SKL";
+    return `<button class="org-node org-node-${level}" type="button" aria-label="${label.fr} — ${translations.fr.orgCurrentHolder}: ${person}"><span class="org-node-top"><span class="org-code">${abbr}</span><span class="org-status" aria-hidden="true"></span></span><strong class="org-role">${label.fr}</strong><span class="org-person"><span class="org-avatar" aria-hidden="true">${initials}</span><span><small>${translations.fr.orgCurrentHolder}</small><b>${person}</b></span></span></button>`;
+  };
+  return `<div class="org-tier org-tier-director">${node(executiveOffices[0], "director")}</div><span class="org-connector org-connector-vertical" aria-hidden="true"></span><div class="org-tier org-tier-secretariat">${node(executiveOffices[1], "secretariat")}</div><span class="org-connector org-connector-branches" aria-hidden="true"></span><div class="org-tier org-tier-offices">${executiveOffices.slice(2).map((office) => node(office, "office")).join("")}</div>`;
 }
 
 function methodologyMarkup() {
@@ -81,7 +86,7 @@ function docsMarkup(base) {
 const indexedPages = [];
 for await (const file of glob(["*.html", "pages/*.html"])) {
   let html = await readFile(file, "utf8");
-  html = html.replace(/css\/styles\.css(?:\?v=[^\"]+)?/g, "css/styles.css?v=20261013-public-home").replace(/js\/app\.js(?:\?v=[^\"]+)?/g, "js/app.js?v=20261013-public-home");
+  html = html.replace(/css\/styles\.css(?:\?v=[^\"]+)?/g, "css/styles.css?v=20261013-org-chart").replace(/js\/app\.js(?:\?v=[^\"]+)?/g, "js/app.js?v=20261013-org-chart");
   const relative = file.replaceAll("\\", "/");
   const base = relative.startsWith("pages/") ? "../" : "";
   const canonical = relative === "index.html" ? rootUrl : new URL(relative, rootUrl).href;
@@ -101,7 +106,7 @@ for await (const file of glob(["*.html", "pages/*.html"])) {
   html = html.replace(/<div class="news-grid" data-render="news">[\s\S]*?<\/section>/, `<div class="news-grid" data-render="news">${newsMarkup(news)}</div></section>`);
   html = html.replace(/<div class="document-list" data-render="documents">[\s\S]*?<\/section>/, `<div class="document-list" data-render="documents">${docsMarkup(base)}</div></section>`);
   html = html.replace(/<div class="profile-list" data-render="people">[\s\S]*?<\/section>/, `<div class="profile-list" data-render="people">${peopleMarkup(base)}</div></section>`);
-  html = html.replace(/<div class="organization-chart" data-render="organization">[\s\S]*?<\/section>/, `<div class="organization-chart" data-render="organization">${organizationMarkup()}</div></section>`);
+  html = html.replace(/<!-- generated:organization:start -->[\s\S]*?<!-- generated:organization:end -->/, `<!-- generated:organization:start --><div class="organization-chart" data-render="organization">${organizationMarkup()}</div><!-- generated:organization:end -->`);
   html = html.replace(/<div class="method-grid" data-render="methodology">[\s\S]*?<\/section>/, `<div class="method-grid" data-render="methodology">${methodologyMarkup()}</div></section>`);
   html = html.replace(/<ul class="territory-list" data-render="territories">[\s\S]*?<\/ul>/, `<ul class="territory-list" data-render="territories">${territoriesMarkup()}</ul>`);
   html = html.replace(/<div class="partner-strip" data-render="partners">[\s\S]*?<\/div>/, `<div class="partner-strip" data-render="partners">${partners.map((partner) => `<span>${typeof partner === "object" ? partner.fr : partner}</span>`).join("")}</div>`);

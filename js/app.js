@@ -342,8 +342,42 @@ function renderPeople() {
 function renderOrganization() {
   const target = document.querySelector('[data-render="organization"]');
   if (!target) return;
-  target.innerHTML = executiveOffices.map(([abbr, label], index) => `
-    <article class="office-node${index < 2 ? " office-node-lead" : ""}"><span>${abbr}</span><h3>${localize(label)}</h3></article>`).join("");
+  const node = ([abbr, label, occupant], level) => {
+    const person = occupant?.name || t("orgUnpublished");
+    const initials = occupant?.initials || "SKL";
+    return `<button class="org-node org-node-${level}" type="button" aria-label="${localize(label)} — ${t("orgCurrentHolder")}: ${person}">
+      <span class="org-node-top"><span class="org-code">${abbr}</span><span class="org-status" aria-hidden="true"></span></span>
+      <strong class="org-role">${localize(label)}</strong>
+      <span class="org-person"><span class="org-avatar" aria-hidden="true">${initials}</span><span><small>${t("orgCurrentHolder")}</small><b>${person}</b></span></span>
+    </button>`;
+  };
+  target.innerHTML = `
+    <div class="org-tier org-tier-director">${node(executiveOffices[0], "director")}</div>
+    <span class="org-connector org-connector-vertical" aria-hidden="true"></span>
+    <div class="org-tier org-tier-secretariat">${node(executiveOffices[1], "secretariat")}</div>
+    <span class="org-connector org-connector-branches" aria-hidden="true"></span>
+    <div class="org-tier org-tier-offices">${executiveOffices.slice(2).map((office) => node(office, "office")).join("")}</div>`;
+}
+
+function bindOrganizationDialog() {
+  const dialog = document.querySelector("[data-org-dialog]");
+  const openButton = document.querySelector("[data-org-open]");
+  const closeButton = dialog?.querySelector("[data-org-close]");
+  if (!dialog || !openButton || !closeButton) return;
+
+  openButton.addEventListener("click", () => {
+    dialog.showModal();
+    document.body.classList.add("dialog-open");
+    closeButton.focus();
+  });
+  closeButton.addEventListener("click", () => dialog.close());
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+  dialog.addEventListener("close", () => {
+    document.body.classList.remove("dialog-open");
+    openButton.focus();
+  });
 }
 
 function renderMethodology() {
@@ -526,6 +560,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderSiteShell();
   bindNavigation();
   bindFilters();
+  bindOrganizationDialog();
   document.querySelectorAll(".language-select").forEach((select) => {
     select.addEventListener("change", (event) => setLanguage(event.target.value));
   });
