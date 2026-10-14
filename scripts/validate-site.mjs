@@ -61,6 +61,7 @@ for await (const relative of glob(["*.html", "pages/*.html"])) {
     try { await access(resolve(root, socialImage.slice(rootUrl.length))); } catch { errors.push(`${relative}: image sociale introuvable ${socialImage}`); }
   }
   if (/news\.html|documentation\.html/.test(html)) errors.push(`${relative}: ancienne route détectée`);
+  if (/\[object Object\]/.test(html)) errors.push(`${relative}: objet JavaScript affiché comme texte`);
   if (/reverendperegmaisonneuve@gmail\.com|estinviljnbsebastien@gmail\.com|\+509\s*(?:4705-1133|3682-7431)/.test(html)) errors.push(`${relative}: coordonnées personnelles détectées`);
   if (/sécurité alimentaire|securite alimentaire|food security|sekirite alimantè/i.test(html)) errors.push(`${relative}: référence exclue à la sécurité alimentaire`);
   if (!/foundingDate\":\"1986/.test(html)) errors.push(`${relative}: année 1986 absente des données structurées`);

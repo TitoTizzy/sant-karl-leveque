@@ -397,7 +397,7 @@ function renderTerritories() {
 
 function renderPartners() {
   document.querySelectorAll('[data-render="partners"]').forEach((target) => {
-    target.innerHTML = partners.map((partner) => `<span>${partner}</span>`).join("");
+    target.innerHTML = partners.map((partner) => `<span>${localize(partner)}</span>`).join("");
   });
 }
 
