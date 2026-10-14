@@ -7,5 +7,7 @@
     "optimize:images": "python scripts/optimize-images.py",
     "start": "npx serve ."
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "supabase": "2.121.0"
+  }
 }
