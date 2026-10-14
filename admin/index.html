@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="theme-color" content="#052f54">
+  <title>Administration | Sant Karl Lévêque</title>
+  <link rel="icon" href="../assets/icons/favicon-32.png" sizes="32x32">
+  <script src="js/host-guard.js"></script>
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Aller au contenu</a>
+
+  <div class="setup-screen" data-setup-screen hidden>
+    <div class="setup-card">
+      <img src="../assets/skl-logo-160.webp" alt="Sant Karl Lévêque" width="160" height="111">
+      <p class="eyebrow">Configuration requise</p>
+      <h1>Connecter l’administration à Supabase</h1>
+      <p>Renseignez l’URL du projet et sa clé publique dans <code>admin/js/config.js</code>. Les clés privilégiées doivent rester exclusivement dans les secrets du serveur.</p>
+    </div>
+  </div>
+
+  <main id="main-content">
+    <section class="auth-shell" data-auth-screen hidden aria-labelledby="login-title">
+      <div class="auth-brand-panel">
+        <a class="admin-brand" href="https://titotizzy.github.io/sant-karl-leveque/" aria-label="Retourner au site public de Sant Karl Lévêque">
+          <img src="../assets/skl-logo-160.webp" alt="" width="160" height="111">
+          <span>Sant Karl<br>Lévêque</span>
+        </a>
+        <div class="auth-message">
+          <p class="eyebrow">Espace institutionnel sécurisé</p>
+          <h1 id="login-title">Administrer les contenus de SKL.</h1>
+          <p>Une interface distincte du site public pour publier, traduire et maintenir l’information institutionnelle.</p>
+        </div>
+        <p class="auth-trust"><i data-lucide="shield-check" aria-hidden="true"></i> Accès réservé aux personnes autorisées</p>
+      </div>
+
+      <div class="auth-form-panel">
+        <form class="auth-form" data-login-form novalidate>
+          <div>
+            <p class="eyebrow">Connexion</p>
+            <h2>Bienvenue</h2>
+            <p class="form-intro">Utilisez votre adresse institutionnelle pour continuer.</p>
+          </div>
+          <div class="field">
+            <label for="email">Adresse courriel</label>
+            <div class="input-wrap">
+              <i data-lucide="mail" aria-hidden="true"></i>
+              <input id="email" name="email" type="email" autocomplete="username" required placeholder="nom@organisation.org">
+            </div>
+          </div>
+          <div class="field">
+            <div class="label-row">
+              <label for="password">Mot de passe</label>
+              <button class="text-button" type="button" data-reset-password>Mot de passe oublié ?</button>
+            </div>
+            <div class="input-wrap">
+              <i data-lucide="lock-keyhole" aria-hidden="true"></i>
+              <input id="password" name="password" type="password" autocomplete="current-password" minlength="8" required>
+              <button class="icon-button input-action" type="button" data-toggle-password aria-label="Afficher le mot de passe" title="Afficher le mot de passe">
+                <i data-lucide="eye" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+          <p class="form-message" data-login-message role="alert" aria-live="polite"></p>
+          <button class="primary-button" type="submit" data-login-submit>
+            <span>Se connecter</span><i data-lucide="arrow-right" aria-hidden="true"></i>
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <div class="admin-app" data-admin-app hidden>
+      <aside class="sidebar" data-sidebar>
+        <div class="sidebar-head">
+          <a class="admin-brand compact" href="#overview" aria-label="Tableau de bord SKL">
+            <img src="../assets/skl-logo-160.webp" alt="" width="160" height="111">
+            <span>Sant Karl<br>Lévêque</span>
+          </a>
+          <button class="icon-button sidebar-close" type="button" data-sidebar-close aria-label="Fermer le menu" title="Fermer le menu"><i data-lucide="x" aria-hidden="true"></i></button>
+        </div>
+        <nav class="admin-nav" aria-label="Navigation de l’administration">
+          <a href="#overview" data-view-link="overview" aria-current="page"><i data-lucide="layout-dashboard" aria-hidden="true"></i><span>Vue d’ensemble</span></a>
+          <a href="#administrators" data-view-link="administrators"><i data-lucide="users" aria-hidden="true"></i><span>Administrateurs</span></a>
+          <span class="nav-label">Contenus</span>
+          <button type="button" disabled><i data-lucide="newspaper" aria-hidden="true"></i><span>Actualités</span><small>À venir</small></button>
+          <button type="button" disabled><i data-lucide="files" aria-hidden="true"></i><span>Documents</span><small>À venir</small></button>
+          <button type="button" disabled><i data-lucide="contact-round" aria-hidden="true"></i><span>Équipe</span><small>À venir</small></button>
+          <button type="button" disabled><i data-lucide="image" aria-hidden="true"></i><span>Médias</span><small>À venir</small></button>
+        </nav>
+        <div class="sidebar-foot">
+          <a href="https://titotizzy.github.io/sant-karl-leveque/" target="_blank" rel="noopener"><i data-lucide="external-link" aria-hidden="true"></i><span>Voir le site public</span></a>
+        </div>
+      </aside>
+
+      <div class="admin-workspace">
+        <header class="admin-topbar">
+          <div class="topbar-left">
+            <button class="icon-button menu-button" type="button" data-sidebar-open aria-label="Ouvrir le menu" title="Ouvrir le menu"><i data-lucide="menu" aria-hidden="true"></i></button>
+            <div>
+              <p class="context-label">Administration SKL</p>
+              <p class="context-title" data-context-title>Vue d’ensemble</p>
+            </div>
+          </div>
+          <div class="account-menu">
+            <button type="button" class="account-trigger" data-account-trigger aria-expanded="false">
+              <span class="avatar" data-user-initials>SK</span>
+              <span class="account-copy"><strong data-user-name>Administrateur</strong><small data-user-role>Chargement...</small></span>
+              <i data-lucide="chevron-down" aria-hidden="true"></i>
+            </button>
+            <div class="account-popover" data-account-popover hidden>
+              <p data-user-email></p>
+              <button type="button" data-sign-out><i data-lucide="log-out" aria-hidden="true"></i>Se déconnecter</button>
+            </div>
+          </div>
+        </header>
+
+        <div class="workspace-content">
+          <section class="admin-view" data-view="overview" aria-labelledby="overview-title">
+            <div class="view-heading">
+              <div><p class="eyebrow">Pilotage éditorial</p><h2 id="overview-title">Vue d’ensemble</h2><p>Suivez l’état des contenus et les accès à l’administration.</p></div>
+              <time data-current-date></time>
+            </div>
+            <div class="metric-grid">
+              <article class="metric-card"><span class="metric-icon blue"><i data-lucide="users" aria-hidden="true"></i></span><div><strong data-admin-count>0</strong><span>Administrateurs</span></div></article>
+              <article class="metric-card"><span class="metric-icon green"><i data-lucide="file-check-2" aria-hidden="true"></i></span><div><strong>0</strong><span>Contenus publiés</span></div></article>
+              <article class="metric-card"><span class="metric-icon amber"><i data-lucide="languages" aria-hidden="true"></i></span><div><strong>0</strong><span>Traductions à compléter</span></div></article>
+              <article class="metric-card"><span class="metric-icon cyan"><i data-lucide="hard-drive" aria-hidden="true"></i></span><div><strong>0</strong><span>Documents</span></div></article>
+            </div>
+            <div class="foundation-panel">
+              <div class="foundation-copy"><span class="status-dot"></span><div><h3>Socle Supabase prêt</h3><p>Authentification, rôles, règles RLS, stockage et journal d’audit sont structurés.</p></div></div>
+              <span class="status-badge">Phase 1</span>
+            </div>
+          </section>
+
+          <section class="admin-view" data-view="administrators" hidden aria-labelledby="administrators-title">
+            <div class="view-heading action-heading">
+              <div><p class="eyebrow">Sécurité et accès</p><h2 id="administrators-title">Administrateurs</h2><p>Invitez une personne, attribuez son rôle ou suspendez son accès.</p></div>
+              <button class="primary-button compact-button" type="button" data-open-invite><i data-lucide="user-plus" aria-hidden="true"></i><span>Inviter</span></button>
+            </div>
+            <div class="table-toolbar">
+              <label class="search-field"><span class="sr-only">Rechercher un administrateur</span><i data-lucide="search" aria-hidden="true"></i><input type="search" data-user-search placeholder="Rechercher par nom ou courriel"></label>
+              <p data-user-results aria-live="polite">Chargement des comptes...</p>
+            </div>
+            <div class="data-table-wrap">
+              <table class="data-table">
+                <thead><tr><th scope="col">Personne</th><th scope="col">Rôle</th><th scope="col">Statut</th><th scope="col">Création</th><th scope="col"><span class="sr-only">Actions</span></th></tr></thead>
+                <tbody data-users-body><tr><td colspan="5" class="empty-state">Chargement...</td></tr></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <dialog class="admin-dialog" data-invite-dialog aria-labelledby="invite-title">
+    <form method="dialog" class="dialog-shell" data-invite-form>
+      <div class="dialog-head"><div><p class="eyebrow">Nouvel accès</p><h2 id="invite-title">Inviter un administrateur</h2></div><button class="icon-button" type="button" data-close-invite aria-label="Fermer" title="Fermer"><i data-lucide="x" aria-hidden="true"></i></button></div>
+      <p class="dialog-intro">La personne recevra un courriel sécurisé pour définir son mot de passe.</p>
+      <div class="field"><label for="invite-name">Nom complet</label><input id="invite-name" name="fullName" required minlength="2" maxlength="160"></div>
+      <div class="field"><label for="invite-email">Adresse courriel</label><input id="invite-email" name="email" type="email" required></div>
+      <div class="field"><label for="invite-role">Rôle</label><select id="invite-role" name="role"><option value="editor">Éditeur</option><option value="publisher">Responsable de publication</option><option value="admin">Administrateur</option><option value="viewer">Lecteur</option><option value="super_admin">Super administrateur</option></select></div>
+      <p class="form-message" data-invite-message role="alert" aria-live="polite"></p>
+      <div class="dialog-actions"><button class="secondary-button" type="button" data-close-invite>Annuler</button><button class="primary-button" type="submit" data-invite-submit><span>Envoyer l’invitation</span><i data-lucide="send" aria-hidden="true"></i></button></div>
+    </form>
+  </dialog>
+
+  <div class="toast-region" data-toast-region aria-live="polite" aria-atomic="true"></div>
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js" defer></script>
+  <script src="js/config.js"></script>
+  <script type="module" src="js/admin.js"></script>
+</body>
+</html>
+

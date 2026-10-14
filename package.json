@@ -2,8 +2,8 @@
   "type": "module",
   "scripts": {
     "prerender": "node scripts/enhance-html.mjs",
-    "test": "node scripts/validate-site.mjs",
-    "build": "node --check js/app.js && node --check js/translations.js && node --check js/content-data.js && node --check js/institution-data.js && node scripts/enhance-html.mjs && node scripts/validate-site.mjs",
+    "test": "node scripts/validate-site.mjs && node scripts/validate-backend.mjs",
+    "build": "node --check js/app.js && node --check js/translations.js && node --check js/content-data.js && node --check js/institution-data.js && node --check admin/js/host-guard.js && node --check admin/js/admin.js && node scripts/enhance-html.mjs && node scripts/validate-site.mjs && node scripts/validate-backend.mjs",
     "optimize:images": "python scripts/optimize-images.py",
     "start": "npx serve ."
   },

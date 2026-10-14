@@ -1,6 +1,6 @@
 # Sant Karl Lévêque - Site institutionnel
 
-Front-end statique trilingue de SANT KARL LÉVÊQUE (SKL), organisation haïtienne de défense et de promotion des droits humains.
+Site institutionnel trilingue de SANT KARL LÉVÊQUE (SKL), avec front-end public statique et premier socle d’administration Supabase.
 
 ## Structure
 
@@ -16,6 +16,9 @@ Front-end statique trilingue de SANT KARL LÉVÊQUE (SKL), organisation haïtien
 - `scripts/` : optimisation des images, pré-rendu HTML et validation automatique.
 - `.github/workflows/frontend-quality.yml` : contrôle automatique du front-end à chaque push et pull request.
 - `docs/wcag-2.2-audit.md` : audit d’accessibilité front-end et contrôles réalisés.
+- `admin/` : interface d’administration séparée, accessible uniquement sur l’hôte administratif.
+- `supabase/` : migrations PostgreSQL, politiques RLS et Edge Functions.
+- `docs/backend-supabase.md` : installation, sécurité et amorçage du backend.
 
 ## Développement local
 
@@ -41,6 +44,6 @@ npm run optimize:images
 
 ## Déploiement
 
-Le site ne nécessite aucun backend. Il inclut `robots.txt`, `sitemap.xml`, une page `404.html`, un manifeste PWA léger, un service worker, une page hors connexion et un contrôle continu GitHub Actions. L’URL canonique configurée est `https://titotizzy.github.io/sant-karl-leveque/`.
+Le site public demeure statique pendant la mise en place progressive du backend. Il inclut `robots.txt`, `sitemap.xml`, une page `404.html`, un manifeste PWA léger, un service worker, une page hors connexion et un contrôle continu GitHub Actions. L’URL canonique configurée est `https://titotizzy.github.io/sant-karl-leveque/`.
 
-Le site institutionnel public et l’administration doivent rester sur deux hôtes distincts. Le logo et le nom de SKL renvoient toujours vers l’accueil public. Le futur accès administratif `admin.santkarlleveque.com` ne doit être ajouté à aucune page publique. L’activation de `santkarlleveque.com` nécessite d’abord la création de ses enregistrements DNS ; jusque-là, GitHub Pages demeure l’URL publique de référence.
+Le site institutionnel public et l’administration restent sur deux hôtes distincts. Le logo et le nom de SKL renvoient toujours vers l’accueil public. L’accès `admin.santkarlleveque.com` n’est ajouté à aucune page publique. L’activation de `santkarlleveque.com` nécessite d’abord la création de ses enregistrements DNS ; jusque-là, GitHub Pages demeure l’URL publique de référence.

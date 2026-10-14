@@ -1,0 +1,7 @@
+admin/js/config.local.js
+.env
+.env.*
+!.env.example
+.supabase/
+supabase/.temp/
+
