@@ -63,6 +63,10 @@ function organizationMarkup() {
   return `<div class="org-tier org-tier-director">${node(executiveOffices[0], "director")}</div><span class="org-connector org-connector-vertical" aria-hidden="true"></span><div class="org-tier org-tier-secretariat">${node(executiveOffices[1], "secretariat")}</div><span class="org-connector org-connector-branches" aria-hidden="true"></span><div class="org-tier org-tier-offices">${executiveOffices.slice(2).map((office) => node(office, "office")).join("")}</div>`;
 }
 
+function organizationPromoMarkup() {
+  return `<!-- generated:organization-promo:start --><section class="section org-promo-section" aria-labelledby="org-promo-title"><div class="org-promo"><div class="org-promo-visual" aria-hidden="true"><span class="org-promo-node org-promo-node-director">DE</span><span class="org-promo-line"></span><span class="org-promo-node org-promo-node-secretariat">SG</span><span class="org-promo-branches"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div><div class="org-promo-copy"><p class="eyebrow" data-i18n="governanceEyebrow">${translations.fr.governanceEyebrow}</p><h2 id="org-promo-title" data-i18n="governanceTitle">${translations.fr.governanceTitle}</h2><p data-i18n="governanceLead">${translations.fr.governanceLead}</p></div><button class="btn btn-primary org-launch" type="button" data-org-open><span class="org-launch-mark" aria-hidden="true"></span><span data-i18n="viewOrganization">${translations.fr.viewOrganization}</span></button></div></section><!-- generated:organization-promo:end -->`;
+}
+
 function methodologyMarkup() {
   return methodology.map((step, index) => `<article class="method-card"><span>0${index + 1}</span><h3>${step.title.fr}</h3><p>${step.text.fr}</p></article>`).join("");
 }
@@ -86,7 +90,7 @@ function docsMarkup(base) {
 const indexedPages = [];
 for await (const file of glob(["*.html", "pages/*.html"])) {
   let html = await readFile(file, "utf8");
-  html = html.replace(/css\/styles\.css(?:\?v=[^\"]+)?/g, "css/styles.css?v=20261013-org-chart").replace(/js\/app\.js(?:\?v=[^\"]+)?/g, "js/app.js?v=20261013-org-chart");
+  html = html.replace(/css\/styles\.css(?:\?v=[^\"]+)?/g, "css/styles.css?v=20261014-org-promo").replace(/js\/app\.js(?:\?v=[^\"]+)?/g, "js/app.js?v=20261014-org-promo");
   const relative = file.replaceAll("\\", "/");
   const base = relative.startsWith("pages/") ? "../" : "";
   const canonical = relative === "index.html" ? rootUrl : new URL(relative, rootUrl).href;
@@ -107,6 +111,11 @@ for await (const file of glob(["*.html", "pages/*.html"])) {
   html = html.replace(/<div class="document-list" data-render="documents">[\s\S]*?<\/section>/, `<div class="document-list" data-render="documents">${docsMarkup(base)}</div></section>`);
   html = html.replace(/<div class="profile-list" data-render="people">[\s\S]*?<\/section>/, `<div class="profile-list" data-render="people">${peopleMarkup(base)}</div></section>`);
   html = html.replace(/<!-- generated:organization:start -->[\s\S]*?<!-- generated:organization:end -->/, `<!-- generated:organization:start --><div class="organization-chart" data-render="organization">${organizationMarkup()}</div><!-- generated:organization:end -->`);
+  if (relative === "pages/equipe.html") {
+    html = html.replace(/<div class="section-heading team-section-heading"><div>([\s\S]*?)<\/div><button class="btn btn-primary org-launch"[\s\S]*?<\/button><\/div>/, '<div class="section-heading">$1</div>');
+    html = html.replace(/<!-- generated:organization-promo:start -->[\s\S]*?<!-- generated:organization-promo:end -->/, "");
+    html = html.replace('<dialog class="org-dialog"', `${organizationPromoMarkup()}<dialog class="org-dialog"`);
+  }
   html = html.replace(/<div class="method-grid" data-render="methodology">[\s\S]*?<\/section>/, `<div class="method-grid" data-render="methodology">${methodologyMarkup()}</div></section>`);
   html = html.replace(/<ul class="territory-list" data-render="territories">[\s\S]*?<\/ul>/, `<ul class="territory-list" data-render="territories">${territoriesMarkup()}</ul>`);
   html = html.replace(/<div class="partner-strip" data-render="partners">[\s\S]*?<\/div>/, `<div class="partner-strip" data-render="partners">${partners.map((partner) => `<span>${typeof partner === "object" ? partner.fr : partner}</span>`).join("")}</div>`);

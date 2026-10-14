@@ -318,6 +318,23 @@ body[data-page="news"] .page-hero { background-image: linear-gradient(100deg,rgb
 .org-launch-mark { position: relative; display: inline-block; width: 20px; height: 18px; margin-right: .25rem; }
 .org-launch-mark::before { content: ""; position: absolute; left: 7px; top: 0; width: 6px; height: 6px; background: currentColor; border-radius: 1px; box-shadow: -7px 12px 0 currentColor,0 12px 0 currentColor,7px 12px 0 currentColor; }
 .org-launch-mark::after { content: ""; position: absolute; left: 3px; right: 3px; top: 8px; height: 5px; border: 1px solid currentColor; border-bottom: 0; }
+.org-promo-section { padding-top: 1rem; }
+.org-promo { position: relative; display: grid; grid-template-columns: minmax(230px,.55fr) minmax(0,1.25fr) auto; gap: clamp(1.5rem,4vw,4rem); align-items: center; padding: clamp(1.5rem,3vw,2.75rem); color: #fff; background: rgba(3,49,88,.97); border: 1px solid rgba(118,211,240,.32); border-radius: var(--radius); box-shadow: 0 28px 70px rgba(3,42,72,.22),inset 0 1px 0 rgba(255,255,255,.12); overflow: hidden; }
+.org-promo::after { content: "SKL"; position: absolute; right: 22%; bottom: -3rem; color: rgba(255,255,255,.035); font-size: 11rem; font-weight: 900; line-height: 1; pointer-events: none; }
+.org-promo-copy { position: relative; z-index: 1; }
+.org-promo-copy .eyebrow { color: #8be1b8; }
+.org-promo-copy h2 { max-width: 780px; margin: .4rem 0 .65rem; color: #fff; font-size: clamp(1.7rem,2.8vw,3rem); line-height: 1.1; }
+.org-promo-copy > p:last-child { max-width: 720px; margin: 0; color: rgba(255,255,255,.72); }
+.org-promo .org-launch { position: relative; z-index: 1; color: var(--navy-950); background: #8be1b8; border-color: #8be1b8; box-shadow: 0 16px 34px rgba(0,0,0,.18); }
+.org-promo .org-launch:hover { color: #fff; background: var(--blue-700); border-color: var(--blue-700); }
+.org-promo-visual { position: relative; display: grid; justify-items: center; align-content: center; min-height: 190px; }
+.org-promo-node { display: grid; place-items: center; width: 78px; min-height: 42px; color: var(--navy-950); background: #8be1b8; border: 1px solid rgba(255,255,255,.5); border-radius: 5px; box-shadow: 0 10px 25px rgba(0,0,0,.15); font-size: .72rem; font-weight: 900; }
+.org-promo-node-secretariat { width: 68px; min-height: 38px; color: #fff; background: var(--blue-700); }
+.org-promo-line { width: 1px; height: 15px; background: rgba(139,225,184,.72); }
+.org-promo-branches { position: relative; display: flex; justify-content: space-between; width: min(100%,220px); margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(139,225,184,.62); }
+.org-promo-branches::before { content: ""; position: absolute; top: -19px; left: 50%; height: 19px; border-left: 1px solid rgba(139,225,184,.62); }
+.org-promo-branches i { position: relative; width: 22px; height: 18px; background: rgba(255,255,255,.86); border-radius: 3px; }
+.org-promo-branches i::before { content: ""; position: absolute; left: 50%; bottom: 100%; height: 16px; border-left: 1px solid rgba(139,225,184,.62); }
 .dialog-open { overflow: hidden; }
 .org-dialog { width: min(1540px,calc(100vw - 2rem)); max-width: none; max-height: calc(100dvh - 2rem); margin: auto; padding: 0; color: var(--ink); background: rgba(244,251,253,.94); border: 1px solid rgba(143,210,230,.5); border-radius: var(--radius); box-shadow: 0 40px 120px rgba(0,19,39,.42); overflow: hidden; }
 .org-dialog::backdrop { background: rgba(2,20,38,.72); backdrop-filter: blur(10px); }
@@ -464,6 +481,8 @@ body[data-page="news"] .page-hero { background-image: linear-gradient(100deg,rgb
   .org-tier-offices { grid-template-columns: repeat(3,minmax(0,1fr)); }
   .org-tier-offices::before,.org-tier-offices .org-node::before,.org-connector-branches { display: none; }
   .org-tier-offices { margin-top: 1rem; }
+  .org-promo { grid-template-columns: minmax(200px,.45fr) minmax(0,1fr); }
+  .org-promo .org-launch { grid-column: 2; justify-self: start; }
   .method-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .detail-aside { position: static; }
 }
@@ -481,6 +500,9 @@ body[data-page="news"] .page-hero { background-image: linear-gradient(100deg,rgb
   .compass-panel { min-height: 340px; } .compass { width: 70%; }
   .impact-strip,.value-grid,.intervention-grid,.news-grid,.gallery-grid,.mission-grid,.team-grid,.partner-strip,.page-index-grid,.contact-grid,.strategic-grid,.institutional-facts,.method-grid,.territory-list,.achievement-list { grid-template-columns: 1fr; }
   .team-section-heading { grid-template-columns: 1fr; align-items: start; }
+  .org-promo { grid-template-columns: 1fr; text-align: left; }
+  .org-promo-visual { min-height: 170px; }
+  .org-promo .org-launch { grid-column: auto; justify-self: stretch; }
   .org-launch { width: 100%; white-space: normal; }
   .org-dialog { width: calc(100vw - 1rem); max-height: calc(100dvh - 1rem); }
   .org-dialog-shell { max-height: calc(100dvh - 1rem); }
