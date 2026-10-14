@@ -356,7 +356,9 @@ function renderOrganization() {
     <span class="org-connector org-connector-vertical" aria-hidden="true"></span>
     <div class="org-tier org-tier-secretariat">${node(executiveOffices[1], "secretariat")}</div>
     <span class="org-connector org-connector-branches" aria-hidden="true"></span>
-    <div class="org-tier org-tier-offices">${executiveOffices.slice(2).map((office) => node(office, "office")).join("")}</div>`;
+    <div class="org-tier org-tier-offices">${executiveOffices.slice(2, 8).map((office) => node(office, "office")).join("")}</div>
+    <span class="org-connector org-connector-regional" aria-hidden="true"></span>
+    <div class="org-tier org-tier-regional">${node(executiveOffices[8], "regional")}</div>`;
 }
 
 function bindOrganizationDialog() {

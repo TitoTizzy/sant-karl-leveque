@@ -88,6 +88,7 @@ const teamHtml = await readFile(resolve(root, "pages/equipe.html"), "utf8");
 if (!teamHtml.includes("data-org-open") || !teamHtml.includes("data-org-dialog")) errors.push("pages/equipe.html: dialogue de l’organigramme absent");
 if ((teamHtml.match(/data-org-open/g) || []).length !== 1) errors.push("pages/equipe.html: le bouton de l’organigramme doit être unique");
 if (teamHtml.indexOf("org-promo-section") < teamHtml.indexOf("profile-list")) errors.push("pages/equipe.html: le bouton de l’organigramme doit suivre les profils");
+if (!/org-tier-offices[\s\S]*?org-connector-regional[\s\S]*?org-tier-regional/.test(teamHtml)) errors.push("pages/equipe.html: la Coordination régionale doit suivre les six bureaux");
 for (const officeHolder of ["Rév. Père Gardy Maisonneuve", "Sébastien Estinvil", "Evens Chérfrère"]) {
   if (!teamHtml.includes(officeHolder)) errors.push(`pages/equipe.html: titulaire absent de l’organigramme (${officeHolder})`);
 }

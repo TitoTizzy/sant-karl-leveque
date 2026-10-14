@@ -327,7 +327,7 @@ body[data-page="news"] .page-hero { background-image: linear-gradient(100deg,rgb
 .org-promo-copy > p:last-child { max-width: 720px; margin: 0; color: rgba(255,255,255,.72); }
 .org-promo .org-launch { position: relative; z-index: 1; color: var(--navy-950); background: #8be1b8; border-color: #8be1b8; box-shadow: 0 16px 34px rgba(0,0,0,.18); }
 .org-promo .org-launch:hover { color: #fff; background: var(--blue-700); border-color: var(--blue-700); }
-.org-promo-visual { position: relative; display: grid; justify-items: center; align-content: center; min-height: 190px; }
+.org-promo-visual { position: relative; display: grid; justify-items: center; align-content: center; min-height: 230px; }
 .org-promo-node { display: grid; place-items: center; width: 78px; min-height: 42px; color: var(--navy-950); background: #8be1b8; border: 1px solid rgba(255,255,255,.5); border-radius: 5px; box-shadow: 0 10px 25px rgba(0,0,0,.15); font-size: .72rem; font-weight: 900; }
 .org-promo-node-secretariat { width: 68px; min-height: 38px; color: #fff; background: var(--blue-700); }
 .org-promo-line { width: 1px; height: 15px; background: rgba(139,225,184,.72); }
@@ -335,6 +335,8 @@ body[data-page="news"] .page-hero { background-image: linear-gradient(100deg,rgb
 .org-promo-branches::before { content: ""; position: absolute; top: -19px; left: 50%; height: 19px; border-left: 1px solid rgba(139,225,184,.62); }
 .org-promo-branches i { position: relative; width: 22px; height: 18px; background: rgba(255,255,255,.86); border-radius: 3px; }
 .org-promo-branches i::before { content: ""; position: absolute; left: 50%; bottom: 100%; height: 16px; border-left: 1px solid rgba(139,225,184,.62); }
+.org-promo-regional-line { width: 1px; height: 14px; background: rgba(139,225,184,.72); }
+.org-promo-node-regional { width: 116px; min-height: 30px; color: var(--navy-950); background: rgba(255,255,255,.92); font-size: .62rem; }
 .dialog-open { overflow: hidden; }
 .org-dialog { width: min(1540px,calc(100vw - 2rem)); max-width: none; max-height: calc(100dvh - 2rem); margin: auto; padding: 0; color: var(--ink); background: rgba(244,251,253,.94); border: 1px solid rgba(143,210,230,.5); border-radius: var(--radius); box-shadow: 0 40px 120px rgba(0,19,39,.42); overflow: hidden; }
 .org-dialog::backdrop { background: rgba(2,20,38,.72); backdrop-filter: blur(10px); }
@@ -348,21 +350,25 @@ body[data-page="news"] .page-hero { background-image: linear-gradient(100deg,rgb
 .org-close { display: grid; place-items: center; width: 48px; height: 48px; padding: 0; color: var(--navy-900); background: rgba(255,255,255,.86); border: 1px solid rgba(7,106,173,.2); border-radius: 50%; box-shadow: var(--shadow-sm); cursor: pointer; transition: color 180ms ease,background 180ms ease,transform 180ms var(--ease); }
 .org-close span { font-size: 1.9rem; font-weight: 300; line-height: 1; transform: translateY(-1px); }
 .org-close:hover { color: #fff; background: var(--navy-900); transform: rotate(4deg); }
-.org-visual { position: relative; isolation: isolate; padding: clamp(1.5rem,4vw,4rem); overflow: hidden; }
+.org-visual { position: relative; isolation: isolate; padding: clamp(1.5rem,4vw,4rem); background-color: rgba(233,247,250,.5); background-image: linear-gradient(rgba(7,106,173,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(7,106,173,.035) 1px,transparent 1px); background-size: 36px 36px; overflow: hidden; }
 .org-visual::before { content: "SKL"; position: absolute; right: 2vw; top: 45%; z-index: -1; color: rgba(7,106,173,.045); font-size: clamp(8rem,22vw,24rem); font-weight: 900; line-height: .7; pointer-events: none; }
 .organization-chart { display: flex; flex-direction: column; align-items: center; width: 100%; }
 .org-tier { width: 100%; }
-.org-tier-director,.org-tier-secretariat { display: flex; justify-content: center; }
+.org-tier-director,.org-tier-secretariat,.org-tier-regional { display: flex; justify-content: center; }
 .org-tier-director .org-node { width: min(100%,390px); }
 .org-tier-secretariat .org-node { width: min(100%,350px); }
-.org-tier-offices { position: relative; display: grid; grid-template-columns: repeat(7,minmax(0,1fr)); gap: .75rem; }
-.org-tier-offices::before { content: ""; position: absolute; top: -25px; left: calc(100% / 14); right: calc(100% / 14); border-top: 1px solid rgba(7,106,173,.38); }
+.org-tier-offices { position: relative; display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: .85rem; }
+.org-tier-offices::before { content: ""; position: absolute; top: -25px; left: calc(100% / 12); right: calc(100% / 12); border-top: 1px solid rgba(7,106,173,.48); box-shadow: 0 0 14px rgba(21,147,208,.12); }
 .org-connector { display: block; width: 1px; height: 30px; background: rgba(7,106,173,.48); }
 .org-connector-branches { height: 25px; }
+.org-connector-regional { height: 34px; }
 .org-node { position: relative; display: flex; flex-direction: column; min-width: 0; min-height: 176px; padding: 1rem; color: var(--navy-900); text-align: left; background: rgba(255,255,255,.7); border: 1px solid rgba(255,255,255,.95); border-radius: var(--radius); box-shadow: 0 16px 36px rgba(3,43,75,.1),inset 0 1px 0 #fff; overflow: hidden; cursor: pointer; transition: border-color 220ms ease,box-shadow 220ms ease,transform 220ms var(--ease); }
 .org-tier-offices .org-node::before { content: ""; position: absolute; left: 50%; top: -26px; height: 25px; border-left: 1px solid rgba(7,106,173,.38); }
 .org-node-director { color: #fff; background: rgba(3,49,88,.97); border-color: rgba(118,211,240,.35); box-shadow: 0 20px 50px rgba(3,42,72,.24),inset 0 1px 0 rgba(255,255,255,.12); }
 .org-node-secretariat { color: #fff; background: rgba(9,105,78,.96); border-color: rgba(139,233,190,.38); box-shadow: 0 18px 45px rgba(5,87,59,.2),inset 0 1px 0 rgba(255,255,255,.14); }
+.org-tier-regional .org-node { width: min(100%,460px); min-height: 150px; }
+.org-node-regional { color: #fff; background: rgba(7,106,173,.96); border-color: rgba(118,211,240,.46); box-shadow: 0 20px 50px rgba(7,106,173,.2),inset 0 1px 0 rgba(255,255,255,.14); }
+.org-node-regional .org-code { color: var(--navy-950); background: #b5e5ff; }
 .org-node:hover,.org-node:focus-visible { z-index: 2; border-color: rgba(21,147,208,.58); box-shadow: 0 24px 58px rgba(3,43,75,.18),0 0 0 1px rgba(21,147,208,.12); transform: translateY(-5px); }
 .org-node-top { display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
 .org-code { display: inline-grid; place-items: center; min-width: 42px; height: 30px; padding-inline: .55rem; color: #fff; background: var(--blue-700); border-radius: 4px; font-size: .68rem; font-weight: 900; }
