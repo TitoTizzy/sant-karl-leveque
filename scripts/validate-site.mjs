@@ -18,6 +18,7 @@ if (!assetVersion || assetVersion === "20261014-partners") errors.push("version 
 const appSource = await readFile(resolve(root, "js/app.js"), "utf8");
 if (!appSource.includes('import(`./translations.js${moduleQuery}`)')) errors.push("app.js: la version ne se propage pas aux traductions");
 if (!appSource.includes("if (value !== undefined) node.textContent = value")) errors.push("app.js: garde-fou des traductions absent");
+if (!appSource.includes('document.readyState === "loading"') || !appSource.includes("else initializeApp()")) errors.push("app.js: initialisation tardive non prise en charge");
 const workerSource = await readFile(resolve(root, "service-worker.js"), "utf8");
 if (!workerSource.includes('searchParams.get("v")') || !workerSource.includes("isCodeAsset") || !workerSource.includes("self.skipWaiting()")) errors.push("service worker: stratégie de mise à jour du code incomplète");
 for (const lang of ["ht", "en"]) {

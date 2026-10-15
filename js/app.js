@@ -565,7 +565,7 @@ function bindFilters() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+function initializeApp() {
   const initialLanguage = getInitialLanguage();
   state.lang = initialLanguage;
   renderSiteShell();
@@ -581,4 +581,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const base = document.body.dataset.base || "";
     navigator.serviceWorker.register(`${base}service-worker.js?v=${encodeURIComponent(assetVersion)}`, { updateViaCache: "none" }).catch(() => {});
   }
-});
+}
+
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initializeApp, { once: true });
+else initializeApp();
