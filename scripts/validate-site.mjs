@@ -123,6 +123,10 @@ if ((donationHtml.match(/class="[^"]*payment-option/g) || []).length !== 4) erro
 if ((donationHtml.match(/class="[^"]*payment-action/g) || []).length !== 4 || (donationHtml.match(/<button[^>]*disabled/g) || []).length !== 4) errors.push("pages/donation.html: chaque paiement doit rester désactivé");
 if ((donationHtml.match(/href="contact-finance\.html\?type=/g) || []).length !== 2) errors.push("pages/donation.html: les deux parcours doivent proposer le contact financier");
 if (/href="https?:\/\/[^\"]*(?:stripe|moncash|natcash)/i.test(donationHtml)) errors.push("pages/donation.html: canal de paiement actif avant validation");
+for (const logo of ["moncash.webp", "natcash.webp"]) {
+  if (!donationHtml.includes(`assets/payment-methods/${logo}`)) errors.push(`pages/donation.html: logo de paiement absent (${logo})`);
+}
+if ((donationHtml.match(/payment-icon-card/g) || []).length !== 2) errors.push("pages/donation.html: symbole de carte bancaire absent");
 
 const financeHtml = await readFile(resolve(root, "pages/contact-finance.html"), "utf8");
 if (!financeHtml.includes("data-finance-form") || !financeHtml.includes("data-finance-status")) errors.push("pages/contact-finance.html: formulaire ou statut accessible absent");
