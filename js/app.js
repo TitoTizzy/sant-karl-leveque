@@ -126,6 +126,8 @@ function updatePageMetadata() {
     docs: `${t("navNews")} - SKL`,
     contact: `${t("navContact")} - SKL`,
     support: `${t("donate")} - SKL`,
+    donation: `${t("donationEyebrow")} - SKL`,
+    "finance-contact": `${t("financeEyebrow")} - SKL`,
     legal: `${t("legalTitle")} - SKL`,
     privacy: `${t("privacyTitle")} - SKL`,
     accessibility: `${t("accessibilityTitle")} - SKL`
@@ -142,6 +144,8 @@ function updatePageMetadata() {
     docs: "docsLead",
     contact: "contactLead",
     support: "supportLead",
+    donation: "donationLead",
+    "finance-contact": "financeLead",
     legal: "legalLead",
     privacy: "privacyLead",
     accessibility: "accessibilityLead"
@@ -565,12 +569,28 @@ function bindFilters() {
   }
 }
 
+function bindFinanceForm() {
+  const form = document.querySelector("[data-finance-form]");
+  const status = document.querySelector("[data-finance-status]");
+  if (!form || !status) return;
+  const requestedType = new URLSearchParams(window.location.search).get("type");
+  const typeSelect = form.elements.namedItem("donationType");
+  if (typeSelect instanceof HTMLSelectElement && ["recurring", "one-time"].includes(requestedType)) typeSelect.value = requestedType;
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    status.hidden = false;
+    status.textContent = t("financePendingMessage");
+    status.focus();
+  });
+}
+
 function initializeApp() {
   const initialLanguage = getInitialLanguage();
   state.lang = initialLanguage;
   renderSiteShell();
   bindNavigation();
   bindFilters();
+  bindFinanceForm();
   bindOrganizationDialog();
   document.querySelectorAll(".language-select").forEach((select) => {
     select.addEventListener("change", (event) => setLanguage(event.target.value));

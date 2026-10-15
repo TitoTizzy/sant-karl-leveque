@@ -5,7 +5,7 @@ import { translations } from "../js/translations.js";
 import { organization, territories, people, executiveOffices, methodology, partners, achievements } from "../js/institution-data.js";
 
 const rootUrl = "https://titotizzy.github.io/sant-karl-leveque/";
-const assetVersion = "20261015-official-content-v3";
+const assetVersion = "20261015-donation-v1";
 const socialImages = {
   "pages/equipe.html": ["honneur-citoyen-pensacola.webp", "Équipe et direction de Sant Karl Lévêque"],
   "pages/directeur.html": ["honneur-citoyen-pensacola.webp", "Direction exécutive de Sant Karl Lévêque"],
@@ -18,18 +18,21 @@ const socialImages = {
   "pages/actions.html": ["operation-nettoyage-soleil.webp", "Action communautaire menée par Sant Karl Lévêque"],
   "pages/publications.html": ["allocution-officielle-miami.webp", "Publications et prises de position de Sant Karl Lévêque"],
   "pages/contact.html": ["discours-podium-miami.webp", "Prise de parole institutionnelle de Sant Karl Lévêque"],
-  "pages/soutenir.html": ["discours-podium-miami.webp", "Soutenir les actions de Sant Karl Lévêque"]
+  "pages/soutenir.html": ["discours-podium-miami.webp", "Soutenir les actions de Sant Karl Lévêque"],
+  "pages/donation.html": ["discours-podium-miami.webp", "Faire un don à Sant Karl Lévêque"],
+  "pages/contact-finance.html": ["allocution-officielle-miami.webp", "Contacter le service financier de Sant Karl Lévêque"]
 };
 const pageLabels = {
   home: ["Accueil", "home"], about: ["Qui nous sommes", "navWho"], heritage: ["Notre héritage", "navHeritage"],
   mission: ["Mission et vision", "navMission"], director: ["Mot du Directeur", "navDirector"], team: ["Équipe", "navTeam"],
   areas: ["Domaines d'intervention", "navAreas"], news: ["Actions & réalisations", "navActions"], docs: ["Actualités & publications", "navNews"],
-  contact: ["Contact & implication", "navContact"], support: ["Soutenir SKL", "donate"],
+  contact: ["Contact & implication", "navContact"], support: ["Soutenir SKL", "donate"], donation: ["Faire un don", "donationEyebrow"], "finance-contact": ["Contact financier", "financeEyebrow"],
   legal: ["Mentions légales", "legalTitle"], privacy: ["Confidentialité", "privacyTitle"], accessibility: ["Accessibilité", "accessibilityTitle"]
 };
 const sequences = {
   heritage: [null, ["mission-vision.html", "navMission"]], mission: [["heritage.html", "navHeritage"], ["directeur.html", "navDirector"]],
-  director: [["mission-vision.html", "navMission"], ["equipe.html", "navTeam"]], team: [["directeur.html", "navDirector"], null]
+  director: [["mission-vision.html", "navMission"], ["equipe.html", "navTeam"]], team: [["directeur.html", "navDirector"], null],
+  support: [null, ["donation.html", "donationEyebrow"]], donation: [["soutenir.html", "donate"], ["contact-finance.html", "financeEyebrow"]], "finance-contact": [["donation.html", "donationEyebrow"], null]
 };
 
 function escapeHtml(value) {

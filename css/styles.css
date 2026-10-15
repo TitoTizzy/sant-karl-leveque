@@ -287,6 +287,61 @@ body[data-page="news"] .page-hero { background-image: linear-gradient(100deg,rgb
 .contact-panel p { color: var(--muted); }
 .contact-panel a { width: fit-content; margin-top: .5rem; color: var(--blue-700); overflow-wrap: anywhere; }
 
+.support-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.75rem; }
+.donation-hero,.finance-hero { background-image: linear-gradient(100deg,rgba(3,29,54,.98) 0%,rgba(3,55,87,.91) 52%,rgba(3,45,77,.54) 100%),url("../assets/photos-4k/discours-podium-miami.webp"); background-position: center 38%; }
+.finance-hero { background-image: linear-gradient(100deg,rgba(3,29,54,.98) 0%,rgba(3,55,87,.91) 52%,rgba(3,45,77,.54) 100%),url("../assets/photos-4k/allocution-officielle-miami.webp"); }
+.donation-section { background: linear-gradient(180deg,rgba(231,247,249,.7),rgba(255,255,255,.95)); }
+.donation-notice { display: grid; grid-template-columns: auto minmax(0,1fr); gap: 1rem; align-items: start; padding: 1.3rem 1.45rem; color: var(--navy-900); background: rgba(255,255,255,.78); border: 1px solid rgba(7,106,173,.16); border-radius: var(--radius); box-shadow: var(--shadow-sm); backdrop-filter: blur(16px); }
+.donation-notice h2 { margin: 0 0 .35rem; font-size: clamp(1.15rem,1.8vw,1.45rem); }
+.donation-notice p { margin: 0; color: var(--muted); }
+.status-dot { width: .8rem; height: .8rem; margin-top: .42rem; background: #e0a526; border-radius: 50%; box-shadow: 0 0 0 6px rgba(224,165,38,.14); }
+.donation-plan-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: clamp(1rem,2vw,1.5rem); margin-top: 1.5rem; align-items: start; }
+.donation-plan { overflow: hidden; background: rgba(255,255,255,.84); border: 1px solid rgba(7,106,173,.15); border-radius: var(--radius); box-shadow: 0 22px 55px rgba(3,42,72,.1); backdrop-filter: blur(20px) saturate(125%); }
+.donation-plan-featured { border-color: rgba(24,137,91,.3); box-shadow: 0 24px 64px rgba(11,93,67,.14); }
+.donation-plan-header { min-height: 280px; padding: clamp(1.5rem,3vw,2.25rem); color: #fff; background: linear-gradient(135deg,var(--navy-950),#075b88); }
+.donation-plan-featured .donation-plan-header { background: linear-gradient(135deg,#043f50,#0b7657); }
+.donation-plan-header .eyebrow { color: #91ebbf; }
+.donation-plan-header h2 { color: #fff; font-size: clamp(1.8rem,3vw,2.7rem); }
+.donation-plan-header > p:last-child { color: rgba(255,255,255,.78); }
+.payment-list { display: grid; }
+.payment-option { display: grid; grid-template-columns: 48px minmax(0,1fr) auto; gap: .9rem 1rem; align-items: center; padding: 1.35rem; border-bottom: 1px solid var(--line); }
+.payment-icon { display: grid; place-items: center; width: 48px; height: 48px; color: #fff; background: var(--navy-900); border-radius: 6px; font-size: .72rem; font-weight: 900; }
+.payment-icon-moncash { background: #c9252c; }
+.payment-icon-natcash { background: #0b6c53; }
+.payment-copy h3 { margin: 0; font-size: 1.08rem; }
+.payment-copy p { margin: .25rem 0 0; color: var(--muted); font-size: .9rem; }
+.coming-soon { padding: .38rem .55rem; color: #694800; background: #fff1c9; border: 1px solid #e9c66b; border-radius: 999px; font-size: .72rem; font-weight: 850; white-space: nowrap; }
+.payment-action { grid-column: 2 / -1; width: 100%; color: #687684; background: #edf1f3; border-color: #d9e0e4; cursor: not-allowed; box-shadow: none; }
+.payment-action:hover { transform: none; }
+.alternate-method { display: grid; gap: 1rem; align-items: center; padding: 1.35rem; background: rgba(231,247,249,.7); }
+.alternate-method h3 { margin: 0 0 .35rem; font-size: 1.08rem; }
+.alternate-method p { margin: 0; color: var(--muted); }
+.alternate-method .btn { width: 100%; }
+
+.finance-contact-section { background: linear-gradient(180deg,rgba(238,249,250,.78),#fff); }
+.finance-layout { display: grid; grid-template-columns: minmax(0,1.35fr) minmax(280px,.65fr); gap: clamp(1rem,3vw,2rem); align-items: start; }
+.finance-form { padding: clamp(1.5rem,3vw,2.5rem); background: rgba(255,255,255,.86); border: 1px solid rgba(7,106,173,.15); border-radius: var(--radius); box-shadow: var(--shadow); backdrop-filter: blur(18px); }
+.form-heading { margin-bottom: 1.75rem; }
+.form-heading h2 { font-size: clamp(1.8rem,3vw,2.6rem); }
+.form-heading > p:last-child { color: var(--muted); }
+.form-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1rem; }
+.form-field { display: grid; gap: .45rem; color: var(--navy-900); font-size: .9rem; font-weight: 800; }
+.form-field small { color: var(--muted); font-weight: 600; }
+.form-field input,.form-field select,.form-field textarea { width: 100%; min-height: 48px; padding: .75rem .85rem; color: var(--navy-900); background: #fff; border: 1px solid #b9cbd6; border-radius: 5px; font: inherit; font-weight: 500; }
+.form-field textarea { min-height: 150px; resize: vertical; }
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus { outline: 3px solid rgba(21,147,208,.3); border-color: var(--blue-600); }
+.form-field-wide { grid-column: 1 / -1; }
+.consent-field { display: grid; grid-template-columns: 24px minmax(0,1fr); gap: .75rem; align-items: start; color: var(--muted); font-size: .92rem; }
+.consent-field input { width: 22px; height: 22px; margin: 0; accent-color: var(--green-700); }
+.form-submit { min-width: 220px; margin-top: 1.25rem; }
+.form-status { margin: 1rem 0 0; padding: 1rem; color: #684700; background: #fff4d8; border: 1px solid #e8c86f; border-radius: 5px; font-weight: 700; }
+.form-status[hidden] { display: none; }
+.finance-security { position: sticky; top: 120px; padding: clamp(1.5rem,3vw,2.25rem); color: #fff; background: linear-gradient(145deg,var(--navy-950),#075b88); border: 1px solid rgba(255,255,255,.16); border-radius: var(--radius); box-shadow: 0 24px 60px rgba(3,29,54,.2); }
+.finance-security h2 { color: #fff; font-size: clamp(1.45rem,2.4vw,2rem); }
+.finance-security p { color: rgba(255,255,255,.75); }
+.finance-security .text-link { color: #9ae8c3; }
+.security-mark { display: grid; place-items: center; width: 58px; height: 58px; margin-bottom: 1.5rem; color: var(--navy-950); background: #8be1b8; border-radius: 6px; font-size: .86rem; font-weight: 950; }
+
 .director-band { display: grid; grid-template-columns: minmax(230px,.38fr) minmax(0,1fr); gap: clamp(2rem,5vw,6rem); align-items: start; width: 100%!important; max-width: none!important; padding: clamp(4rem,7vw,7rem) var(--gutter); color: #fff; background: linear-gradient(105deg,rgba(3,29,54,.98),rgba(6,74,117,.94)),url("../assets/skl-logo.png") center/cover no-repeat; overflow: clip; }
 .director-band > *:first-child { justify-self: end; } .director-band > *:last-child { max-width: 930px; }
 .director-band h2,.director-band .eyebrow,.director-band blockquote { color: #fff; } .director-band .eyebrow { color: #8be1b8; }
@@ -510,6 +565,9 @@ body[data-page="news"] .page-hero { background-image: linear-gradient(100deg,rgb
   .value-grid,.intervention-grid,.news-grid,.gallery-grid,.partner-strip { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .strategic-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .detail-shell { grid-template-columns: 1fr; }
+  .donation-plan-grid,.finance-layout { grid-template-columns: 1fr; }
+  .donation-plan-header { min-height: 0; }
+  .finance-security { position: static; }
   .institutional-facts { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .org-tier-offices { grid-template-columns: repeat(3,minmax(0,1fr)); }
   .org-tier-offices::before,.org-tier-offices .org-node::before,.org-connector-branches { display: none; }
@@ -531,6 +589,7 @@ body[data-page="news"] .page-hero { background-image: linear-gradient(100deg,rgb
   .hero { margin-top: -6.5rem; padding-top: 9.5rem; padding-bottom: 3rem; }
   h1 { font-size: clamp(2.75rem,14vw,4.1rem); }
   .hero-actions .btn { width: 100%; }
+  .support-actions,.support-actions .btn { width: 100%; }
   .compass-panel { min-height: 340px; } .compass { width: 70%; }
   .impact-strip,.value-grid,.intervention-grid,.news-grid,.gallery-grid,.mission-grid,.team-grid,.partner-strip,.page-index-grid,.contact-grid,.strategic-grid,.institutional-facts,.method-grid,.territory-list,.achievement-list { grid-template-columns: 1fr; }
   .team-section-heading { grid-template-columns: 1fr; align-items: start; }
@@ -560,6 +619,12 @@ body[data-page="news"] .page-hero { background-image: linear-gradient(100deg,rgb
   .page-navigation a:last-child { text-align: left; }
   .action-list article { grid-template-columns: 40px 1fr; }
   .action-list article p { grid-column: 2; }
+  .payment-option { grid-template-columns: 48px minmax(0,1fr); }
+  .coming-soon { grid-column: 2; justify-self: start; white-space: normal; }
+  .payment-action { grid-column: 1 / -1; }
+  .form-grid { grid-template-columns: 1fr; }
+  .form-field-wide { grid-column: auto; }
+  .form-submit { width: 100%; }
 }
 @media print {
   .site-header,.site-footer,.skip-link,.hero-actions,.filters,.doc-toolbar,.page-navigation,.breadcrumb,.org-dialog,.org-launch { display: none!important; }
