@@ -30,6 +30,14 @@ const sequences = {
   heritage: [null, ["mission-vision.html", "navMission"]], mission: [["heritage.html", "navHeritage"], ["directeur.html", "navDirector"]],
   director: [["mission-vision.html", "navMission"], ["equipe.html", "navTeam"]], team: [["directeur.html", "navDirector"], null]
 };
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
 areaSlugs.forEach((slug, index) => {
   sequences[`area-${index}`] = [index ? [areaSlugs[index - 1], areas[index - 1][1]] : null, index < areaSlugs.length - 1 ? [areaSlugs[index + 1], areas[index + 1][1]] : null];
 });
@@ -158,6 +166,10 @@ for await (const file of glob(["*.html", "pages/*.html"])) {
     ]
   };
   for (const [from, to] of translateStatic[relative] || []) html = html.replace(from, to);
+  html = html.replace(/<([a-z][\w-]*)([^>]*\sdata-i18n="([^"]+)"[^>]*)>([^<]*)<\/\1>/gi, (match, tag, attributes, key) => {
+    const value = translations.fr[key];
+    return value === undefined ? match : `<${tag}${attributes}>${escapeHtml(value)}</${tag}>`;
+  });
   html = html
     .replaceAll("reverendperegmaisonneuve@gmail.com", organization.email)
     .replaceAll("estinviljnbsebastien@gmail.com", organization.email);

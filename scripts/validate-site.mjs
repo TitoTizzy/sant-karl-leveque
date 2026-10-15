@@ -18,6 +18,18 @@ for (const lang of ["ht", "en"]) {
   const extra = keys.filter((key) => !referenceKeys.includes(key));
   if (missing.length || extra.length) errors.push(`${lang}: clés manquantes [${missing}] / supplémentaires [${extra}]`);
 }
+const officialContentChecks = [
+  ["heritageBirth", "17 janvier 1937"],
+  ["missionText", "zones rurales"],
+  ["visionText", "autodétermination"],
+  ["valuesSelfDetermination", "Core Group"],
+  ["directorMessage4", "quitter l’Italie"],
+  ["directorVisionQuote", "aksè ak lasante"]
+];
+for (const [key, phrase] of officialContentChecks) {
+  if (!translations.fr[key]?.includes(phrase)) errors.push(`contenu officiel incomplet: ${key}`);
+  for (const lang of ["ht", "en"]) if (!translations[lang][key]?.trim()) errors.push(`${lang}: contenu officiel vide ${key}`);
+}
 
 for await (const relative of glob(["*.html", "pages/*.html"])) {
   const file = resolve(root, relative);
@@ -62,6 +74,7 @@ for await (const relative of glob(["*.html", "pages/*.html"])) {
   }
   if (/news\.html|documentation\.html/.test(html)) errors.push(`${relative}: ancienne route détectée`);
   if (/\[object Object\]/.test(html)) errors.push(`${relative}: objet JavaScript affiché comme texte`);
+  if (/\bSKSL\b/.test(html)) errors.push(`${relative}: sigle SKSL incorrect`);
   if (/reverendperegmaisonneuve@gmail\.com|estinviljnbsebastien@gmail\.com|\+509\s*(?:4705-1133|3682-7431)/.test(html)) errors.push(`${relative}: coordonnées personnelles détectées`);
   if (/sécurité alimentaire|securite alimentaire|food security|sekirite alimantè/i.test(html)) errors.push(`${relative}: référence exclue à la sécurité alimentaire`);
   if (!/foundingDate\":\"1986/.test(html)) errors.push(`${relative}: année 1986 absente des données structurées`);
