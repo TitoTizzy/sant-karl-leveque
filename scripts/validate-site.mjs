@@ -12,6 +12,14 @@ const errors = [];
 if (organization.founded !== 1986) errors.push(`année de fondation incorrecte: ${organization.founded}`);
 if (organization.email !== "santkarlleveque86@gmail.com") errors.push(`courriel institutionnel incorrect: ${organization.email}`);
 const referenceKeys = Object.keys(translations.fr).sort();
+const indexSource = await readFile(resolve(root, "index.html"), "utf8");
+const assetVersion = indexSource.match(/js\/app\.js\?v=([^\"]+)/)?.[1];
+if (!assetVersion || assetVersion === "20261014-partners") errors.push("version des assets absente ou obsolète");
+const appSource = await readFile(resolve(root, "js/app.js"), "utf8");
+if (!appSource.includes('import(`./translations.js${moduleQuery}`)')) errors.push("app.js: la version ne se propage pas aux traductions");
+if (!appSource.includes("if (value !== undefined) node.textContent = value")) errors.push("app.js: garde-fou des traductions absent");
+const workerSource = await readFile(resolve(root, "service-worker.js"), "utf8");
+if (!workerSource.includes('searchParams.get("v")') || !workerSource.includes("isCodeAsset") || !workerSource.includes("self.skipWaiting()")) errors.push("service worker: stratégie de mise à jour du code incomplète");
 for (const lang of ["ht", "en"]) {
   const keys = Object.keys(translations[lang]).sort();
   const missing = referenceKeys.filter((key) => !keys.includes(key));
@@ -46,6 +54,7 @@ for await (const relative of glob(["*.html", "pages/*.html"])) {
   if (!/<meta property="og:title"/.test(html)) errors.push(`${relative}: Open Graph absent`);
   if (!/<meta property="og:image:alt"/.test(html)) errors.push(`${relative}: texte alternatif Open Graph absent`);
   if (!/<meta name="twitter:image"/.test(html)) errors.push(`${relative}: image Twitter absente`);
+  if (relative !== "offline.html" && (!html.includes(`js/app.js?v=${assetVersion}`) || !html.includes(`css/styles.css?v=${assetVersion}`))) errors.push(`${relative}: version des assets incohérente`);
   if (["404.html", "offline.html"].includes(relative) && !/<meta name="robots" content="noindex, nofollow">/.test(html)) errors.push(`${relative}: directive noindex absente`);
   if (relative === "index.html" && !html.includes(`<link rel="canonical" href="${rootUrl}">`)) errors.push(`${relative}: canonique d’accueil incorrecte`);
   const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1]);

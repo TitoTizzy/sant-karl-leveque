@@ -1,6 +1,13 @@
-import { translations } from "./translations.js";
-import { areas, areaSlugs, areaDetails, news, documents, documentMetadata, gallery } from "./content-data.js";
-import { organization, territories, people, executiveOffices, methodology, partners, achievements } from "./institution-data.js";
+const appUrl = new URL(import.meta.url);
+const assetVersion = appUrl.searchParams.get("v") || "dev";
+const moduleQuery = assetVersion === "dev" ? "" : `?v=${encodeURIComponent(assetVersion)}`;
+const [{ translations }, contentData, institutionData] = await Promise.all([
+  import(`./translations.js${moduleQuery}`),
+  import(`./content-data.js${moduleQuery}`),
+  import(`./institution-data.js${moduleQuery}`)
+]);
+const { areas, areaSlugs, areaDetails, news, documents, documentMetadata, gallery } = contentData;
+const { organization, territories, people, executiveOffices, methodology, partners, achievements } = institutionData;
 
 const state = {
   lang: "fr",
@@ -96,7 +103,7 @@ function getInitialLanguage() {
 }
 
 function t(key) {
-  return translations[state.lang][key] || translations.fr[key] || key;
+  return translations[state.lang]?.[key] ?? translations.fr?.[key];
 }
 
 function localize(value) {
@@ -178,12 +185,14 @@ function setLanguage(lang) {
     select.value = state.lang;
   });
   document.querySelectorAll("[data-i18n]").forEach((node) => {
-    node.textContent = t(node.dataset.i18n);
+    const value = t(node.dataset.i18n);
+    if (value !== undefined) node.textContent = value;
   });
   ["aria-label", "placeholder", "alt"].forEach((attribute) => {
     const dataName = `i18n${attribute.split("-").map((part) => part[0].toUpperCase() + part.slice(1)).join("")}`;
     document.querySelectorAll(`[data-i18n-${attribute}]`).forEach((node) => {
-      node.setAttribute(attribute, t(node.dataset[dataName]));
+      const value = t(node.dataset[dataName]);
+      if (value !== undefined) node.setAttribute(attribute, value);
     });
   });
   updatePageMetadata();
@@ -570,6 +579,6 @@ document.addEventListener("DOMContentLoaded", () => {
   enhanceInterface();
   if ("serviceWorker" in navigator && window.location.protocol !== "file:") {
     const base = document.body.dataset.base || "";
-    navigator.serviceWorker.register(`${base}service-worker.js`).catch(() => {});
+    navigator.serviceWorker.register(`${base}service-worker.js?v=${encodeURIComponent(assetVersion)}`, { updateViaCache: "none" }).catch(() => {});
   }
 });
