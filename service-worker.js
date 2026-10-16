@@ -12,6 +12,7 @@ const CORE = [
   `./js/institution-data.js?v=${VERSION}`,
   `./assets/vendor/pdfjs/pdf.min.mjs?v=${VERSION}`,
   `./assets/vendor/pdfjs/pdf.worker.min.mjs?v=${VERSION}`,
+  `./assets/vendor/page-flip/page-flip.module.js?v=${VERSION}`,
   "./assets/skl-logo-160.webp",
   "./assets/icons/icon-192.png",
   "./assets/icons/icon-512.png"

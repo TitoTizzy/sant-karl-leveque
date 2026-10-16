@@ -543,9 +543,12 @@ body[data-page="news"] .page-hero { background-image: linear-gradient(100deg,rgb
 .document-reader-close span { font-size: 1.8rem; line-height: 1; transform: translateY(-1px); }
 .document-reader-close:hover,.document-reader-toolbar button:hover:not(:disabled) { color: #fff; background: var(--navy-900); border-color: var(--navy-900); transform: translateY(-1px); }
 .document-reader-close:focus-visible,.document-reader-toolbar button:focus-visible { outline: 3px solid rgba(21,147,208,.4); outline-offset: 2px; }
-.document-reader-toolbar { display: flex; align-items: center; justify-content: center; gap: .5rem; min-height: 60px; padding: .5rem 1rem; color: #fff; background: var(--navy-950); border-bottom: 1px solid rgba(255,255,255,.12); }
+.document-reader-toolbar { position: relative; display: flex; align-items: center; justify-content: center; gap: .5rem; min-height: 60px; padding: .5rem 1rem; color: #fff; background: var(--navy-950); border-bottom: 1px solid rgba(255,255,255,.12); }
 .document-reader-toolbar button { color: #fff; background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.22); font-size: 1.25rem; }
 .document-reader-toolbar button:disabled { color: rgba(255,255,255,.35); cursor: not-allowed; }
+.document-reader-mode { position: absolute; left: 1rem; display: inline-flex; align-items: center; min-height: 32px; padding: .35rem .7rem; color: #8be1b8; background: rgba(139,225,184,.1); border: 1px solid rgba(139,225,184,.28); border-radius: 999px; font-size: .72rem; font-weight: 850; text-transform: uppercase; }
+.document-reader-mode[hidden] { display: none; }
+.document-reader-zoom-controls { display: inline-flex; align-items: center; gap: .5rem; }
 .document-reader-toolbar-separator { width: 1px; height: 28px; margin-inline: .35rem; background: rgba(255,255,255,.22); }
 .document-reader-page-status { min-width: 96px; text-align: center; font-size: .88rem; font-weight: 750; }
 .document-reader-zoom { min-width: 52px; text-align: center; font-size: .8rem; font-weight: 800; }
@@ -558,6 +561,15 @@ body[data-page="news"] .page-hero { background-image: linear-gradient(100deg,rgb
 .document-reader-loading,.document-reader-error { position: sticky; z-index: 2; top: calc(50% - 2rem); width: fit-content; max-width: 520px; margin: 0 auto; padding: 1rem 1.25rem; color: var(--navy-900); text-align: center; background: rgba(255,255,255,.96); border: 1px solid rgba(143,210,230,.6); border-radius: 6px; box-shadow: 0 14px 40px rgba(0,0,0,.24); }
 .document-reader-error p { margin: .35rem 0 0; color: var(--muted); }
 .document-reader-loading[hidden],.document-reader-error[hidden] { display: none; }
+.document-reader-dialog.is-book-mode .document-reader-zoom-controls { display: none; }
+.document-reader-dialog.is-book-mode .document-reader-stage { display: grid; place-items: center; padding: 1rem; overflow: hidden; background: radial-gradient(circle at 50% 42%,#405769 0,#263746 58%,#172938 100%); perspective: 2200px; }
+.document-reader-book { width: 100%; height: 100%; min-width: 0; margin: auto; }
+.document-reader-book .stf__wrapper { position: relative; width: 100%; box-sizing: border-box; }
+.document-reader-dialog.is-book-mode .document-reader-page { width: 100%; height: 100%; overflow: hidden; border: 1px solid rgba(3,29,54,.18); box-shadow: inset 0 0 28px rgba(3,29,54,.06); }
+.document-reader-dialog.is-book-mode .document-reader-page canvas { width: 100%!important; height: 100%!important; object-fit: fill; }
+.document-reader-dialog.is-book-mode .document-reader-page-label { z-index: 3; }
+.document-reader-dialog.is-book-mode .stf__parent { filter: drop-shadow(0 24px 28px rgba(0,0,0,.42)); }
+.document-reader-dialog.is-book-mode .stf__item.--hard { border-color: rgba(185,151,64,.45); }
 
 .breadcrumb { width: 100%; padding: .8rem var(--gutter); background: #f5fafc; border-bottom: 1px solid var(--line); }
 .breadcrumb ol { display: flex; flex-wrap: wrap; gap: .5rem; width: min(100%,var(--content)); margin: 0 auto; padding: 0; list-style: none; }
@@ -679,6 +691,7 @@ body[data-page="news"] .page-hero { background-image: linear-gradient(100deg,rgb
   .document-reader-heading h2 { max-width: 48vw; font-size: 1rem; }
   .document-reader-download { min-width: 44px; padding-inline: .65rem; font-size: .78rem; }
   .document-reader-toolbar { justify-content: space-between; padding-inline: .5rem; }
+  .document-reader-mode { display: none; }
   .document-reader-toolbar-separator { margin-inline: 0; }
   .document-reader-page-status { min-width: 78px; }
   .document-reader-zoom { min-width: 42px; }

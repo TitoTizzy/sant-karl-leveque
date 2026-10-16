@@ -20,6 +20,8 @@ const state = {
 const documentReaderState = {
   pdf: null,
   loadingTask: null,
+  pageFlip: null,
+  mode: "scroll",
   page: 1,
   zoom: 1,
   renderToken: 0,
@@ -27,6 +29,7 @@ const documentReaderState = {
   scrollFrame: 0
 };
 let pdfEnginePromise;
+let pageFlipEnginePromise;
 
 const supportedLanguages = ["fr", "ht", "en"];
 const publicHomeUrl = "https://titotizzy.github.io/sant-karl-leveque/";
@@ -621,6 +624,32 @@ function loadPdfEngine() {
   return pdfEnginePromise;
 }
 
+function loadPageFlipEngine() {
+  if (pageFlipEnginePromise) return pageFlipEnginePromise;
+  const base = document.body.dataset.base || "";
+  const libraryUrl = new URL(`${base}assets/vendor/page-flip/page-flip.module.js?v=${encodeURIComponent(assetVersion)}`, document.baseURI).href;
+  pageFlipEnginePromise = import(libraryUrl);
+  return pageFlipEnginePromise;
+}
+
+function resetBookReader(dialog) {
+  const pages = dialog.querySelector("[data-reader-pages]");
+  if (documentReaderState.pageFlip) {
+    try {
+      documentReaderState.pageFlip.clear();
+      documentReaderState.pageFlip.getUI().destroy();
+    } catch (error) {
+      console.warn("Book reader cleanup", error);
+    }
+  }
+  documentReaderState.pageFlip = null;
+  documentReaderState.mode = "scroll";
+  dialog.classList.remove("is-book-mode");
+  pages.classList.remove("document-reader-book");
+  pages.removeAttribute("style");
+  dialog.querySelector("[data-reader-book-label]").hidden = true;
+}
+
 function updateDocumentReaderControls() {
   const dialog = document.querySelector("[data-document-reader]");
   if (!dialog) return;
@@ -630,15 +659,67 @@ function updateDocumentReaderControls() {
   dialog.querySelector("[data-reader-zoom]").textContent = `${Math.round(documentReaderState.zoom * 100)}%`;
   dialog.querySelector("[data-reader-previous]").disabled = documentReaderState.page <= 1;
   dialog.querySelector("[data-reader-next]").disabled = !total || documentReaderState.page >= total;
-  dialog.querySelector("[data-reader-zoom-out]").disabled = documentReaderState.zoom <= 0.75;
-  dialog.querySelector("[data-reader-zoom-in]").disabled = documentReaderState.zoom >= 2;
+  dialog.querySelector("[data-reader-zoom-out]").disabled = documentReaderState.mode === "book" || documentReaderState.zoom <= 0.75;
+  dialog.querySelector("[data-reader-zoom-in]").disabled = documentReaderState.mode === "book" || documentReaderState.zoom >= 2;
 }
 
 function goToDocumentPage(pageNumber, behavior = "smooth") {
   if (!documentReaderState.pdf) return;
+  const previousPage = documentReaderState.page;
   documentReaderState.page = Math.max(1, Math.min(pageNumber, documentReaderState.pdf.numPages));
   updateDocumentReaderControls();
+  if (documentReaderState.mode === "book" && documentReaderState.pageFlip) {
+    if (behavior === "auto") documentReaderState.pageFlip.turnToPage(documentReaderState.page - 1);
+    else if (documentReaderState.page > previousPage) documentReaderState.pageFlip.flipNext("bottom");
+    else documentReaderState.pageFlip.flipPrev("bottom");
+    return;
+  }
   document.querySelector(`[data-reader-page="${documentReaderState.page}"]`)?.scrollIntoView({ behavior, block: "start" });
+}
+
+async function initializeBookReader(dialog, pageToRestore) {
+  const stage = dialog.querySelector("[data-reader-stage]");
+  const pages = dialog.querySelector("[data-reader-pages]");
+  const firstCanvas = pages.querySelector("canvas");
+  if (!firstCanvas) return;
+  const { PageFlip } = await loadPageFlipEngine();
+  const pageWidth = Math.max(260, parseFloat(firstCanvas.style.width) || firstCanvas.width);
+  const pageHeight = Math.max(340, parseFloat(firstCanvas.style.height) || firstCanvas.height);
+  const ratio = pageWidth / pageHeight;
+  const maxHeight = Math.max(420, stage.clientHeight - 40);
+  const maxWidth = Math.max(300, Math.round(maxHeight * ratio));
+  documentReaderState.mode = "book";
+  dialog.classList.add("is-book-mode");
+  pages.classList.add("document-reader-book");
+  dialog.querySelector("[data-reader-book-label]").hidden = false;
+  const pageFlip = new PageFlip(pages, {
+    width: Math.round(pageWidth),
+    height: Math.round(pageHeight),
+    size: "stretch",
+    minWidth: 240,
+    maxWidth,
+    minHeight: Math.round(240 / ratio),
+    maxHeight,
+    autoSize: true,
+    showCover: true,
+    usePortrait: true,
+    drawShadow: true,
+    maxShadowOpacity: 0.55,
+    flippingTime: 720,
+    mobileScrollSupport: false,
+    swipeDistance: 24,
+    showPageCorners: true,
+    disableFlipByClick: false
+  });
+  documentReaderState.pageFlip = pageFlip;
+  pageFlip.on("flip", (event) => {
+    documentReaderState.page = Number(event.data) + 1;
+    updateDocumentReaderControls();
+  });
+  pageFlip.loadFromHTML(pages.querySelectorAll(".document-reader-page"));
+  pageFlip.turnToPage(Math.max(0, pageToRestore - 1));
+  documentReaderState.page = pageFlip.getCurrentPageIndex() + 1;
+  updateDocumentReaderControls();
 }
 
 async function renderDocumentPages(dialog) {
@@ -649,6 +730,7 @@ async function renderDocumentPages(dialog) {
   const loading = dialog.querySelector("[data-reader-loading]");
   const token = ++documentReaderState.renderToken;
   const pageToRestore = documentReaderState.page;
+  resetBookReader(dialog);
   pages.replaceChildren();
   loading.hidden = false;
 
@@ -680,7 +762,8 @@ async function renderDocumentPages(dialog) {
 
   if (token !== documentReaderState.renderToken) return;
   loading.hidden = true;
-  goToDocumentPage(pageToRestore, "auto");
+  if (pdf.numPages > 4) await initializeBookReader(dialog, pageToRestore);
+  else goToDocumentPage(pageToRestore, "auto");
 }
 
 function bindDocumentReader() {
@@ -701,6 +784,7 @@ function bindDocumentReader() {
     documentReaderState.returnFocus = button;
     documentReaderState.page = 1;
     documentReaderState.zoom = 1;
+    documentReaderState.mode = "scroll";
     title.textContent = button.dataset.documentTitle;
     download.href = source;
     download.setAttribute("download", source.split("/").pop());
@@ -734,8 +818,14 @@ function bindDocumentReader() {
   });
 
   dialog.querySelector("[data-reader-close]").addEventListener("click", () => dialog.close());
-  dialog.querySelector("[data-reader-previous]").addEventListener("click", () => goToDocumentPage(documentReaderState.page - 1));
-  dialog.querySelector("[data-reader-next]").addEventListener("click", () => goToDocumentPage(documentReaderState.page + 1));
+  dialog.querySelector("[data-reader-previous]").addEventListener("click", () => {
+    if (documentReaderState.mode === "book") documentReaderState.pageFlip?.flipPrev("bottom");
+    else goToDocumentPage(documentReaderState.page - 1);
+  });
+  dialog.querySelector("[data-reader-next]").addEventListener("click", () => {
+    if (documentReaderState.mode === "book") documentReaderState.pageFlip?.flipNext("bottom");
+    else goToDocumentPage(documentReaderState.page + 1);
+  });
   dialog.querySelector("[data-reader-zoom-out]").addEventListener("click", async () => {
     documentReaderState.zoom = Math.max(0.75, documentReaderState.zoom - 0.25);
     updateDocumentReaderControls();
@@ -747,6 +837,7 @@ function bindDocumentReader() {
     await renderDocumentPages(dialog);
   });
   stage.addEventListener("scroll", () => {
+    if (documentReaderState.mode === "book") return;
     window.cancelAnimationFrame(documentReaderState.scrollFrame);
     documentReaderState.scrollFrame = window.requestAnimationFrame(() => {
       const stageTop = stage.getBoundingClientRect().top;
@@ -764,6 +855,7 @@ function bindDocumentReader() {
   });
   dialog.addEventListener("close", () => {
     documentReaderState.renderToken += 1;
+    resetBookReader(dialog);
     documentReaderState.loadingTask?.destroy();
     documentReaderState.pdf = null;
     documentReaderState.loadingTask = null;

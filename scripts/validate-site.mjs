@@ -121,7 +121,7 @@ const publicationsHtml = await readFile(resolve(root, "pages/publications.html")
 if (!publicationsHtml.includes("data-document-reader") || !publicationsHtml.includes("data-reader-pages")) errors.push("pages/publications.html: lecteur PDF intégré absent");
 if ((publicationsHtml.match(/data-document-open/g) || []).length !== documents.length) errors.push("pages/publications.html: chaque publication doit ouvrir le lecteur PDF");
 if (/data-document-open[^>]*target="_blank"|data-document-open[^>]*href=/i.test(publicationsHtml)) errors.push("pages/publications.html: un document quitte encore le site à l’ouverture");
-for (const pdfAsset of ["assets/vendor/pdfjs/pdf.min.mjs", "assets/vendor/pdfjs/pdf.worker.min.mjs"]) {
+for (const pdfAsset of ["assets/vendor/pdfjs/pdf.min.mjs", "assets/vendor/pdfjs/pdf.worker.min.mjs", "assets/vendor/page-flip/page-flip.module.js"]) {
   try { await access(resolve(root, pdfAsset)); } catch { errors.push(`Lecteur PDF: dépendance absente (${pdfAsset})`); }
 }
 
