@@ -5,7 +5,7 @@ import { translations } from "../js/translations.js";
 import { organization, territories, people, executiveOffices, methodology, partners, achievements } from "../js/institution-data.js";
 
 const rootUrl = "https://titotizzy.github.io/sant-karl-leveque/";
-const assetVersion = "20261015-payment-dialogs-v3";
+const assetVersion = "20261016-document-reader-v4";
 const socialImages = {
   "pages/equipe.html": ["honneur-citoyen-pensacola.webp", "Équipe et direction de Sant Karl Lévêque"],
   "pages/directeur.html": ["honneur-citoyen-pensacola.webp", "Direction exécutive de Sant Karl Lévêque"],
@@ -96,7 +96,7 @@ function institutionProfileMarkup() {
 }
 
 function docsMarkup(base) {
-  return documents.map((doc) => { const meta = documentMetadata[doc.file]; const date = typeof doc.year === "object" ? doc.year.fr : doc.year; return `<article class="doc-card"><div><span class="doc-type"><time${meta.date ? ` datetime="${meta.date}"` : ""}>${date}</time></span><h3>${doc.title.fr}</h3><p class="doc-meta">${doc.text.fr}</p><p class="doc-facts">PDF · ${Math.round(meta.size / 1024)} KB · FR · ${meta.pages} pages</p></div><div class="doc-actions"><a class="btn btn-secondary" href="${base}${doc.file}">Ouvrir</a><a class="btn btn-primary" href="${base}${doc.file}" download>Télécharger</a></div></article>`; }).join("");
+  return documents.map((doc) => { const meta = documentMetadata[doc.file]; const date = typeof doc.year === "object" ? doc.year.fr : doc.year; return `<article class="doc-card"><div><span class="doc-type"><time${meta.date ? ` datetime="${meta.date}"` : ""}>${date}</time></span><h3>${doc.title.fr}</h3><p class="doc-meta">${doc.text.fr}</p><p class="doc-facts">PDF · ${Math.round(meta.size / 1024)} KB · FR · ${meta.pages} pages</p></div><div class="doc-actions"><button class="btn btn-secondary" type="button" data-document-open data-document-src="${base}${doc.file}" data-document-title="${escapeHtml(doc.title.fr)}">Ouvrir</button><a class="btn btn-primary" href="${base}${doc.file}" download>Télécharger</a></div></article>`; }).join("");
 }
 
 const indexedPages = [];

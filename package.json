@@ -8,6 +8,7 @@
     "start": "npx serve ."
   },
   "devDependencies": {
+    "pdfjs-dist": "^6.4.299",
     "supabase": "2.121.0"
   }
 }

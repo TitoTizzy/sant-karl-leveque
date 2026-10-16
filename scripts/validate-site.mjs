@@ -117,6 +117,14 @@ for (const officeHolder of ["Rév. Père Gardy Maisonneuve", "Sébastien Estinvi
   if (!teamHtml.includes(officeHolder)) errors.push(`pages/equipe.html: titulaire absent de l’organigramme (${officeHolder})`);
 }
 
+const publicationsHtml = await readFile(resolve(root, "pages/publications.html"), "utf8");
+if (!publicationsHtml.includes("data-document-reader") || !publicationsHtml.includes("data-reader-pages")) errors.push("pages/publications.html: lecteur PDF intégré absent");
+if ((publicationsHtml.match(/data-document-open/g) || []).length !== documents.length) errors.push("pages/publications.html: chaque publication doit ouvrir le lecteur PDF");
+if (/data-document-open[^>]*target="_blank"|data-document-open[^>]*href=/i.test(publicationsHtml)) errors.push("pages/publications.html: un document quitte encore le site à l’ouverture");
+for (const pdfAsset of ["assets/vendor/pdfjs/pdf.min.mjs", "assets/vendor/pdfjs/pdf.worker.min.mjs"]) {
+  try { await access(resolve(root, pdfAsset)); } catch { errors.push(`Lecteur PDF: dépendance absente (${pdfAsset})`); }
+}
+
 const donationHtml = await readFile(resolve(root, "pages/donation.html"), "utf8");
 if (!donationHtml.includes('data-page="donation"')) errors.push("pages/donation.html: identité de page absente");
 if ((donationHtml.match(/class="[^"]*payment-method-button/g) || []).length !== 6) errors.push("pages/donation.html: six boutons de paiement et contact sont requis");

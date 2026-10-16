@@ -17,6 +17,17 @@ const state = {
   docSort: "date-desc"
 };
 
+const documentReaderState = {
+  pdf: null,
+  loadingTask: null,
+  page: 1,
+  zoom: 1,
+  renderToken: 0,
+  returnFocus: null,
+  scrollFrame: 0
+};
+let pdfEnginePromise;
+
 const supportedLanguages = ["fr", "ht", "en"];
 const publicHomeUrl = "https://titotizzy.github.io/sant-karl-leveque/";
 
@@ -111,6 +122,14 @@ function localize(value) {
   return value;
 }
 
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
 function updatePageMetadata() {
   const page = document.body.dataset.page || "home";
   const area = areas[Number(document.body.dataset.area)];
@@ -192,7 +211,7 @@ function setLanguage(lang) {
     const value = t(node.dataset.i18n);
     if (value !== undefined) node.textContent = value;
   });
-  ["aria-label", "placeholder", "alt"].forEach((attribute) => {
+  ["aria-label", "placeholder", "alt", "title"].forEach((attribute) => {
     const dataName = `i18n${attribute.split("-").map((part) => part[0].toUpperCase() + part.slice(1)).join("")}`;
     document.querySelectorAll(`[data-i18n-${attribute}]`).forEach((node) => {
       const value = t(node.dataset[dataName]);
@@ -334,7 +353,7 @@ function renderDocuments() {
         <p class="doc-meta">${localize(doc.text)}</p>
         <p class="doc-facts">PDF · ${formatFileSize(meta.size || 0)} · ${state.lang.toUpperCase()} · ${meta.pages || "–"} ${t("documentPages")}</p>
       </div>
-      <div class="doc-actions"><a class="btn btn-secondary" href="${document.body.dataset.base || ""}${doc.file}" target="_blank" rel="noopener">${t("openDocument")}</a><a class="btn btn-primary" href="${document.body.dataset.base || ""}${doc.file}" download>${t("download")}</a></div>
+      <div class="doc-actions"><button class="btn btn-secondary" type="button" data-document-open data-document-src="${document.body.dataset.base || ""}${doc.file}" data-document-title="${escapeHtml(localize(doc.title))}">${t("openDocument")}</button><a class="btn btn-primary" href="${document.body.dataset.base || ""}${doc.file}" download>${t("download")}</a></div>
     </article>
   `; }).join("") : `<div class="empty-state"><h3>${t("noResults")}</h3><p>${t("changeSearch")}</p></div>`;
   const status = document.querySelector("[data-doc-results]");
@@ -590,6 +609,171 @@ function bindFilters() {
   }
 }
 
+function loadPdfEngine() {
+  if (pdfEnginePromise) return pdfEnginePromise;
+  const base = document.body.dataset.base || "";
+  const libraryUrl = new URL(`${base}assets/vendor/pdfjs/pdf.min.mjs?v=${encodeURIComponent(assetVersion)}`, document.baseURI).href;
+  const workerUrl = new URL(`${base}assets/vendor/pdfjs/pdf.worker.min.mjs?v=${encodeURIComponent(assetVersion)}`, document.baseURI).href;
+  pdfEnginePromise = import(libraryUrl).then((pdfjs) => {
+    pdfjs.GlobalWorkerOptions.workerSrc = workerUrl;
+    return pdfjs;
+  });
+  return pdfEnginePromise;
+}
+
+function updateDocumentReaderControls() {
+  const dialog = document.querySelector("[data-document-reader]");
+  if (!dialog) return;
+  const total = documentReaderState.pdf?.numPages || 0;
+  dialog.querySelector("[data-reader-current]").textContent = String(documentReaderState.page);
+  dialog.querySelector("[data-reader-total]").textContent = String(total || "–");
+  dialog.querySelector("[data-reader-zoom]").textContent = `${Math.round(documentReaderState.zoom * 100)}%`;
+  dialog.querySelector("[data-reader-previous]").disabled = documentReaderState.page <= 1;
+  dialog.querySelector("[data-reader-next]").disabled = !total || documentReaderState.page >= total;
+  dialog.querySelector("[data-reader-zoom-out]").disabled = documentReaderState.zoom <= 0.75;
+  dialog.querySelector("[data-reader-zoom-in]").disabled = documentReaderState.zoom >= 2;
+}
+
+function goToDocumentPage(pageNumber, behavior = "smooth") {
+  if (!documentReaderState.pdf) return;
+  documentReaderState.page = Math.max(1, Math.min(pageNumber, documentReaderState.pdf.numPages));
+  updateDocumentReaderControls();
+  document.querySelector(`[data-reader-page="${documentReaderState.page}"]`)?.scrollIntoView({ behavior, block: "start" });
+}
+
+async function renderDocumentPages(dialog) {
+  const pdf = documentReaderState.pdf;
+  if (!pdf) return;
+  const stage = dialog.querySelector("[data-reader-stage]");
+  const pages = dialog.querySelector("[data-reader-pages]");
+  const loading = dialog.querySelector("[data-reader-loading]");
+  const token = ++documentReaderState.renderToken;
+  const pageToRestore = documentReaderState.page;
+  pages.replaceChildren();
+  loading.hidden = false;
+
+  for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber += 1) {
+    if (token !== documentReaderState.renderToken) return;
+    loading.textContent = `${t("documentReaderLoading")} ${pageNumber} / ${pdf.numPages}`;
+    const page = await pdf.getPage(pageNumber);
+    const naturalViewport = page.getViewport({ scale: 1 });
+    const availableWidth = Math.max(260, stage.clientWidth - 56);
+    const fitScale = Math.min(1.75, availableWidth / naturalViewport.width);
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+    const viewport = page.getViewport({ scale: fitScale * documentReaderState.zoom * pixelRatio });
+    const canvas = document.createElement("canvas");
+    const pageShell = document.createElement("section");
+    const pageLabel = document.createElement("span");
+    canvas.width = Math.floor(viewport.width);
+    canvas.height = Math.floor(viewport.height);
+    canvas.style.width = `${Math.floor(viewport.width / pixelRatio)}px`;
+    canvas.style.height = `${Math.floor(viewport.height / pixelRatio)}px`;
+    canvas.setAttribute("aria-label", `${t("documentPage")} ${pageNumber}`);
+    pageShell.className = "document-reader-page";
+    pageShell.dataset.readerPage = String(pageNumber);
+    pageLabel.className = "document-reader-page-label";
+    pageLabel.textContent = `${t("documentPage")} ${pageNumber}`;
+    pageShell.append(canvas, pageLabel);
+    pages.append(pageShell);
+    await page.render({ canvasContext: canvas.getContext("2d", { alpha: false }), viewport }).promise;
+  }
+
+  if (token !== documentReaderState.renderToken) return;
+  loading.hidden = true;
+  goToDocumentPage(pageToRestore, "auto");
+}
+
+function bindDocumentReader() {
+  const dialog = document.querySelector("[data-document-reader]");
+  const list = document.querySelector('[data-render="documents"]');
+  if (!dialog || !list) return;
+  const stage = dialog.querySelector("[data-reader-stage]");
+  const pages = dialog.querySelector("[data-reader-pages]");
+  const loading = dialog.querySelector("[data-reader-loading]");
+  const error = dialog.querySelector("[data-reader-error]");
+  const title = dialog.querySelector("[data-reader-title]");
+  const download = dialog.querySelector("[data-reader-download]");
+
+  list.addEventListener("click", async (event) => {
+    const button = event.target.closest("[data-document-open]");
+    if (!button) return;
+    const source = new URL(button.dataset.documentSrc, document.baseURI).href;
+    documentReaderState.returnFocus = button;
+    documentReaderState.page = 1;
+    documentReaderState.zoom = 1;
+    title.textContent = button.dataset.documentTitle;
+    download.href = source;
+    download.setAttribute("download", source.split("/").pop());
+    error.hidden = true;
+    loading.hidden = false;
+    loading.textContent = t("documentReaderLoading");
+    pages.replaceChildren();
+    dialog.showModal();
+    document.body.classList.add("dialog-open");
+    dialog.querySelector("[data-reader-close]").focus();
+    updateDocumentReaderControls();
+
+    try {
+      const pdfjs = await loadPdfEngine();
+      if (!dialog.open) return;
+      documentReaderState.loadingTask = pdfjs.getDocument({ url: source });
+      const pdf = await documentReaderState.loadingTask.promise;
+      if (!dialog.open) {
+        await documentReaderState.loadingTask.destroy();
+        return;
+      }
+      documentReaderState.pdf = pdf;
+      updateDocumentReaderControls();
+      await renderDocumentPages(dialog);
+    } catch (renderError) {
+      if (!dialog.open) return;
+      console.error("PDF reader error", renderError);
+      loading.hidden = true;
+      error.hidden = false;
+    }
+  });
+
+  dialog.querySelector("[data-reader-close]").addEventListener("click", () => dialog.close());
+  dialog.querySelector("[data-reader-previous]").addEventListener("click", () => goToDocumentPage(documentReaderState.page - 1));
+  dialog.querySelector("[data-reader-next]").addEventListener("click", () => goToDocumentPage(documentReaderState.page + 1));
+  dialog.querySelector("[data-reader-zoom-out]").addEventListener("click", async () => {
+    documentReaderState.zoom = Math.max(0.75, documentReaderState.zoom - 0.25);
+    updateDocumentReaderControls();
+    await renderDocumentPages(dialog);
+  });
+  dialog.querySelector("[data-reader-zoom-in]").addEventListener("click", async () => {
+    documentReaderState.zoom = Math.min(2, documentReaderState.zoom + 0.25);
+    updateDocumentReaderControls();
+    await renderDocumentPages(dialog);
+  });
+  stage.addEventListener("scroll", () => {
+    window.cancelAnimationFrame(documentReaderState.scrollFrame);
+    documentReaderState.scrollFrame = window.requestAnimationFrame(() => {
+      const stageTop = stage.getBoundingClientRect().top;
+      const visiblePage = [...pages.children].reduce((closest, page) => {
+        const distance = Math.abs(page.getBoundingClientRect().top - stageTop - 16);
+        return !closest || distance < closest.distance ? { page, distance } : closest;
+      }, null)?.page;
+      if (!visiblePage) return;
+      documentReaderState.page = Number(visiblePage.dataset.readerPage);
+      updateDocumentReaderControls();
+    });
+  }, { passive: true });
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+  dialog.addEventListener("close", () => {
+    documentReaderState.renderToken += 1;
+    documentReaderState.loadingTask?.destroy();
+    documentReaderState.pdf = null;
+    documentReaderState.loadingTask = null;
+    pages.replaceChildren();
+    download.removeAttribute("href");
+    document.body.classList.remove("dialog-open");
+    documentReaderState.returnFocus?.focus();
+  });
+}
+
 function bindFinanceForm() {
   const form = document.querySelector("[data-finance-form]");
   const status = document.querySelector("[data-finance-status]");
@@ -614,6 +798,7 @@ function initializeApp() {
   bindFinanceForm();
   bindOrganizationDialog();
   bindPaymentDialogs();
+  bindDocumentReader();
   document.querySelectorAll(".language-select").forEach((select) => {
     select.addEventListener("change", (event) => setLanguage(event.target.value));
   });
