@@ -395,6 +395,27 @@ function bindOrganizationDialog() {
   });
 }
 
+function bindPaymentDialogs() {
+  document.querySelectorAll("[data-payment-open]").forEach((openButton) => {
+    const dialog = document.getElementById(openButton.dataset.paymentOpen);
+    const closeButton = dialog?.querySelector("[data-payment-close]");
+    if (!dialog || !closeButton) return;
+    openButton.addEventListener("click", () => {
+      dialog.showModal();
+      document.body.classList.add("dialog-open");
+      closeButton.focus();
+    });
+    closeButton.addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+    dialog.addEventListener("close", () => {
+      document.body.classList.remove("dialog-open");
+      openButton.focus();
+    });
+  });
+}
+
 function renderMethodology() {
   const target = document.querySelector('[data-render="methodology"]');
   if (!target) return;
@@ -592,6 +613,7 @@ function initializeApp() {
   bindFilters();
   bindFinanceForm();
   bindOrganizationDialog();
+  bindPaymentDialogs();
   document.querySelectorAll(".language-select").forEach((select) => {
     select.addEventListener("change", (event) => setLanguage(event.target.value));
   });

@@ -5,7 +5,7 @@ import { translations } from "../js/translations.js";
 import { organization, territories, people, executiveOffices, methodology, partners, achievements } from "../js/institution-data.js";
 
 const rootUrl = "https://titotizzy.github.io/sant-karl-leveque/";
-const assetVersion = "20261015-payment-logos-v2";
+const assetVersion = "20261015-payment-dialogs-v3";
 const socialImages = {
   "pages/equipe.html": ["honneur-citoyen-pensacola.webp", "Équipe et direction de Sant Karl Lévêque"],
   "pages/directeur.html": ["honneur-citoyen-pensacola.webp", "Direction exécutive de Sant Karl Lévêque"],
@@ -105,12 +105,6 @@ for await (const file of glob(["*.html", "pages/*.html"])) {
   html = html.replace(/css\/styles\.css(?:\?v=[^\"]+)?/g, `css/styles.css?v=${assetVersion}`).replace(/js\/app\.js(?:\?v=[^\"]+)?/g, `js/app.js?v=${assetVersion}`);
   const relative = file.replaceAll("\\", "/");
   const base = relative.startsWith("pages/") ? "../" : "";
-  if (relative === "pages/donation.html") {
-    html = html
-      .replaceAll('<div class="payment-icon" aria-hidden="true">CB</div>', '<span class="payment-icon payment-icon-card" aria-hidden="true"><span></span></span>')
-      .replace('<div class="payment-icon payment-icon-moncash" aria-hidden="true">MC</div>', '<div class="payment-logo-frame"><img src="../assets/payment-methods/moncash.webp" alt="Logo MonCash" width="320" height="320"></div>')
-      .replace('<div class="payment-icon payment-icon-natcash" aria-hidden="true">NC</div>', '<div class="payment-logo-frame"><img src="../assets/payment-methods/natcash.webp" alt="Logo NatCash" width="320" height="320"></div>');
-  }
   const canonical = relative === "index.html" ? rootUrl : new URL(relative, rootUrl).href;
   if (!relative.endsWith("offline.html") && !relative.endsWith("404.html")) indexedPages.push(canonical);
   const description = html.match(/<meta name="description" content="([^"]*)">/)?.[1] || translations.fr.footerText;

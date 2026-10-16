@@ -119,14 +119,15 @@ for (const officeHolder of ["Rév. Père Gardy Maisonneuve", "Sébastien Estinvi
 
 const donationHtml = await readFile(resolve(root, "pages/donation.html"), "utf8");
 if (!donationHtml.includes('data-page="donation"')) errors.push("pages/donation.html: identité de page absente");
-if ((donationHtml.match(/class="[^"]*payment-option/g) || []).length !== 4) errors.push("pages/donation.html: quatre options de paiement sont requises");
-if ((donationHtml.match(/class="[^"]*payment-action/g) || []).length !== 4 || (donationHtml.match(/<button[^>]*disabled/g) || []).length !== 4) errors.push("pages/donation.html: chaque paiement doit rester désactivé");
-if ((donationHtml.match(/href="contact-finance\.html\?type=/g) || []).length !== 2) errors.push("pages/donation.html: les deux parcours doivent proposer le contact financier");
+if ((donationHtml.match(/class="[^"]*payment-method-button/g) || []).length !== 6) errors.push("pages/donation.html: six boutons de paiement et contact sont requis");
+if ((donationHtml.match(/data-payment-dialog/g) || []).length !== 6) errors.push("pages/donation.html: chaque bouton doit disposer de sa propre fenêtre");
+if ((donationHtml.match(/data-payment-open=/g) || []).length !== 6 || (donationHtml.match(/data-payment-close/g) || []).length !== 6) errors.push("pages/donation.html: commandes des fenêtres de paiement incomplètes");
+if ((donationHtml.match(/href="contact-finance\.html\?type=/g) || []).length !== 2) errors.push("pages/donation.html: les deux fenêtres alternatives doivent proposer le contact financier");
 if (/href="https?:\/\/[^\"]*(?:stripe|moncash|natcash)/i.test(donationHtml)) errors.push("pages/donation.html: canal de paiement actif avant validation");
 for (const logo of ["moncash.webp", "natcash.webp"]) {
   if (!donationHtml.includes(`assets/payment-methods/${logo}`)) errors.push(`pages/donation.html: logo de paiement absent (${logo})`);
 }
-if ((donationHtml.match(/payment-icon-card/g) || []).length !== 2) errors.push("pages/donation.html: symbole de carte bancaire absent");
+if ((donationHtml.match(/payment-icon-card/g) || []).length !== 4) errors.push("pages/donation.html: symbole de carte bancaire absent des boutons ou fenêtres");
 
 const financeHtml = await readFile(resolve(root, "pages/contact-finance.html"), "utf8");
 if (!financeHtml.includes("data-finance-form") || !financeHtml.includes("data-finance-status")) errors.push("pages/contact-finance.html: formulaire ou statut accessible absent");
