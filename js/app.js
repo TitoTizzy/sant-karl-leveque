@@ -691,6 +691,10 @@ function goToDocumentPage(pageNumber, behavior = "smooth") {
   document.querySelector(`[data-reader-page="${documentReaderState.page}"]`)?.scrollIntoView({ behavior, block: "start" });
 }
 
+function shouldUseBookReader(pdf = documentReaderState.pdf) {
+  return Boolean(pdf && pdf.numPages > 4 && window.matchMedia("(min-width: 900px)").matches);
+}
+
 async function initializeBookReader(dialog, pageToRestore) {
   const stage = dialog.querySelector("[data-reader-stage]");
   const pages = dialog.querySelector("[data-reader-pages]");
@@ -753,9 +757,10 @@ async function renderDocumentPages(dialog) {
     loading.textContent = `${t("documentReaderLoading")} ${pageNumber} / ${pdf.numPages}`;
     const page = await pdf.getPage(pageNumber);
     const naturalViewport = page.getViewport({ scale: 1 });
-    const targetWidth = pdf.numPages > 4 ? stage.clientWidth / 2 : stage.clientWidth;
+    const useBookReader = shouldUseBookReader(pdf);
+    const targetWidth = useBookReader ? stage.clientWidth / 2 : stage.clientWidth;
     const availableWidth = Math.max(260, targetWidth - 8);
-    const fitScale = Math.min(pdf.numPages > 4 ? 1.75 : 3, availableWidth / naturalViewport.width);
+    const fitScale = Math.min(useBookReader ? 1.75 : 3, availableWidth / naturalViewport.width);
     const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
     const viewport = page.getViewport({ scale: fitScale * documentReaderState.zoom * pixelRatio });
     const canvas = document.createElement("canvas");
@@ -777,7 +782,7 @@ async function renderDocumentPages(dialog) {
 
   if (token !== documentReaderState.renderToken) return;
   loading.hidden = true;
-  if (pdf.numPages > 4) await initializeBookReader(dialog, pageToRestore);
+  if (shouldUseBookReader(pdf)) await initializeBookReader(dialog, pageToRestore);
   else {
     pages.style.zoom = String(documentReaderState.zoom);
     goToDocumentPage(pageToRestore, "auto");
@@ -798,10 +803,6 @@ function bindDocumentReader() {
     const button = event.target.closest("[data-document-open]");
     if (!button) return;
     const source = new URL(button.dataset.documentSrc, document.baseURI).href;
-    if (!window.matchMedia("(min-width: 900px)").matches) {
-      window.open(source, "_blank", "noopener");
-      return;
-    }
     documentReaderState.returnFocus = button;
     documentReaderState.page = 1;
     documentReaderState.zoom = 1;
