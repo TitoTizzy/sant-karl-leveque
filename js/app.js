@@ -871,7 +871,11 @@ function bindDocumentReader() {
     try {
       const pdfjs = await loadPdfEngine();
       if (!dialog.open) return;
-      documentReaderState.loadingTask = pdfjs.getDocument({ url: source });
+      const pdfResponse = await fetch(source);
+      if (!pdfResponse.ok) throw new Error(`PDF request failed: ${pdfResponse.status}`);
+      const pdfData = new Uint8Array(await pdfResponse.arrayBuffer());
+      if (!dialog.open) return;
+      documentReaderState.loadingTask = pdfjs.getDocument({ data: pdfData });
       const pdf = await documentReaderState.loadingTask.promise;
       if (!dialog.open) {
         await documentReaderState.loadingTask.destroy();
