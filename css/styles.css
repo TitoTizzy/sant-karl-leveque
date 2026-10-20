@@ -553,7 +553,7 @@ body[data-page="news"] .page-hero { background-image: linear-gradient(100deg,rgb
 .document-reader-book { width: 100%; height: 100%; min-width: 0; min-height: 100%; margin: auto; }
 .document-reader-book .stf__wrapper { position: relative; width: 100%; box-sizing: border-box; }
 .document-reader-dialog.is-book-mode .document-reader-page { width: 100%; height: 100%; overflow: hidden; border: 1px solid rgba(3,29,54,.18); box-shadow: inset 0 0 28px rgba(3,29,54,.06); }
-.document-reader-dialog.is-book-mode .document-reader-page canvas { width: 100%!important; height: 100%!important; object-fit: fill; }
+.document-reader-dialog.is-book-mode .document-reader-page canvas { width: 100%!important; height: 100%!important; object-fit: contain; object-position: center; }
 .document-reader-dialog.is-book-mode .stf__parent { filter: drop-shadow(0 24px 28px rgba(0,0,0,.42)); }
 .document-reader-dialog.is-book-mode .stf__item.--hard { border-color: rgba(185,151,64,.45); }
 

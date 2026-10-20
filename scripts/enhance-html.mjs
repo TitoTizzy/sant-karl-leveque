@@ -5,7 +5,7 @@ import { translations } from "../js/translations.js";
 import { organization, territories, people, executiveOffices, methodology, partners, achievements } from "../js/institution-data.js";
 
 const rootUrl = "https://titotizzy.github.io/sant-karl-leveque/";
-const assetVersion = "20261020-responsive-pdf-reader-v9";
+const assetVersion = "20261020-stable-book-animation-v10";
 const socialImages = {
   "pages/equipe.html": ["honneur-citoyen-pensacola.webp", "Équipe et direction de Sant Karl Lévêque"],
   "pages/directeur.html": ["honneur-citoyen-pensacola.webp", "Direction exécutive de Sant Karl Lévêque"],

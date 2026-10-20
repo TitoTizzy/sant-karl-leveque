@@ -740,10 +740,10 @@ async function initializeBookReader(dialog, pageToRestore) {
     usePortrait: false,
     drawShadow: true,
     maxShadowOpacity: 0.55,
-    flippingTime: 720,
+    flippingTime: 420,
     mobileScrollSupport: false,
     swipeDistance: 24,
-    showPageCorners: true,
+    showPageCorners: false,
     disableFlipByClick: false
   });
   documentReaderState.pageFlip = pageFlip;
@@ -844,12 +844,9 @@ function bindDocumentReader() {
     }, 180);
   };
 
-  if ("ResizeObserver" in window) {
-    const readerResizeObserver = new ResizeObserver(scheduleResponsiveRender);
-    readerResizeObserver.observe(stage);
-  } else {
-    window.addEventListener("resize", scheduleResponsiveRender, { passive: true });
-  }
+  // PageFlip temporarily resizes its stage during a turn. Re-render only for
+  // actual viewport changes so an animation cannot tear down its own pages.
+  window.addEventListener("resize", scheduleResponsiveRender, { passive: true });
   window.addEventListener("orientationchange", scheduleResponsiveRender, { passive: true });
 
   list.addEventListener("click", async (event) => {
