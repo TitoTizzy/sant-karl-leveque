@@ -47,6 +47,7 @@ self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
   const url = new URL(event.request.url);
   const isCodeAsset = url.origin === self.location.origin && ["script", "style", "worker"].includes(event.request.destination);
+  const isRangeRequest = event.request.headers.has("range");
 
   if (event.request.mode === "navigate") {
     event.respondWith(networkFirst(event.request, "./offline.html"));
@@ -58,8 +59,15 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
+  // PDF.js requests documents in byte ranges. Partial 206 responses cannot be
+  // stored in Cache Storage and attempting to do so aborts the PDF request.
+  if (isRangeRequest) {
+    event.respondWith(fetch(event.request));
+    return;
+  }
+
   event.respondWith(caches.match(event.request).then((cached) => cached || fetch(event.request).then(async (response) => {
-    if (response.ok) {
+    if (response.status === 200) {
       const cache = await caches.open(CACHE);
       await cache.put(event.request, response.clone());
     }
