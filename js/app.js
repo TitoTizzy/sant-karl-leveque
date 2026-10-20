@@ -688,7 +688,16 @@ function goToDocumentPage(pageNumber, behavior = "smooth") {
     else documentReaderState.pageFlip.flipPrev("bottom");
     return;
   }
-  document.querySelector(`[data-reader-page="${documentReaderState.page}"]`)?.scrollIntoView({ behavior, block: "start" });
+  const dialog = document.querySelector("[data-document-reader]");
+  const stage = dialog?.querySelector("[data-reader-stage]");
+  const target = dialog?.querySelector(`[data-reader-page="${documentReaderState.page}"]`);
+  if (!stage || !target) return;
+  if (documentReaderState.page === 1) {
+    stage.scrollTo({ top: 0, left: 0, behavior });
+    return;
+  }
+  const targetTop = target.getBoundingClientRect().top - stage.getBoundingClientRect().top + stage.scrollTop;
+  stage.scrollTo({ top: targetTop, left: stage.scrollLeft, behavior });
 }
 
 function shouldUseBookReader(pdf = documentReaderState.pdf) {
@@ -749,6 +758,9 @@ async function renderDocumentPages(dialog) {
   const token = ++documentReaderState.renderToken;
   const pageToRestore = documentReaderState.page;
   resetBookReader(dialog);
+  dialog.classList.add("is-rendering");
+  stage.scrollTop = 0;
+  stage.scrollLeft = 0;
   pages.replaceChildren();
   loading.hidden = false;
 
@@ -785,8 +797,10 @@ async function renderDocumentPages(dialog) {
   if (shouldUseBookReader(pdf)) await initializeBookReader(dialog, pageToRestore);
   else {
     pages.style.zoom = String(documentReaderState.zoom);
+    dialog.classList.remove("is-rendering");
     goToDocumentPage(pageToRestore, "auto");
   }
+  dialog.classList.remove("is-rendering");
 }
 
 function bindDocumentReader() {
@@ -832,6 +846,7 @@ function bindDocumentReader() {
     } catch (renderError) {
       if (!dialog.open) return;
       console.error("PDF reader error", renderError);
+      dialog.classList.remove("is-rendering");
       loading.hidden = true;
       error.hidden = false;
     }
@@ -875,6 +890,7 @@ function bindDocumentReader() {
   });
   dialog.addEventListener("close", () => {
     documentReaderState.renderToken += 1;
+    dialog.classList.remove("is-rendering");
     resetBookReader(dialog);
     documentReaderState.loadingTask?.destroy();
     documentReaderState.pdf = null;
