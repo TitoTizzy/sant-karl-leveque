@@ -26,7 +26,9 @@ const documentReaderState = {
   zoom: 1,
   renderToken: 0,
   returnFocus: null,
-  scrollFrame: 0
+  scrollFrame: 0,
+  resizeTimer: 0,
+  layoutSignature: ""
 };
 let pdfEnginePromise;
 let pageFlipEnginePromise;
@@ -645,7 +647,7 @@ function resetBookReader(dialog) {
   documentReaderState.pageFlip = null;
   documentReaderState.mode = "scroll";
   dialog.classList.remove("is-book-mode");
-  pages.classList.remove("document-reader-book");
+  pages.classList.remove("document-reader-book", "stf__parent");
   pages.removeAttribute("style");
 }
 
@@ -702,6 +704,13 @@ function goToDocumentPage(pageNumber, behavior = "smooth") {
 
 function shouldUseBookReader(pdf = documentReaderState.pdf) {
   return Boolean(pdf && pdf.numPages > 4 && window.matchMedia("(min-width: 900px)").matches);
+}
+
+function getDocumentReaderLayoutSignature(dialog, pdf = documentReaderState.pdf) {
+  const stage = dialog.querySelector("[data-reader-stage]");
+  if (!pdf || !stage) return "";
+  const mode = shouldUseBookReader(pdf) ? "book" : "scroll";
+  return `${mode}:${Math.round(stage.clientWidth)}x${Math.round(stage.clientHeight)}`;
 }
 
 async function initializeBookReader(dialog, pageToRestore) {
@@ -801,6 +810,7 @@ async function renderDocumentPages(dialog) {
     goToDocumentPage(pageToRestore, "auto");
   }
   dialog.classList.remove("is-rendering");
+  documentReaderState.layoutSignature = getDocumentReaderLayoutSignature(dialog, pdf);
 }
 
 function bindDocumentReader() {
@@ -813,6 +823,35 @@ function bindDocumentReader() {
   const error = dialog.querySelector("[data-reader-error]");
   const title = dialog.querySelector("[data-reader-title]");
 
+  const scheduleResponsiveRender = () => {
+    window.clearTimeout(documentReaderState.resizeTimer);
+    documentReaderState.resizeTimer = window.setTimeout(async () => {
+      if (!dialog.open || !documentReaderState.pdf) return;
+      const nextSignature = getDocumentReaderLayoutSignature(dialog);
+      if (!nextSignature || nextSignature === documentReaderState.layoutSignature) return;
+      if (dialog.classList.contains("is-rendering")) {
+        scheduleResponsiveRender();
+        return;
+      }
+      try {
+        await renderDocumentPages(dialog);
+      } catch (renderError) {
+        console.error("PDF responsive render error", renderError);
+        dialog.classList.remove("is-rendering");
+        loading.hidden = true;
+        error.hidden = false;
+      }
+    }, 180);
+  };
+
+  if ("ResizeObserver" in window) {
+    const readerResizeObserver = new ResizeObserver(scheduleResponsiveRender);
+    readerResizeObserver.observe(stage);
+  } else {
+    window.addEventListener("resize", scheduleResponsiveRender, { passive: true });
+  }
+  window.addEventListener("orientationchange", scheduleResponsiveRender, { passive: true });
+
   list.addEventListener("click", async (event) => {
     const button = event.target.closest("[data-document-open]");
     if (!button) return;
@@ -821,6 +860,7 @@ function bindDocumentReader() {
     documentReaderState.page = 1;
     documentReaderState.zoom = 1;
     documentReaderState.mode = "scroll";
+    documentReaderState.layoutSignature = "";
     title.textContent = button.dataset.documentTitle;
     error.hidden = true;
     loading.hidden = false;
@@ -890,11 +930,13 @@ function bindDocumentReader() {
   });
   dialog.addEventListener("close", () => {
     documentReaderState.renderToken += 1;
+    window.clearTimeout(documentReaderState.resizeTimer);
     dialog.classList.remove("is-rendering");
     resetBookReader(dialog);
     documentReaderState.loadingTask?.destroy();
     documentReaderState.pdf = null;
     documentReaderState.loadingTask = null;
+    documentReaderState.layoutSignature = "";
     pages.replaceChildren();
     document.body.classList.remove("dialog-open");
     documentReaderState.returnFocus?.focus();
